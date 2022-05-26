@@ -1,0 +1,255 @@
+.siiimpleToast {
+    position: absolute;
+    padding: 14px 18px;
+    min-width: 250px;
+    z-index: 999999;
+    border-radius: 2px;
+    color: #fff;
+    font-weight: 300;
+    white-space: nowrap;
+    user-select: none;
+    opacity: 0;
+    box-shadow: 0 3px 6px rgba(0,0,0,.16),0 3px 6px rgba(0,0,0,.23);
+    box-sizing: border-box;
+    transform: scale(.5);
+    transition: all .4s ease-out
+}
+
+    .siiimpleToast[data-state=default] {
+        background-color: #323232
+    }
+
+    .siiimpleToast[data-state=success] {
+        background-color: #8bc34a
+    }
+
+    .siiimpleToast[data-state=alert] {
+        background-color: #D65025
+    }
+
+.siiimpleToast-info {
+    position: absolute;
+    padding: 14px 18px;
+    white-space: normal !important;
+    max-width: 100% !important;
+    min-width: 250px;
+    z-index: 999999;
+    border-radius: 2px;
+    color: #fff;
+    font-weight: 300;
+    white-space: nowrap;
+    user-select: none;
+    opacity: 0;
+    box-shadow: 0 3px 6px rgba(0,0,0,.16),0 3px 6px rgba(0,0,0,.23);
+    box-sizing: border-box;
+    transform: scale(.5);
+    transition: all .4s ease-out;
+    backdrop-filter: blur(28px);
+    background-color: rgba(0, 24, 71,0.91);
+}
+
+    .siiimpleToast-info i {
+        font-size: 1rem !important;
+    }
+
+    .siiimpleToast-info::before {
+        opacity: .6;
+        filter: blur(.5px);
+    }
+
+.siiimpleToast-success {
+    position: absolute;
+    padding: 14px 18px;
+    white-space: normal !important;
+    max-width: 100% !important;
+    min-width: 250px;
+    z-index: 999999;
+    border-radius: 2px;
+    color: #fff;
+    font-weight: 300;
+    white-space: nowrap;
+    user-select: none;
+    opacity: 0;
+    box-shadow: 0 3px 6px rgba(0,0,0,.16),0 3px 6px rgba(0,0,0,.23);
+    box-sizing: border-box;
+    transform: scale(.5);
+    transition: all .4s ease-out;
+    backdrop-filter: blur(28px);
+    background-color: rgba(76, 217, 100,0.91);
+}
+
+    .siiimpleToast-success i {
+        font-size: 1rem !important;
+    }
+
+    .siiimpleToast-success::before {
+        opacity: .6;
+        filter: blur(.5px);
+    }
+
+.siiimpleToast-warning {
+    position: absolute;
+    padding: 14px 18px;
+    min-width: 250px;
+    white-space: normal !important;
+    max-width: 100% !important;
+    z-index: 999999;
+    border-radius: 2px;
+    color: #fff;
+    font-weight: 300;
+    white-space: nowrap;
+    user-select: none;
+    opacity: 0;
+    box-shadow: 0 3px 6px rgba(0,0,0,.16),0 3px 6px rgba(0,0,0,.23);
+    box-sizing: border-box;
+    transform: scale(.5);
+    transition: all .4s ease-out;
+    backdrop-filter: blur(28px);
+    background-color: #F36642;
+}
+
+    .siiimpleToast-warning i {
+        font-size: 1rem !important;
+    }
+
+    .siiimpleToast-warning::before {
+        opacity: .6;
+        filter: blur(.5px);
+    }
+
+.siiimpleToast-error {
+    position: absolute;
+    padding: 14px 18px;
+    min-width: 250px;
+    white-space: normal !important;
+    max-width: 100% !important;
+    z-index: 999999;
+    border-radius: 2px;
+    color: #fff;
+    font-weight: 300;
+    white-space: nowrap;
+    user-select: none;
+    opacity: 0;
+    box-shadow: 0 3px 6px rgba(0,0,0,.16),0 3px 6px rgba(0,0,0,.23);
+    box-sizing: border-box;
+    transform: scale(.5);
+    transition: all .4s ease-out;
+    backdrop-filter: blur(28px);
+    background-color: #F56565;
+}
+
+    .siiimpleToast-error i {
+        font-size: 1rem !important;
+    }
+
+    .siiimpleToast-error::before {
+        opacity: .6;
+        filter: blur(.5px);
+    }
+
+button.swal2-styled {
+    font-size: 0.91rem !important;
+    padding: 0.37rem 1rem !important;
+    border: 1px solid transparent !important;
+    color: #2B3233 !important;
+    border-radius: 10rem !important;
+    font-weight: bold !important;
+}
+
+button.swal2-confirm:hover {
+    color: white !important;
+    background-color: #091E43 !important;
+    border: 1px solid white !important;
+}
+
+button.swal2-cancel:hover {
+    color: white !important;
+    background-color: #350D00 !important;
+    border: 1px solid white !important;
+}
+
+button.swal2-styled:active {
+    box-shadow: none !important;
+}
+
+button.swal2-styled:focus {
+    box-shadow: none !important;
+}
+
+.swal2-header {
+    height: auto !important;
+    width: auto !important;
+}
+
+.swal2-modal {
+    padding: 0.37rem !important;
+    height: auto !important;
+    width: auto !important;
+    max-width: 370px !important;
+    min-width: 370px !important;
+    background: white !important;
+}
+
+.swal2-icon {
+    font-size: 0.73rem !important;
+}
+
+.swal2-content * {
+    font-size: 0.82rem !important;
+}
+
+.swal2-actions {
+    margin-bottom: 1rem !important;
+    margin-top: 0 !important;
+}
+
+button.swal2-styled:focus {
+    color: #fff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 24, 71, 0.5);
+}
+
+.swal2-loader {
+    border-color: #091E43 transparent #091E43 transparent !important;
+    width: 1.9em !important;
+    height: 1.9em !important;
+    border-width: 0.19em !important;
+}
+
+.text-justify-all {
+    text-align: justify !important;
+    text-justify: inter-character !important;
+}
+
+@media (max-width:700px) {
+    .siiimpleToast-error {
+        max-width: 90% !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        white-space: normal !important;
+        line-height: 16px !important;
+    }
+
+    .siiimpleToast-warning {
+        max-width: 90% !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        white-space: normal !important;
+        line-height: 16px !important;
+    }
+
+    .siiimpleToast-success {
+        max-width: 90% !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        white-space: normal !important;
+        line-height: 16px !important;
+    }
+
+    .siiimpleToast-info {
+        max-width: 90% !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        white-space: normal !important;
+        line-height: 16px !important;
+    }
+}
