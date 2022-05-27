@@ -15,5 +15,12 @@ namespace ISTPET_PortalEstudiantil.Controllers
             if (!_auth.isLogged()) return RedirectToAction("Index", "Login");
             return View();
         }
+
+        public IActionResult Calificaciones()
+        {
+            if (!_auth.isLogged()) return RedirectToAction("Index", "Login");
+            return View();
+        }
+
     }
 }

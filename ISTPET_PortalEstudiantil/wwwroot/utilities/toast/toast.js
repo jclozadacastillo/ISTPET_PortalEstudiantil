@@ -151,8 +151,8 @@ const toastPreguntarSolicitud = async () => {
 const toastLogout = async () => {
     let timerInterval
     Swal.fire({
-        html: `<img src="${__route}Content/Utilities/img/logo-azul127.png"/>
-                <p class="text-danger py-0">
+        html: `<img src="${_route}template/img/logo-dorado136.png"/>
+                <p class="text-danger mt-3 py-0">
                     <strong class='text-sm text-danger'>Estamos cerrando tú sesión</strong>
                         <br>
                     <small class='text-sm text-muted'>Espera un momento por favor...</small>
@@ -161,6 +161,8 @@ const toastLogout = async () => {
         timer: 2000,
         timerProgressBar: true,
         allowOutsideClick: false,
+        closeOnClickOutside: false,
+        allowEscapeKey: false,
         didOpen: () => {
             Swal.showLoading()
             timerInterval = setInterval(() => {

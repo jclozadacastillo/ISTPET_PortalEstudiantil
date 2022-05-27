@@ -233,17 +233,16 @@ function sidebarType(a) {
 function navbarFixed(el) {
   let classes = ['position-sticky', 'blur', 'shadow-blur', 'mt-4', 'left-auto', 'top-1', 'z-index-sticky'];
   const navbar = document.getElementById('navbarBlur');
-
   if (!el.getAttribute("checked")) {
     navbar.classList.add(...classes);
     navbar.setAttribute('navbar-scroll', 'true');
     navbarBlurOnScroll('navbarBlur');
-    el.setAttribute("checked", "true");
+      el.setAttribute("checked", "true");
   } else {
     navbar.classList.remove(...classes);
     navbar.setAttribute('navbar-scroll', 'false');
     navbarBlurOnScroll('navbarBlur');
-    el.removeAttribute("checked");
+      el.removeAttribute("checked");
   }
 };
 
@@ -274,7 +273,7 @@ function navbarBlurOnScroll(id) {
   if (navbarScrollActive == 'true') {
     window.onscroll = debounce(function() {
       if (window.scrollY > scrollDistance) {
-        blurNavbar();
+          blurNavbar();
       } else {
         transparentNavbar();
       }
@@ -292,9 +291,9 @@ function navbarBlurOnScroll(id) {
     if (navbarScrollActive == 'true') {
       content.addEventListener('ps-scroll-y', debounce(function() {
         if (content.scrollTop > scrollDistance) {
-          blurNavbar();
+            blurNavbar();
         } else {
-          transparentNavbar();
+            transparentNavbar();
         }
       }, 10));
     } else {
@@ -623,7 +622,7 @@ window.addEventListener("resize", navbarColorOnResize);
 
 function navbarColorOnResize() {
   if (window.innerWidth > 1200) {
-    if (referenceButtons.classList.contains('active') && referenceButtons.getAttribute('data-class') === 'bg-transparent') {
+    if (referenceButtons?.classList.contains('active') && referenceButtons.getAttribute('data-class') === 'bg-transparent') {
       sidenav.classList.remove('bg-white');
     } else {
       sidenav.classList.add('bg-white');

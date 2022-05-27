@@ -11,11 +11,13 @@ namespace ISTPET_PortalEstudiantil.Controllers
     {
         private readonly string cn;
         private readonly ISessionAlumnos _auth;
-        public LoginController(IConfiguration config,ISessionAlumnos auth)
+
+        public LoginController(IConfiguration config, ISessionAlumnos auth)
         {
-           cn=config.GetConnectionString("sigafi_es");
-           _auth=auth;
+            cn = config.GetConnectionString("sigafi_es");
+            _auth = auth;
         }
+
         public IActionResult Index()
         {
             if (_auth.isLogged()) return RedirectToAction("Index", "Sistema");
@@ -30,7 +32,7 @@ namespace ISTPET_PortalEstudiantil.Controllers
             try
             {
                 string sql = @"SELECT * FROM alumnos where
-                               idAlumno=@idAlumno and password=@password   
+                               idAlumno=@idAlumno and password=@password
                               ";
                 var alumno = await dapper.QueryFirstOrDefaultAsync<alumnos>(sql, _data);
                 if (alumno == null) throw new Exception("Usuario y/o contraseña incorrectos");
@@ -39,7 +41,7 @@ namespace ISTPET_PortalEstudiantil.Controllers
                 _auth.set("alumno", $"{alumno.apellidoPaterno} {alumno.apellidoMaterno} {alumno.primerNombre} {alumno.segundoNombre}");
                 _auth.set("email", alumno.email);
                 _auth.set("email_institucional", alumno.email_institucional);
-                return JsonConvert.SerializeObject(alumno);
+                return "ok";
             }
             catch (Exception ex)
             {
@@ -50,9 +52,12 @@ namespace ISTPET_PortalEstudiantil.Controllers
                 dapper?.Dispose();
             }
         }
+
+        [HttpGet]
+        public async Task<string> logout()
+        {
+            await _auth.logoutAsync();
+            return "ok";
+        }
     }
-
-
-
-
 }

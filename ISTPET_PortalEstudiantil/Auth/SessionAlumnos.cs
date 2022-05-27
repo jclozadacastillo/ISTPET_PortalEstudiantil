@@ -76,7 +76,7 @@
                     _session.Remove(key);
                 }
                 _session.Clear();
-                await Task.Delay(1000);
+                await Task.Delay(1900);
                 return true;
             }
             catch (Exception ex)

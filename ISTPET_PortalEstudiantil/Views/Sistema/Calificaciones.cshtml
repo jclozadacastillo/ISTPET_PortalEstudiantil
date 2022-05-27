@@ -1,0 +1,77 @@
+﻿@{
+  ViewData["Title"] = "Calificaciones";
+  Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="loader pt-2 text-center">
+  <div class="spinner-grow text-primary spinner-grow-sm" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+  <div class="spinner-grow text-primary spinner-grow-sm" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+  <div class="spinner-grow text-primary spinner-grow-sm" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+<div class="w-100 pt-2 container-main" hidden>
+  <div class="card-container">
+    <div class="card">
+      <div class="card-body">
+        <form enctype="multipart/form-data" id="frm">
+          <div class="row">
+            <div class="col-sm-3 text-start">
+              <h3 class="m-0">Calificaciones</h3>
+              <p class="text-muted text-sm p-0 m-0">Seleccione la carrera y el nivel</p>
+            </div>
+            <div class="col-sm-4">
+              <strong class="text-dark">Carrera</strong>
+              <select class="form-select form-select-sm text-uppercase" id="idCarrera" name="idCarrera">
+                <option value="">Seleccione</option>
+              </select>
+            </div>
+            <div class="col-sm-5">
+              <strong class="text-dark">Nivel</strong>
+              <select class="form-select form-select-sm text-uppercase" id="idMatricula" name="idMatricula">
+                <option value="">Seleccione una carrera</option>
+              </select>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="container-table pt-2-5" hidden>
+    <div class="card tabla-calificaciones-container">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-hover mb-0">
+            <thead>
+              <tr>
+                <th class="text-uppercase text-secondary px-1-5 py-1 text-xxs font-weight-bolder opacity-7 no-wrap">
+                  ASIGNATURA</th>
+                <th
+                  class="text-uppercase text-secondary text-center py-1 px-0 text-xxs font-weight-bolder opacity-7 no-wrap"
+                  style="width:109px">I</th>
+                <th
+                  class="text-uppercase text-secondary text-center py-1 px-0 text-xxs font-weight-bolder opacity-7 no-wrap"
+                  style="width:109px">II</th>
+                <th
+                  class="text-uppercase text-secondary text-center py-1 px-0 text-xxs font-weight-bolder opacity-7 no-wrap"
+                  style="width:109px">III</th>
+                <th
+                  class="text-uppercase text-secondary text-center py-1 px-0 text-xxs font-weight-bolder opacity-7 no-wrap"
+                  style="width:109px">EXÁMEN</th>
+                <th
+                  class="text-uppercase text-secondary text-center py-1 px-0 text-xxs font-weight-bolder opacity-7 no-wrap"
+                  style="width:109px">PROMEDIO</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script defer src="~/js/siteCalificaciones.js?v=@DateTime.Now.Ticks"></script>
