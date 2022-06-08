@@ -41,7 +41,7 @@
 
         public void set(string key, string value)
         {
-            _session.SetString(key, value);
+            _session.SetString(key, value==null?"":value);
         }
 
         public string get(string key)

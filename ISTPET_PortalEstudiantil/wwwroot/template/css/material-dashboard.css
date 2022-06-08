@@ -27314,7 +27314,9 @@ pre[class*="language-"] {
 }
 .login-font {
     font-family: Constantia;
-    color: #8C701D !important;
+    font-weight: 500;
+    color:rgb(235,235,235);
+    font-size:0.82em;
 }
 
 .footer-login *{
@@ -27337,5 +27339,34 @@ pre[class*="language-"] {
 }
 .bg-white-transparent{
     background-color:rgba(255,255,255,0.73)
+}
+
+@media (max-width: 700px) {
+    .text-navbar {
+        font-size: 0.7931em;
+    }
+
+    .row.main {
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100vw;
+    }
+    .main-content,body,html {
+        width: 100vw !important;
+        max-width:100vw !important;
+        margin:0 !important;
+        padding:0 !important;
+    }
+
+    .navbar-main {
+      margin-right:-3px !important;
+
+    }
+}
+
+@media (min-width: 700px) {
+    .card-group {
+        margin-left:1px;
+    }
 }
 /*# sourceMappingURL=material-dashboard.css.map */
