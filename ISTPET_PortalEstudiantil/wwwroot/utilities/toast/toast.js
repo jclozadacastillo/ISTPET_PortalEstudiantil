@@ -67,7 +67,7 @@ const toastHtml = async (html) => {
     try {
         response = new Promise(resolve => {
             Swal.fire({
-                html: `<img alter='ISTPET' src='${__route}Content/Utilities/img/logo-azul163.png'/><div class='mb-3 text-justify-all'>${html}</div>`,
+                html: `<img alter='ISTPET' src='${_route}Content/Utilities/img/logo-azul163.png'/><div class='mb-3 text-justify-all'>${html}</div>`,
                 showCancelButton: false,
                 confirmButtonColor: '#5AC8FA',
                 confirmButtonText: 'Entendido',
@@ -84,10 +84,10 @@ const toastPreguntar = async (mensaje) => {
     try {
         response = new Promise(resolve => {
             Swal.fire({
-                html: `<img alter='ISTPET' src='${__route}Content/Utilities/img/logo-azul163.png'/><div class='mb-3 text-justify-all'>${mensaje}</div>`,
+                html: `<img alter='ISTPET' src='${_route}template/img/logo.png' width="136"/><div class='mb-3 text-justify-all'>${mensaje}</div>`,
                 showCancelButton: true,
-                confirmButtonColor: '#5AC8FA',
-                cancelButtonColor: '#F36642',
+                confirmButtonColor: '#1F295B',
+                cancelButtonColor: '#999999',
                 confirmButtonText: 'Si, Continuar',
                 cancelButtonText: 'Cancelar'
             }).then((result) => {
@@ -105,7 +105,7 @@ const toastPromise = async (mensaje) => {
     try {
         response = new Promise(resolve => {
             Swal.fire({
-                html: `<img alter='ISTPET' src='${__route}Content/Utilities/img/logo-azul163.png'/><div class='mb-3 text-justify-all'>${mensaje}</div>`,
+                html: `<img alter='ISTPET' src='${_route}Content/Utilities/img/logo-azul163.png'/><div class='mb-3 text-justify-all'>${mensaje}</div>`,
                 showCancelButton: false,
                 confirmButtonColor: '#5AC8FA',
                 confirmButtonText: 'Entendido'
@@ -124,7 +124,7 @@ const toastPreguntarSolicitud = async () => {
     try {
         response = new Promise(resolve => {
             Swal.fire({
-                html: `<img alter='ISTPET' src='${__route}Content/Utilities/img/logo-azul163.png'/>
+                html: `<img alter='ISTPET' src='${_route}Content/Utilities/img/logo-azul163.png'/>
                         <div class='mb-3 text-justify-all'>
                         <p class="text-center text-sm p-0" >
                         <strong>¿Deseas continuar?</strong>
@@ -151,7 +151,7 @@ const toastPreguntarSolicitud = async () => {
 const toastLogout = async () => {
     let timerInterval
     Swal.fire({
-        html: `<img src="${_route}template/img/logo-dorado136.png"/>
+        html: `<img src="${_route}template/img/logo.png" width="136"/>
                 <p class="text-danger mt-3 py-0">
                     <strong class='text-sm text-danger'>Estamos cerrando tú sesión</strong>
                         <br>

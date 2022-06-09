@@ -1,0 +1,131 @@
+﻿@{
+    ViewData["Title"] = "Perfil";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="loader pt-2 text-center">
+    <div class="spinner-grow text-dark spinner-grow-sm" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+    <div class="spinner-grow text-dark spinner-grow-sm" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+    <div class="spinner-grow text-dark spinner-grow-sm" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+</div>
+<div class="w-100 pt-2 container-main" hidden>
+    <div class="card-container">
+        <div class="card container-main-perfil">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-3 text-start">
+                        <h3 class="m-0">Perfil</h3>
+                        <p class="text-muted text-sm p-0 m-0">Estos son sus datos personales</p>
+                    </div>
+                    <div class="col-sm-9 card card-perfil">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table-sm text-xs table-bordered-bottom col-sm-7">
+                                    <tr>
+                                        <td class="text-dark fw-bold td-title-perfil" id="tipo" name="tipo"></td>
+                                        <td colspan="3" id="idAlumno" name="idAlumno"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-dark fw-bold td-title-perfil">NOMBRES</td>
+                                        <td colspan="3" id="nombres" name="nombres"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-dark fw-bold td-title-perfil">APELLIDOS</td>
+                                        <td colspan="3" id="apellidos" name="apellidos"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-dark fw-bold td-title-perfil">CIUDAD</td>
+                                        <td colspan="3" id="ciudad_residencia" name="ciudad_residencia"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-dark fw-bold td-title-perfil">DIRECCIÓN</td>
+                                        <td colspan="3" id="direccion" name="direccion"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-dark fw-bold td-title-perfil">EMAIL</td>
+                                        <td colspan="3" id="email" name="email"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-dark fw-bold td-title-perfil">EMAIL INSTITUCIONAL</td>
+                                        <td colspan="3" id="email_institucional" name="email_institucional"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-dark fw-bold td-title-perfil">TELÉFONO</td>
+                                        <td id="telefono" name="telefono"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-dark fw-bold td-title-perfil">CELULAR</td>
+                                        <td id="celular" name="celular"></td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="mt-3 col-sm-3">
+                                <button class="btn btn-dark btn-sm w-100" id="btnClave">Cambiar contraseña</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<div class="modal fade" id="modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header py-2 px-3">
+                <label class="modal-title text-dark fw-bold" id="modalLabel">CAMBIO DE CONTRASEÑA</label>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <form enctype="multipart/form-data">
+                        <div class="col-sm-9">
+                            <div class="form-group">
+                                <small>Contraseña anterior</small>
+                                <input type="password" data-validate="no-espacios" class="form-control form-control-sm" id="anterior" name="anterior">
+                                <div class="invalid-feedback">
+                                    * Campo requerido
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-9">
+                            <div class="form-group">
+                                <small>Nueva contraseña</small>
+                                <input type="password" data-validate="no-espacios" class="form-control form-control-sm" id="password" name="password">
+                                <div class="invalid-feedback">
+                                    * Campo requerido
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-9">
+                            <div class="form-group">
+                                <small>Confirmar nueva contraseña</small>
+                                <input type="password" data-validate="no-espacios" class="form-control form-control-sm" id="confir" name="confir">
+                                <div class="invalid-feedback">
+                                    * Campo requerido
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer p-1">
+                <button type="button" class="btn btn-light btn-sm" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-dark btn-sm" onclick="guardar()">Cambiar Contraseña</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script defer src="~/js/siteCuenta.js?v=@DateTime.Now.Ticks"></script>

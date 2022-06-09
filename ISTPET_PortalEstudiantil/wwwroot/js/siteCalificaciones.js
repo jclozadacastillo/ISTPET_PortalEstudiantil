@@ -9,7 +9,6 @@ const table = document.querySelector("table");
 const tbody = table.querySelector("tbody");
 cmbCarreras.addEventListener("change", () => {
     comboNiveles();
-    listaNotas();
 });
 cmbNiveles.addEventListener("change", () => {
     listaNotas();
@@ -49,11 +48,13 @@ async function comboCarreras() {
 
 async function comboNiveles() {
     try {
+        containerTable.hidden = true;
+        tbody.innerHTML = "";
         const url = `${baseUrl}comboNiveles`;
         const data = new FormData(form);
         const res = (await axios.post(url, data)).data;
         let html = `<option value="">Seleccione una carrera</option>`;
-        if (res.length==0) {
+        if (res.length == 0) {
             cmbNiveles.innerHTML = html;
             return;
         }
@@ -86,24 +87,36 @@ async function listaNotas() {
         res.forEach(item => {
             html += `
                     <tr>
-                      <td class="text-xs font-weight-bold text-dark">
-                         <span>${item.asignatura}</span>
-                      </td>
-                      <td class="text-center text-xs font-weight-bold">
-                          <span>${item.nota1||0}</span>
-                      </td>
-                        <td class="text-center text-xs font-weight-bold">
-                          <span>${item.nota2 || 0}</span>
-                      </td>
-                      <td class="text-center text-xs font-weight-bold">
-                          <span>${item.nota3 || 0}</span>
-                      </td>
-                      <td class="text-center text-xs font-weight-bold">
+                    <td class="text-xs font-weight-bold text-dark no-wrap">
+                            <span>${item.asignatura}</span>
+                    </td>
+                    <td class="text-center text-xs font-weight-bold">
+                            <span>${item.ef1 || 0}</span>
+                    </td>
+                    <td class="text-center text-xs font-weight-bold">
+                            <span>${item.ep1 || 0}</span>
+                    </td>
+                    <td class="text-center text-xs font-weight-bold">
+                            <span>${item.nota1 || 0}</span>
+                    </td>
+                    <td class="text-center text-xs font-weight-bold">
+                            <span>${item.ef2 || 0}</span>
+                    </td>
+                    <td class="text-center text-xs font-weight-bold">
+                            <span>${item.ep2 || 0}</span>
+                    </td>
+                    <td class="text-center text-xs font-weight-bold">
+                            <span>${item.nota2 || 0}</span>
+                    </td>
+                    <td class="text-center text-xs font-weight-bold">
                           <span>${item.examen || 0}</span>
-                      </td>
-                      <td class="text-center text-xs font-weight-bold">
+                    </td>
+                    <td class="text-center text-xs font-weight-bold">
                           <span>${item.promedio_final || 0}</span>
-                      </td>
+                    </td>
+                    <td class="text-center text-xs font-weight-bold">
+                          ${item.aprobado?"<span class='text-success'>SI</span>":"<span class='text-danger'>NO</span>"}
+                    </td>                    
                     </tr>
                     `;
         });

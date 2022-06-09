@@ -151,7 +151,7 @@ button.swal2-styled {
     font-size: 0.91rem !important;
     padding: 0.37rem 1rem !important;
     border: 1px solid transparent !important;
-    color: #2B3233 !important;
+    color: white !important;
     border-radius: 10rem !important;
     font-weight: bold !important;
 }
@@ -164,7 +164,7 @@ button.swal2-confirm:hover {
 
 button.swal2-cancel:hover {
     color: white !important;
-    background-color: #350D00 !important;
+    background-color: #919191 !important;
     border: 1px solid white !important;
 }
 

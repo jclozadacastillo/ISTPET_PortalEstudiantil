@@ -22,5 +22,11 @@ namespace ISTPET_PortalEstudiantil.Controllers
             return View();
         }
 
+        public IActionResult Perfil()
+        {
+            if (!_auth.isLogged()) return RedirectToAction("Index", "Login");
+            return View();
+        }
+
     }
 }
