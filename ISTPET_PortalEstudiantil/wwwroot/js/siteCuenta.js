@@ -92,10 +92,21 @@ async function guardar(){
         if(!await toastPreguntar(`<p class='mt-2'>
         <small>¿Está seguro que desa cambiar su contraseña?</small>
         </p>
-        <p class='mt-1 text-center'>
-        <small class="text-danger" style='font-size:0.73em'>ESTA ACCIÓN NO SE PUEDE DESHACER Y DEBERÁ VOLVER A INCIAR SESIÓN</small>
+        <p class='mt-1 text-center' style='line-height:11px'>
+        <i class='bi-exclamation-triangle text-sm text-danger'></i>
+        </br>
+        <small class="text-danger fw-bold" style='font-size:0.64em;'>
+        ESTA ACCIÓN NO SE PUEDE DESHACER Y DEBERÁ VOLVER A INCIAR SESIÓN</small>
         </p>
         `)) return;
+        const url = `${baseUrl}cambiarPassword`;
+        const data=new FormData(form);
+        data.append("idAlumno",datos.idAlumno);
+        disableForm(form);
+        const res = (await axios.post(url,data)).data;
+        if (!!res.error) throw new Error(res.error);
+        toastLogout();
+        setTimeout(()=>{top.location.reload()},1900);
     } catch (e) {
         if (e.message.search("401") >= 0) {
             toastError("Su sesión ha caducado");
@@ -103,6 +114,7 @@ async function guardar(){
         } else {
             toastError(`${e.message}`);
         }
+        enableForm(form);
     }
 }
 

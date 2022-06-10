@@ -67,9 +67,9 @@ const toastHtml = async (html) => {
     try {
         response = new Promise(resolve => {
             Swal.fire({
-                html: `<img alter='ISTPET' src='${_route}Content/Utilities/img/logo-azul163.png'/><div class='mb-3 text-justify-all'>${html}</div>`,
+                html: `<img alter='ISTPET' src='${_route}template/img/logo.png' width="136"/><div class='mb-3 text-justify-all'>${html}</div>`,
                 showCancelButton: false,
-                confirmButtonColor: '#5AC8FA',
+                confirmButtonColor: '#1F295B',
                 confirmButtonText: 'Entendido',
             });
         });
@@ -105,9 +105,9 @@ const toastPromise = async (mensaje) => {
     try {
         response = new Promise(resolve => {
             Swal.fire({
-                html: `<img alter='ISTPET' src='${_route}Content/Utilities/img/logo-azul163.png'/><div class='mb-3 text-justify-all'>${mensaje}</div>`,
+                html: `<img alter='ISTPET' src='${_route}template/img/logo.png' width="136"/><div class='mb-3 text-justify-all'>${mensaje}</div>`,
                 showCancelButton: false,
-                confirmButtonColor: '#5AC8FA',
+                confirmButtonColor: '#1F295B',
                 confirmButtonText: 'Entendido'
             }).then((result) => {
                 resolve(result.isConfirmed);
@@ -134,8 +134,8 @@ const toastPreguntarSolicitud = async () => {
                         </p>
                         </div>`,
                 showCancelButton: true,
-                confirmButtonColor: '#5AC8FA',
-                cancelButtonColor: '#F36642',
+                confirmButtonColor: '#1F295B',
+                cancelButtonColor: '#999999',
                 confirmButtonText: 'Si, Continuar',
                 cancelButtonText: 'Cancelar'
             }).then((result) => {

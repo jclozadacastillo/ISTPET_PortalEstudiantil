@@ -1,12 +1,13 @@
 ﻿using Dapper;
 using ISTPET_PortalEstudiantil.Auth;
+using ISTPET_PortalEstudiantil.Models.sigafi_es;
 using Microsoft.AspNetCore.Mvc;
 using MySql.Data.MySqlClient;
 using Newtonsoft.Json;
 
 namespace ISTPET_PortalEstudiantil.Controllers
 {
-   [AuthorizeAlumnos]
+    [AuthorizeAlumnos]
     public class CuentaController : Controller
     {
         private readonly string cn;
@@ -18,8 +19,9 @@ namespace ISTPET_PortalEstudiantil.Controllers
             _auth = auth;
             _loop_handler.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
         }
-
-        public async Task<string> datosPersonales(){
+        [HttpGet]
+        public async Task<string> datosPersonales()
+        {
             var dapper = new MySqlConnection(cn);
             try
             {
@@ -31,6 +33,29 @@ namespace ISTPET_PortalEstudiantil.Controllers
                     await dapper.QueryFirstOrDefaultAsync(sql, new { idAlumno }),
                     _loop_handler
                     );
+            }
+            catch (Exception ex)
+            {
+                return JsonConvert.SerializeObject(new { error = ex.Message });
+            }
+            finally
+            {
+                dapper?.Dispose();
+            }
+        }
+        [HttpPost]
+        public async Task<string> cambiarPassword(alumnos _data)
+        {
+            var dapper = new MySqlConnection(cn);
+            try
+            {
+                string idAlumno = _auth.get("idAlumno");
+                if (_data.idAlumno != idAlumno) throw new Exception("Sólo puede cambiar la contraseña de su sesión");
+                string sql = @"UPDATE alumnos set password=@password WHERE idAlumno=@idAlumno
+                               ";
+                await dapper.ExecuteAsync(sql, _data);
+                _auth.logoutSync();
+                return "ok";
             }
             catch (Exception ex)
             {
