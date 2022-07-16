@@ -27386,10 +27386,7 @@ pre[class*="language-"] {
     .table-bordered-bottom {
       font-size: 0.64em !important;
     }
-    .footer{
-      font-size: 0.91rem;
-      padding-left: 12.7px !important;
-    }
+
     .card-perfil{
       margin-left: 0px !important;
     }
@@ -27407,16 +27404,19 @@ padding: 10px 3px !important;
 }
 
 .container-main-perfil{
-  min-height:calc(100vh - 91px);
+  min-height:calc(100vh - 99px);
 }
 
 .card-perfil{
-  min-height:calc(100vh - 136px);
+  min-height:calc(100vh - 500px);
   margin-left:-10px;
   box-shadow: none;
 }
 .footer{
     width:80vw !important;
+    margin-left:auto;
+    margin-right:auto;
+    margin-top:7px;
 }
 .border-1-dark{
   border:1px solid #1F295B;
@@ -27424,4 +27424,15 @@ padding: 10px 3px !important;
 .border-1-light{
   border:1px solid #E9E9E9;
 }
-/*# sourceMappingURL=material-dashboard.css.map */
+
+@media (max-width:1200px) {
+    .footer {
+        width: 100vw;
+        text-align:center;
+        font-size: 0.91rem;
+    }
+}
+.m-w-170{
+    min-width:170.7px;
+}
+    /*# sourceMappingURL=material-dashboard.css.map */
