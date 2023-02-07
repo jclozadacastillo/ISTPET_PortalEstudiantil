@@ -1,0 +1,454 @@
+﻿@{
+    Layout = null;
+    var _v = $"?v={@DateTime.Now.Ticks}";
+}
+
+<!DOCTYPE html>
+<html lang="es-ec">
+
+<head>
+    <meta charset="utf-8">
+    <title>INSTITUTO TRAVERSARI: Inscripciones en línea</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link href="~/templateInscripciones/img/icono.png" rel="icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Jost:wght@500;600;700&family=Open+Sans:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
+    <link href="~/utilities/bootstrap-icons-1.8.1/bootstrap-icons.css" rel="stylesheet" />
+    <link href="~/templateInscripciones/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="~/templateInscripciones/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="~/templateInscripciones/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/templateInscripciones/css/style.css" rel="stylesheet">
+    <link href="~/utilities/toast/style.css" rel="stylesheet" />
+    <script defer src="~/utilities/axios/axios.min.js"></script>
+    <script defer src="~/utilities/jquery-3.6.0.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script defer src="~/templateInscripciones/lib/wow/wow.min.js"></script>
+    <script defer src="~/templateInscripciones/lib/easing/easing.min.js"></script>
+    <script defer src="~/templateInscripciones/lib/waypoints/waypoints.min.js"></script>
+    <script defer src="~/templateInscripciones/lib/owlcarousel/owl.carousel.min.js"></script>
+    <script defer src="~/templateInscripciones/lib/counterup/counterup.min.js"></script>
+    <script defer src="~/templateInscripciones/js/main.js@_v"></script>
+    <script defer src="~/utilities/toast/siiimple-toast.min.js"></script>
+    <script defer src="~/utilities/toast/sweetalert2.all.min.js"></script>
+    <script defer src="~/templateinscripciones/forms.js@_v"></script>
+    <script defer src="~/utilities/toast/toast.js"></script>
+    <script defer src="~/js/inscripciones/siteinscripciones.js@_v"></script>
+</head>
+
+<body>
+    <!-- Spinner Start -->
+    <div id="spinner"
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;"></div>
+    </div>
+    <!-- Spinner End -->
+    <!-- Navbar Start -->
+    <div class="container-fluid fixed-top px-0 wow fadeIn" data-wow-delay="0.1s">
+        <div class="top-bar row gx-0 align-items-center d-none d-lg-flex">
+            <div class="col-lg-6 px-5 text-start">
+                <small>
+                    <i class="fa fa-map-marker-alt text-primary me-2"></i>Av. Matilde Álvarez y Hugo Díaz
+                    Romero.
+                </small>
+            </div>
+            <div class="col-lg-6 px-5 text-end">
+                <small><i class="fa fa-envelope text-primary me-2"></i>info@institutotraversari.edu.ec</small>
+                <small class="ms-4"><i class="fa fa-phone-alt text-primary me-2"></i>02 303 2894</small>
+            </div>
+        </div>
+
+        <nav class="navbar navbar-expand-lg navbar-light py-lg-0 px-lg-5 wow fadeIn" data-wow-delay="0.1s">
+            <a href="index.html" class="navbar-brand ms-4 ms-lg-0">
+                <img src="~/templateInscripciones/img/logo.png" width="136" alt="ISTPET">
+            </a>
+            <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse"
+                data-bs-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="navbar-nav ms-auto p-4 p-lg-0">
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Oferta Académica</a>
+                        <div class="dropdown-menu border-light m-0">
+                            <a target="_blank" href="https://institutotraversari.edu.ec/desarrollo-software/"
+                                class="dropdown-item">Desarrollo Software <b class="fs-10">TECNOLOGÍA</b></a>
+                            <a target="_blank" href="https://institutotraversari.edu.ec/entrenamiento-deportivo/"
+                                class="dropdown-item">Entrenamiento Deportivo <b class="fs-10">TECNOLOGÍA</b></a>
+                            <a target="_blank" href="https://cec.institutotraversari.edu.ec/"
+                                class="dropdown-item">Educación Continua</a>
+                            <a target="_blank" href="https://conduccionistpet.com/" class="dropdown-item">
+                                Escuela de
+                                Condución
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-none d-lg-flex ms-2">
+                    <a class="btn btn-light btn-sm-square rounded-circle ms-3" target="_blank"
+                        href="https://www.facebook.com/institutotraversari">
+                        <small class="fab fa-facebook-f text-primary"></small>
+                    </a>
+                    <a class="btn btn-light btn-sm-square rounded-circle ms-3" target="_blank"
+                        href="https://www.youtube.com/channel/UCzP7rXOxWGCSxg1S9SbcRkg">
+                        <small class="fab fa-youtube text-primary"></small>
+                    </a>
+                    <a class="btn btn-light btn-sm-square rounded-circle ms-3" target="_blank"
+                        href="https://www.instagram.com/institutotraversari/">
+                        <small class="fab fa-instagram text-primary"></small>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <!-- Navbar End -->
+    <!-- Carousel Start -->
+    <div class="container-fluid p-0 wow fadeIn" id="contenedor-principal" data-wow-delay="0.1s">
+        <div id="header-carousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="row">
+                    <!-- <img class="w-100" src="img/carousel-1.jpg" alt="Image"> -->
+                    <div class="col-sm-12" id="contenedor-form">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-12 py-0 my-0">
+                                    <p id="contenedor-titulo-politicas"
+                                        class="d-inline-block border border-primary fs-14 rounded text-white bg-primary fw-semi-bold py-1 px-3 animated slideInDown">
+                                        Política de Protección de Datos Personales
+                                    </p>
+                                    <p
+                                        class="text-justify bg-white  mb-3 animated slideInDown d-inline-block border-dark text-black border rounded p-3">
+                                        De conformidad a lo dispuesto en la Ley de Protección de Datos Personales,
+                                        publicada en el <a class="text-info"
+                                            href="https://www.registroficial.gob.ec/index.php/registro-oficial-web/publicaciones/suplementos/item/14857-quinto-suplemento-al-registro-oficial-no-459"
+                                            target="_blank">Quinto Suplemento del R.O. 459</a> de fecha 26 de mayo del
+                                        2021, declaro que me encuentro informado y conozco los derechos y obligaciones
+                                        que se concede a los titulares de los datos; por lo que autorizo de manera libre
+                                        y voluntaria al Instituto Tecnológico Universitario Cordillera, para que en los
+                                        términos legalmente establecidos en la antes referida Ley; realice la
+                                        recolección, almacenamiento, uso, circulación,
+                                        supresión para el tratamiento de mis datos personales que procedo a entregar a
+                                        la Institución.
+                                    </p>
+                                    <div id="contenedor-aceptar"
+                                        class="col-sm-3 ms-auto border border-primary rounded text-white bg-primary mt-0 fw-semi-bold py-1 px-3 animated slideInDown">
+                                        <div class="form-group-custom-check">
+                                            <input type="checkbox" id="politicas" onchange="terminos()">
+                                            <label for="politicas">Acepto los términos</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Carousel End -->
+    <!-- Callback Start -->
+    <div class="container-fluid callback pt-lg-2 pt-md-2 pt-xl-2 pt-sm-2" id="formulario">
+        <div class="container pt-lg-2 pt-md-2 pt-xl-2 pt-sm-2 ">
+            <div class="row justify-content-center pb-4">
+                <div class="col-lg-9 mx-3 mt-lg-3 mt-xl-2 mt-4 mt-sm-5 bg-white py-3 px-5 rounded border  shadow">
+                    <h4 class="mb-3 mt-2">Inscripción en línea</h4>
+                    <ul class="nav nav-pills mb-3 bg-dark-sm rounded" id="pills-tab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link px-3 py-1 active" id="tabPersonales" data-bs-toggle="pill"
+                                data-bs-target="#personales" type="button" role="tab" aria-controls="pills-personales"
+                                aria-selected="true">
+                                Datos Personales
+                            </button>
+                        </li>
+                        <li class="nav-item" id="divAcademicos" role="presentation">
+                            <button class="nav-link px-3 py-1" id="tabAcademicos" data-bs-toggle="pill"
+                                data-bs-target="#academicos" type="button" role="tab" aria-controls="pills-academicos"
+                                aria-selected="false">
+                                Datos Académicos
+                            </button>
+                        </li>
+                        <li class="nav-item" id="divInscripcion" role="presentation">
+                            <button class="nav-link px-3 py-1" id="tabInscripcion" data-bs-toggle="pill"
+                                data-bs-target="#inscripcion" type="button" role="tab" aria-controls="pills-contact"
+                                aria-selected="false">
+                                Datos de Inscripción
+                            </button>
+                        </li>
+                    </ul>
+                    <hr>
+                    <form id="frmDatos">
+                        <div class="tab-content" id="pills-tabContent">
+                            <div class="tab-pane fade show active" id="personales" role="tabpanel"
+                                aria-labelledby="pills-home-tab">
+                                <div class="row mx-lg-2">
+                                    <div class="col-sm-5">
+                                        <label class="text-primary fw-bold">Tipo</label>
+                                        <select class="form-select form-select-sm" onchange="cambiarTipoDocumento()"
+                                            name="tipoDocumento" id="tipoDocumento">
+                                            <option value="C">Cédula</option>
+                                            <option value="P">Pasaporte</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mx-lg-2 pt-2">
+                                    <div class="col-sm-5">
+                                        <label class="text-primary fw-bold">
+                                            Documento de identidad
+                                            <small class="text-danger">*</small>
+                                        </label>
+                                        <input type="text" class="form-control form-control-sm"
+                                            placeholder="Número de documento" data-validate="cedula" id="idAlumno"
+                                            name="idAlumno">
+                                        <div class="invalid-feedback">
+                                            * Campo requerido
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mx-lg-2 pt-2">
+                                    <div class="col-sm-6">
+                                        <label class="text-primary fw-bold">
+                                            Nombres
+                                            <small class="text-danger">*</small>
+                                        </label>
+                                        <input type="text" class="form-control form-control-sm"
+                                            placeholder="Primer Nombre">
+                                        <div class="invalid-feedback">
+                                            * Campo requerido
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label class="text-white fw-bold">
+                                            Segundo Nombre
+                                        </label>
+                                        <input type="text" class="form-control form-control-sm"
+                                            placeholder="Segundo Nombre">
+                                        <div class="invalid-feedback">
+                                            * Campo requerido
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mx-lg-2 pt-2">
+                                    <div class="col-sm-6">
+                                        <label class="text-primary fw-bold">
+                                            Apellidos
+                                            <small class="text-danger">*</small>
+                                        </label>
+                                        <input type="text" class="form-control form-control-sm"
+                                            placeholder="Apellido Paterno">
+                                        <div class="invalid-feedback">
+                                            * Campo requerido
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label class="text-white fw-bold">
+                                            Segundo Apellido
+                                        </label>
+                                        <input type="text" class="form-control form-control-sm"
+                                            placeholder="Apellido Materno">
+                                        <div class="invalid-feedback">
+                                            * Campo requerido
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mx-lg-2 pt-2">
+                                    <div class="col-sm-6">
+                                        <label class="text-primary fw-bold">
+                                            Fecha de nacimiento
+                                            <small class="text-danger">*</small>
+                                        </label>
+                                        <input type="date" data-validate="edad-18" class="form-control form-control-sm">
+                                        <div class="invalid-feedback">
+                                            * Campo requerido
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label class="text-primary fw-bold">
+                                            Sexo
+                                            <small class="text-danger">*</small>
+                                        </label>
+                                        <select class="form-select form-select-sm" name="" id="">
+                                            <option value="MASCULINO">Masculino</option>
+                                            <option value="MASCULINO">Femenino</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mx-lg-2 pt-2">
+                                    <div class="col-sm-6">
+                                        <label class="text-primary fw-bold">
+                                            Celular
+                                            <small class="text-danger">*</small>
+                                        </label>
+                                        <input type="text" class="form-control form-control-sm" maxlength="10"
+                                            placeholder="Teléfono celular/móvil">
+                                        <div class="invalid-feedback">
+                                            * Campo requerido
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label class="text-primary fw-bold">
+                                            Email
+                                        </label>
+                                        <input type="text" class="form-control form-control-sm" maxlength="40"
+                                            data-validate="email" placeholder="Correo electrónico">
+                                        <div class="invalid-feedback">
+                                            * Campo requerido
+                                        </div>
+                                    </div>
+                                    <div class="row mt-4">
+                                        <div class="col-sm-12 text-end">
+                                            <button type="button" class="btn btn-primary rounded-circle"
+                                                onclick="siguiente(0)">
+                                                <i class="bi bi-arrow-right-short fs-4"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="col-sm-6">
+                                        <label class="text-primary fw-bold">
+                                            Sexo
+                                            <small class="text-danger">*</small>
+                                        </label>
+                                        <select class="form-select col-4" id="codigoarea" name="codigoarea">
+                                            <option value="07">El Oro|Azuay|Cañar|Loja|Morona Santiago|Zamora</option>
+                                            <option value="06">Esmeraldas|Carchi|Imbabura|Sucumbíos|Orellana|Napo</option>
+                                            <option value="05">Galápagos|Manabí|Los Ríos</option>
+                                            <option value="04" selected="">Guayas|Sta. Elena</option>
+                                        </select>
+                                    </div> -->
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="academicos" role="tabpanel"
+                                aria-labelledby="pills-profile-tab">
+                                <div class="row mx-lg-2">
+                                    <div class="col-sm-12">
+                                        <label class="text-primary fw-bold">
+                                            Colegio
+                                            <small class="text-danger">*</small>
+                                        </label>
+                                        <input type="text" class="form-control form-control-sm" placeholder="Colegio">
+                                        <div class="invalid-feedback">
+                                            * Campo requerido
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mx-lg-2 pt-2" style="margin-bottom: 37px;">
+                                    <div class="col-sm-6">
+                                        <label class="text-primary fw-bold">
+                                            Especialidad
+                                            <small class="text-danger">*</small>
+                                        </label>
+                                        <input type="text" class="form-control form-control-sm"
+                                            placeholder="Especialidad">
+                                        <div class="invalid-feedback">
+                                            * Campo requerido
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label class="text-primary fw-bold">
+                                            Ciudad
+                                            <small class="text-danger">*</small>
+                                        </label>
+                                        <input type="text" class="form-control form-control-sm"
+                                            placeholder="Especialidad">
+                                        <div class="invalid-feedback">
+                                            * Campo requerido
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row mx-lg-2 pt-2">
+                                    <div class="col-sm-8">
+                                        <label class="text-primary fw-bold">
+                                            ¿Por qué medio encontraste nuestro sitio web?
+                                            <small class="text-danger">*</small>
+                                        </label>
+                                        <input type="text" class="form-control form-control-sm"
+                                            placeholder="Medio de contacto">
+                                        <div class="invalid-feedback">
+                                            * Campo requerido
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-4">
+                                    <div class="col-sm-12 text-end">
+                                        <button type="button" class="btn btn-primary rounded-circle"
+                                            onclick="siguiente(1)">
+                                            <i class="bi bi-arrow-right-short fs-4"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="inscripcion" role="tabpanel"
+                                aria-labelledby="pills-contact-tab">
+                                ...
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Callback End -->
+    <!-- Footer Start -->
+    <div class="container-fluid bg-primary text-light footer py-5 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container py-2">
+            <div class="row g-3">
+                <div class="col-lg-6 col-md-6">
+                    <h4 class="text-white mb-4">Instituto Traversari</h4>
+                    <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>Av. Matilde Álvarez y Hugo Díaz Romero.</p>
+                    <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>02 303 2894</p>
+                    <p class="mb-2 text-nowrap"><i class="fa fa-envelope me-3"></i>info@institutotraversari.edu.ec</p>
+                    <div class="d-flex pt-2">
+                        <a class="btn btn-square btn-outline-light rounded-circle me-2"
+                            href="https://www.facebook.com/institutotraversari" target="_blank">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a class="btn btn-square btn-outline-light rounded-circle me-2"
+                            href="https://www.instagram.com/institutotraversari/" target="_blank">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a class="btn btn-square btn-outline-light rounded-circle me-2"
+                            href="https://www.youtube.com/channel/UCzP7rXOxWGCSxg1S9SbcRkg" target="_blank">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-5 col-md-5">
+                    <h4 class="text-white mb-4">Encuentranos</h4>
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.769873259558!2d-78.555655!3d-0.2823549!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x91d5992d39598159%3A0x811c943430fab4fc!2sISTPET%20-%20Instituto%20Traversari!5e0!3m2!1ses!2sec!4v1675796860779!5m2!1ses!2sec"
+                        style="border:0;width: 100%;" height="217" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+    <!-- Copyright Start -->
+    <div class="container-fluid copyright py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 text-center text-md-start mb-3 mb-md-0">
+                    <a href="https://institutotraversari.edu.ec/" target="_blank">
+                        <img src="~/templateInscripciones/img/logo-blanco.png" width="109" alt="ISTPET">
+                    </a>
+                </div>
+                <div class="col-md-8 text-center text-md-end pt-1 fs-12 text-white">
+                    &copy; 2023 Instituto Superior Tecnológico Mayor Pedro Traversari
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Copyright End -->
+    <!-- Back to Top -->
+    <!-- <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i
+            class="bi bi-arrow-up"></i></a> -->
+    <!-- JavaScript Libraries -->
+</body>
+
+</html>
