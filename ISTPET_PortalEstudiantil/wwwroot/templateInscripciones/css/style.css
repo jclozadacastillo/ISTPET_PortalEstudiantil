@@ -242,7 +242,7 @@ h6,
     position: absolute;
     content: "";
     width: 100%;
-    height: 50%;
+    height: 100%;
     top: 0;
     left: 0;
     background: linear-gradient(rgba(31, 41, 91, .95), rgba(31, 41, 91, .95)), url(../img/bg.png);
@@ -722,4 +722,12 @@ h6,
 
 #formulario button.nav-link{
     font-size: 13px !important;
+}
+
+.pt-28{
+    padding-top: 25vh;
+}
+
+.fs-7{
+    font-size: 7px;
 }
