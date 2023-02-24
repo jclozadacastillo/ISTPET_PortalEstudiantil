@@ -51,7 +51,7 @@
     </div>
     <!-- Spinner End -->
     <!-- Navbar Start -->
-    <div class="container-fluid fixed-top px-0 wow fadeIn" data-wow-delay="0.1s">
+    <div class="container-fluid fixed-top px-0 wow fadeIn" id='navbar-fixed' data-wow-delay="0.1s">
         <div class="top-bar row gx-0 align-items-center d-none d-lg-flex">
             <div class="col-lg-6 px-5 text-start">
                 <small>
@@ -77,11 +77,12 @@
                 <div class="navbar-nav ms-auto p-4 p-lg-0">
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Oferta Académica</a>
-                        <div class="dropdown-menu border-light m-0">
+                        <div class="dropdown-menu border-light m-0 ">
                             <a target="_blank" href="https://institutotraversari.edu.ec/desarrollo-software/"
                                 class="dropdown-item">Desarrollo Software <b class="fs-7 text-dark">TECNOLOGÍA</b></a>
                             <a target="_blank" href="https://institutotraversari.edu.ec/entrenamiento-deportivo/"
-                                class="dropdown-item">Entrenamiento Deportivo <b class="fs-7 text-dark">TECNOLOGÍA</b></a>
+                                class="dropdown-item">Entrenamiento Deportivo <b
+                                    class="fs-7 text-dark">TECNOLOGÍA</b></a>
                             <a target="_blank" href="https://cec.institutotraversari.edu.ec/"
                                 class="dropdown-item">Educación Continua</a>
                             <a target="_blank" href="https://conduccionistpet.com/" class="dropdown-item">
@@ -112,206 +113,185 @@
     <!-- Carousel Start -->
     <div class="container-fluid p-0 wow fadeIn" id="contenedor-principal" data-wow-delay="0.1s">
         <div id="header-carousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
-            <div class="carousel-inner">
-                <div class="row">
-                    <!-- <img class="w-100" src="img/carousel-1.jpg" alt="Image"> -->
-                    <div class="col-sm-12" id="contenedor-form">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-lg-12 py-0 my-0">
-                                    <p id="contenedor-titulo-politicas"
-                                        class="d-inline-block border border-primary fs-14 rounded text-white bg-primary fw-semi-bold py-1 px-3 animated slideInDown">
-                                        Política de Protección de Datos Personales
-                                    </p>
-                                    <p
-                                        class="text-justify bg-white  mb-3 animated slideInDown d-inline-block border-dark text-black border rounded p-3">
-                                        De conformidad a lo dispuesto en la Ley de Protección de Datos Personales,
-                                        publicada en el <a class="text-info"
-                                            href="https://www.registroficial.gob.ec/index.php/registro-oficial-web/publicaciones/suplementos/item/14857-quinto-suplemento-al-registro-oficial-no-459"
-                                            target="_blank">Quinto Suplemento del R.O. 459</a> de fecha 26 de mayo del
-                                        2021, declaro que me encuentro informado y conozco los derechos y obligaciones
-                                        que se concede a los titulares de los datos; por lo que autorizo de manera libre
-                                        y voluntaria al Instituto Tecnológico Universitario Cordillera, para que en los
-                                        términos legalmente establecidos en la antes referida Ley; realice la
-                                        recolección, almacenamiento, uso, circulación,
-                                        supresión para el tratamiento de mis datos personales que procedo a entregar a
-                                        la Institución.
-                                    </p>
-                                    <div id="contenedor-aceptar"
-                                        class="col-sm-3 ms-auto border border-primary rounded text-white bg-primary mt-0 fw-semi-bold py-1 px-3 animated slideInDown">
-                                        <div class="form-group-custom-check">
-                                            <input type="checkbox" id="politicas" onchange="terminos()">
-                                            <label for="politicas">Acepto los términos</label>
-                                        </div>
-                                    </div>
-                                </div>
+            <div class="carousel-inner" id="formulario">
 
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Carousel End -->
-    <!-- Callback Start -->
-    <div class="container-fluid callback pt-lg-2 pt-md-2 pt-xl-2 pt-sm-2 " hidden  id="formulario">
-        <div class="container pt-lg-2 pt-md-2 pt-xl-2 pt-sm-2">
-            <div class="row justify-content-center pb-4">
-                <div class="col-lg-9 mx-3 mt-lg-3 mt-xl-2 mt-4 mt-sm-5 bg-white pt-3 pb-4 px-5 rounded border  shadow">
-                    <h4 class="mb-3 mt-2">Inscripción en línea</h4>
-                    <ul class="nav nav-pills mb-3 bg-dark-sm rounded" id="pills-tab" role="tablist">
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link px-3 py-1 active" id="tabPersonales" data-bs-toggle="pill"
-                                data-bs-target="#personales" type="button" role="tab" aria-controls="pills-personales"
-                                aria-selected="true">
-                                Datos Personales
-                            </button>
-                        </li>
-                        <li class="nav-item" id="divAcademicos" hidden role="presentation">
-                            <button class="nav-link px-3 py-1" id="tabAcademicos" data-bs-toggle="pill"
-                                data-bs-target="#academicos" type="button" role="tab" aria-controls="pills-academicos"
-                                aria-selected="false">
-                                Datos Académicos
-                            </button>
-                        </li>
-                        <li class="nav-item" id="divInscripcion" hidden role="presentation">
-                            <button class="nav-link px-3 py-1" id="tabInscripcion" data-bs-toggle="pill"
-                                data-bs-target="#inscripcion" type="button" role="tab" aria-controls="pills-contact"
-                                aria-selected="false">
-                                Datos de Inscripción
-                            </button>
-                        </li>
-                    </ul>
-                    <hr>
-                    <form id="frmDatos">
-                        <div class="tab-content" id="pills-tabContent">
-                            <div class="tab-pane fade show active" id="personales" role="tabpanel"
-                                aria-labelledby="pills-home-tab">
-                                <div class="row mx-lg-2">
-                                    <div class="col-sm-5">
-                                        <label class="text-primary fw-bold">Tipo</label>
-                                        <select class="form-select form-select-sm" onchange="cambiarTipoDocumento()"
-                                            name="tipoDocumento" id="tipoDocumento">
-                                            <option value="C">Cédula</option>
-                                            <option value="P">Pasaporte</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="row mx-lg-2 pt-2">
-                                    <div class="col-sm-5">
-                                        <label class="text-primary fw-bold">
-                                            Documento de identidad
-                                            <small class="text-danger">*</small>
-                                        </label>
-                                        <input type="text" class="form-control form-control-sm"
-                                            placeholder="Número de documento" data-validate="cedula" id="idAlumno"
-                                            name="idAlumno">
-                                        <div class="invalid-feedback">
-                                            * Campo requerido
+                <!-- <img class="w-100" src="img/carousel-1.jpg" alt="Image"> -->
+                <div class="container pt-lg-2 pt-md-2 pt-xl-2 pt-sm-2 mt-109-lg" style="min-height: 86vh;">
+                    <div class="row justify-content-center pb-4">
+                        <div
+                            class="col-lg-9 mx-3 mt-lg-2 mt-xl-1 mt-3 mt-sm-4 bg-white pt-2 pb-3 px-5 rounded border border-dark shadow">
+                            <h4 class="mb-3 mt-2">Inscripción en línea</h4>
+                            <ul class="nav nav-pills mb-3 bg-dark-sm rounded" id="pills-tab" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link px-3 py-1 active fs-12" id="tabPersonales"
+                                        data-bs-toggle="pill" data-bs-target="#personales" type="button" role="tab"
+                                        aria-controls="pills-personales" aria-selected="true">
+                                        Datos Personales
+                                    </button>
+                                </li>
+                                <li class="nav-item" hidden id="divAcademicos" role="presentation">
+                                    <button class="nav-link px-3 py-1 fs-12" id="tabAcademicos" data-bs-toggle="pill"
+                                        data-bs-target="#academicos" type="button" role="tab"
+                                        aria-controls="pills-academicos" aria-selected="false">
+                                        Datos Académicos
+                                    </button>
+                                </li>
+                                <li class="nav-item" hidden id="divInscripcion" role="presentation">
+                                    <button class="nav-link px-3 py-1 fs-12" id="tabInscripcion" data-bs-toggle="pill"
+                                        data-bs-target="#inscripcion" type="button" role="tab"
+                                        aria-controls="pills-contact" aria-selected="false">
+                                        Datos de Inscripción
+                                    </button>
+                                </li>
+                            </ul>
+                            <hr>
+                            <form id="frmDatos" class="text-uppercase-input">
+                                <div class="tab-content" id="pills-tabContent">
+                                    <div class="tab-pane fade show active" id="personales" role="tabpanel"
+                                        aria-labelledby="pills-home-tab">
+                                        <div class="row mx-lg-2">
+                                            <div class="col-sm-5">
+                                                <label class="text-primary fw-bold">Tipo</label>
+                                                <select class="form-select form-select-sm"
+                                                    onchange="cambiarTipoDocumento()" name="tipoDocumento"
+                                                    id="tipoDocumento">
+                                                    <option value="C">Cédula</option>
+                                                    <option value="P">Pasaporte</option>
+                                                </select>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
+                                        <div class="row mx-lg-2 pt-2">
+                                            <div class="col-sm-5">
+                                                <label class="text-primary fw-bold">
+                                                    Documento de identidad
+                                                    <small class="text-danger">*</small>
+                                                </label>
+                                                <input type="text" class="form-control form-control-sm"
+                                                    placeholder="Número de documento" data-validate="cedula"
+                                                    id="idAlumno" name="idAlumno">
+                                                <div class="invalid-feedback">
+                                                    * Campo requerido
+                                                </div>
+                                            </div>
+                                        </div>
 
-                                <div class="row mx-lg-2 pt-2">
-                                    <div class="col-sm-6">
-                                        <label class="text-primary fw-bold">
-                                            Nombres
-                                            <small class="text-danger">*</small>
-                                        </label>
-                                        <input type="text" class="form-control form-control-sm"
-                                            placeholder="Primer Nombre">
-                                        <div class="invalid-feedback">
-                                            * Campo requerido
+                                        <div class="row mx-lg-2 pt-2">
+                                            <div class="col-sm-3">
+                                                <label class="text-primary fw-bold">
+                                                    Nombres
+                                                    <small class="text-danger">*</small>
+                                                </label>
+                                                <input type="text" class="form-control form-control-sm"
+                                                    placeholder="Primer Nombre" id="primerNombre" name="primerNombre" maxlength="30">
+                                                <div class="invalid-feedback">
+                                                    * Campo requerido
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <label class="text-white fw-bold">
+                                                    Segundo Nombre
+                                                </label>
+                                                <input type="text" class="form-control form-control-sm"
+                                                    placeholder="Segundo Nombre" id="segundoNombre"
+                                                    name="segundoNombre" maxlength="30">
+                                                <div class="invalid-feedback">
+                                                    * Campo requerido
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <label class="text-primary fw-bold">
+                                                    Apellidos
+                                                    <small class="text-danger">*</small>
+                                                </label>
+                                                <input type="text" class="form-control form-control-sm"
+                                                    placeholder="Apellido Paterno" id="apellidoPaterno"
+                                                    name="apellidoPaterno" maxlength="30">
+                                                <div class="invalid-feedback">
+                                                    * Campo requerido
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <label class="text-white fw-bold">
+                                                    Segundo Apellido
+                                                </label>
+                                                <input type="text" class="form-control form-control-sm"
+                                                    placeholder="Apellido Materno" id="apellidoMaterno"
+                                                    name="apellidoMaterno" maxlength="30">
+                                                <div class="invalid-feedback">
+                                                    * Campo requerido
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <label class="text-white fw-bold">
-                                            Segundo Nombre
-                                        </label>
-                                        <input type="text" class="form-control form-control-sm"
-                                            placeholder="Segundo Nombre">
-                                        <div class="invalid-feedback">
-                                            * Campo requerido
+
+                                        <div class="row mx-lg-2 pt-2">
+                                            <div class="col-sm-4">
+                                                <label class="text-primary fw-bold">
+                                                    Fecha de nacimiento
+                                                    <small class="text-danger">*</small>
+                                                </label>
+                                                <input type="date" data-validate="edad-18"
+                                                    class="form-control form-control-sm" id="fecha_Nacimiento"
+                                                    name="fecha_Nacimiento">
+                                                <div class="invalid-feedback">
+                                                    * Campo requerido
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <label class="text-primary fw-bold">
+                                                    Sexo
+                                                    <small class="text-danger">*</small>
+                                                </label>
+                                                <select class="form-select form-select-sm" name="sexo" id="sexo">
+                                                    <option value="M">Masculino</option>
+                                                    <option value="F">Femenino</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <label class="text-primary fw-bold">
+                                                    Celular
+                                                    <small class="text-danger">*</small>
+                                                </label>
+                                                <input type="text" class="form-control form-control-sm" maxlength="10"
+                                                    placeholder="Teléfono celular/móvil" id="celular" name="celular">
+                                                <div class="invalid-feedback">
+                                                    * Campo requerido
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="row mx-lg-2 pt-2">
-                                    <div class="col-sm-6">
-                                        <label class="text-primary fw-bold">
-                                            Apellidos
-                                            <small class="text-danger">*</small>
-                                        </label>
-                                        <input type="text" class="form-control form-control-sm"
-                                            placeholder="Apellido Paterno">
-                                        <div class="invalid-feedback">
-                                            * Campo requerido
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <label class="text-white fw-bold">
-                                            Segundo Apellido
-                                        </label>
-                                        <input type="text" class="form-control form-control-sm"
-                                            placeholder="Apellido Materno">
-                                        <div class="invalid-feedback">
-                                            * Campo requerido
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row mx-lg-2 pt-2">
-                                    <div class="col-sm-6">
-                                        <label class="text-primary fw-bold">
-                                            Fecha de nacimiento
-                                            <small class="text-danger">*</small>
-                                        </label>
-                                        <input type="date" data-validate="edad-18" class="form-control form-control-sm">
-                                        <div class="invalid-feedback">
-                                            * Campo requerido
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <label class="text-primary fw-bold">
-                                            Sexo
-                                            <small class="text-danger">*</small>
-                                        </label>
-                                        <select class="form-select form-select-sm" name="" id="">
-                                            <option value="MASCULINO">Masculino</option>
-                                            <option value="FEMENINO">Femenino</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="row mx-lg-2 pt-2">
-                                    <div class="col-sm-6">
-                                        <label class="text-primary fw-bold">
-                                            Celular
-                                            <small class="text-danger">*</small>
-                                        </label>
-                                        <input type="text" class="form-control form-control-sm" maxlength="10"
-                                            placeholder="Teléfono celular/móvil">
-                                        <div class="invalid-feedback">
-                                            * Campo requerido
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <label class="text-primary fw-bold">
-                                            Email
-                                        </label>
-                                        <input type="text" class="form-control form-control-sm" maxlength="40"
-                                            data-validate="email" placeholder="Correo electrónico">
-                                        <div class="invalid-feedback">
-                                            * Campo requerido
-                                        </div>
-                                    </div>
-                                    <div class="row mt-4">
-                                        <div class="col-sm-12 text-end">
-                                            <button type="button" class="btn btn-primary rounded-circle"
-                                                onclick="siguiente(0)">
-                                                <i class="bi bi-arrow-right-short fs-4"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <!-- <div class="col-sm-6">
+                                        <div class="row mx-lg-2 pt-2">
+                                            <div class="col-sm-6">
+                                                <label class="text-primary fw-bold">
+                                                    Email
+                                                    <small class="text-danger">*</small>
+                                                </label>
+                                                <input type="text" class="form-control form-control-sm" maxlength="40"
+                                                    data-validate="email" placeholder="Correo electrónico" id="email"
+                                                    name="email">
+                                                <div class="invalid-feedback">
+                                                    * Campo requerido
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label class="text-primary fw-bold">
+                                                    Confirmar Email
+                                                    <small class="text-danger">*</small>
+                                                </label>
+                                                <input type="text" class="form-control form-control-sm" maxlength="40"
+                                                    data-validate="email" placeholder="Confirmar correo electrónico"
+                                                    id="confir" name="confir">
+                                                <div class="invalid-feedback">
+                                                    * Campo requerido
+                                                </div>
+                                            </div>
+                                            <div class="row mt-4">
+                                                <div class="col-sm-12 text-end">
+                                                    <button type="button" class="btn btn-primary rounded-circle"
+                                                        onclick="siguiente(0)">
+                                                        <i class="bi bi-arrow-right-short fs-4"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="col-sm-6">
                                         <label class="text-primary fw-bold">
                                             Sexo
                                             <small class="text-danger">*</small>
@@ -323,129 +303,228 @@
                                             <option value="04" selected="">Guayas|Sta. Elena</option>
                                         </select>
                                     </div> -->
-                                </div>
-                            </div>
-                            <div class="tab-pane fade" id="academicos" role="tabpanel"
-                                aria-labelledby="pills-profile-tab">
-                                <div class="row mx-lg-2">
-                                    <div class="col-sm-12">
-                                        <label class="text-primary fw-bold">
-                                            Colegio
-                                            <small class="text-danger">*</small>
-                                        </label>
-                                        <input type="text" class="form-control form-control-sm" placeholder="Colegio">
-                                        <div class="invalid-feedback">
-                                            * Campo requerido
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="academicos" role="tabpanel"
+                                        aria-labelledby="pills-profile-tab">
+                                        <div class="row mx-lg-2 pt-2" style="margin-bottom: 37px;">
+                                            <div class="col-sm-6">
+                                                <label class="text-primary fw-bold">
+                                                    Provincia de tu institución
+                                                    <small class="text-danger">*</small>
+                                                </label>
+                                                <select class="form-select form-select-sm" name="provincia" id="provincia" onchange="comboCiudades(),comboInstituciones()">
+                                                    <option value="">Selecciona</option>
+                                                </select>
+                                                <div class="invalid-feedback">
+                                                    * Campo requerido
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label class="text-primary fw-bold">
+                                                    Ciudad de tu institución
+                                                    <small class="text-danger">*</small>
+                                                </label>
+                                                <select class="form-select form-select-sm" name="ciudad" id="ciudad" onchange="comboInstituciones()">
+                                                    <option value="">Selecciona una provincia</option>
+                                                </select>
+                                                <div class="invalid-feedback">
+                                                    * Campo requerido
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label class="text-primary fw-bold">
+                                                    Institución
+                                                    <small class="text-danger">*</small>
+                                                </label>
+                                                <select class="form-select form-select-sm" name="idInstitucion" id="idInstitucion">
+                                                    <option value="">Selecciona una ciudad</option>
+                                                </select>
+                                                <div class="invalid-feedback">
+                                                    * Campo requerido
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label class="text-primary fw-bold">
+                                                    Especialidad
+                                                    <small class="text-danger">*</small>
+                                                </label>
+                                                <input type="text" class="form-control form-control-sm"
+                                                    placeholder="Especialidad" id="tituloColegio" name="tituloColegio" maxlength="200">
+                                                <div class="invalid-feedback">
+                                                    * Campo requerido
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row mx-lg-2 pt-2">
+                                            <div class="col-sm-8">
+                                                <label class="text-primary fw-bold">
+                                                    ¿Por qué medio encontraste nuestro sitio web?
+                                                    <small class="text-danger">*</small>
+                                                </label>
+                                                <select class="form-select form-select-sm" name="idMedio" id="idMedio">
+                                                    <option value="">Selecciona</option>
+                                                </select>
+                                                <div class="invalid-feedback">
+                                                    * Campo requerido
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-4">
+                                            <div class="col-sm-12 text-end">
+                                                <button type="button" class="btn btn-primary rounded-circle"
+                                                    onclick="tabPersonales.click()">
+                                                    <i class="bi bi-arrow-left-short fs-4"></i>
+                                                </button>
+                                                <button type="button" class="btn btn-primary rounded-circle"
+                                                    onclick="siguiente(1)">
+                                                    <i class="bi bi-arrow-right-short fs-4"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="inscripcion" role="tabpanel"
+                                        aria-labelledby="pills-contact-tab">
+                                        <div class="row mx-lg-2 ">
+                                            <div class="col-sm-6">
+                                                <label class="text-primary fw-bold">
+                                                    <span>¿Que deseas estudiar?</span>
+                                                    <small class="text-danger">*</small>
+                                                </label>
+                                                <select class="form-select form-select-sm"
+                                                    onchange="personalizarCombos(),comboCarreras()" name="conduccion"
+                                                    id="conduccion">
+                                                    <option value="">Selecciona</option>
+                                                    <option value="false">TECNOLOGÍAS</option>
+                                                    <option value="true">ESCUELA DE CONDUCCIÓN</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row mx-lg-2" id="divNivel" hidden>
+                                            <div class="col-sm-6">
+                                                <label class="text-primary fw-bold">
+                                                    <span id="labelNivel">¿Que deseas estudiar?</span>
+                                                    <small class="text-danger">*</small>
+                                                </label>
+                                                <select class="form-select form-select-sm" onchange="comboSecciones()"
+                                                    name="idNivel" id="idNivel">
+                                                    <option value="">Selecciona</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row mx-lg-2 pt-2" id="divSeccion" hidden>
+                                            <div class="col-sm-6">
+                                                <label class="text-primary fw-bold">
+                                                    ¿En que sección?
+                                                    <small class="text-danger">*</small>
+                                                </label>
+                                                <select class="form-select form-select-sm" onchange="comboModalidades()"
+                                                    name="idSeccion" id="idSeccion">
+                                                    <option value="">Selecciona</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row mx-lg-2 pt-2" id="divModalidad" hidden>
+                                            <div class="col-sm-6">
+                                                <label class="text-primary fw-bold">
+                                                    ¿En que modalidad?
+                                                    <small class="text-danger">*</small>
+                                                </label>
+                                                <select class="form-select form-select-sm" onchange="comboPeriodos()"
+                                                    name="idModalidad" id="idModalidad">
+                                                    <option value="">Selecciona</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row mx-lg-2 pt-2" id="divPeriodo" hidden>
+                                            <div class="col-sm-10">
+                                                <label class="text-primary fw-bold">
+                                                    ¿Cúando deseas empezar?
+                                                    <small class="text-danger">*</small>
+                                                </label>
+                                                <select class="form-select form-select-sm" name="idPeriodo"
+                                                    id="idPeriodo" onchange="verTerminos()">
+                                                    <option value="">Selecciona una sección</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row" id="divTerminos" hidden>
+                                            <div class="col-sm-12" id="">
+                                                <div class="container">
+                                                    <div class="row">
+                                                        <div class="col-lg-12 py-0 mt-2">
+                                                            <p id="contenedor-titulo-politicas" style="font-size: 12px;"
+                                                                class="d-inline-block border border-primary mt-2 mb-1 fs-14 rounded text-white bg-primary fw-semi-bold py-1 px-3 animated slideInDown">
+                                                                Política de Protección de Datos Personales
+                                                            </p>
+                                                            <p class="text-justify bg-white  mb-1 animated slideInDown d-inline-block border-dark text-black border rounded p-2"
+                                                                style="font-size: 12px;">
+                                                                De conformidad a lo dispuesto en la Ley de Protección de
+                                                                Datos Personales,
+                                                                publicada en el <a class="text-info"
+                                                                    href="https://www.registroficial.gob.ec/index.php/registro-oficial-web/publicaciones/suplementos/item/14857-quinto-suplemento-al-registro-oficial-no-459"
+                                                                    target="_blank">Quinto Suplemento del R.O. 459</a>
+                                                                de fecha 26 de mayo del
+                                                                2021, declaro que me encuentro informado y conozco los
+                                                                derechos y obligaciones
+                                                                que se concede a los titulares de los datos; por lo que
+                                                                autorizo de manera libre
+                                                                y voluntaria al Instituto Traversari, para que en los
+                                                                términos legalmente establecidos en la antes referida
+                                                                Ley; realice la
+                                                                recolección, almacenamiento, uso, circulación,
+                                                                supresión para el tratamiento de mis datos personales
+                                                                que procedo a entregar a
+                                                                la Institución.
+                                                            </p>
+                                                            <div id="contenedor-aceptar"
+                                                                class="col-sm-auto ms-auto border border-primary rounded text-white bg-primary mt-0 fw-semi-bold py-1 px-2 animated slideInDown"
+                                                                style="width:167px;height: 30px;font-size:12px">
+                                                                <div class="form-group-custom-check">
+                                                                    <input type="checkbox" id="politicas"
+                                                                        onchange="terminos()">
+                                                                    <label for="politicas">Acepto los términos</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mx-lg-2 mt-4">
+                                            <div class="col-sm-12  text-end">
+                                                <button type="button" class="btn btn-primary rounded-circle"
+                                                    onclick="tabAcademicos.click()">
+                                                    <i class="bi bi-arrow-left-short fs-4"></i>
+                                                </button>
+                                                @* <button type="button" class="btn btn-success rounded-circle"
+                                                title="Inscribirse y finalizar el proceso"
+                                                onclick="guardar()"><i class="bi bi-check2 fs-4"></i>
+                                                </button> *@
+                                                <button type="button" class="btn btn-success rounded-2"
+                                                    title="Inscribirse y finalizar el proceso" onclick="guardar()"
+                                                    id="btnFinalizar" hidden>Finalizar<i class="bi-check-lg ms-2"></i>
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row mx-lg-2 pt-2" style="margin-bottom: 37px;">
-                                    <div class="col-sm-6">
-                                        <label class="text-primary fw-bold">
-                                            Especialidad
-                                            <small class="text-danger">*</small>
-                                        </label>
-                                        <input type="text" class="form-control form-control-sm"
-                                            placeholder="Especialidad">
-                                        <div class="invalid-feedback">
-                                            * Campo requerido
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <label class="text-primary fw-bold">
-                                            Ciudad
-                                            <small class="text-danger">*</small>
-                                        </label>
-                                        <input type="text" class="form-control form-control-sm" placeholder="Ciudad">
-                                        <div class="invalid-feedback">
-                                            * Campo requerido
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="row mx-lg-2 pt-2">
-                                    <div class="col-sm-8">
-                                        <label class="text-primary fw-bold">
-                                            ¿Por qué medio encontraste nuestro sitio web?
-                                            <small class="text-danger">*</small>
-                                        </label>
-                                        <input type="text" class="form-control form-control-sm"
-                                            placeholder="Medio de contacto">
-                                        <div class="invalid-feedback">
-                                            * Campo requerido
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row mt-4">
-                                    <div class="col-sm-12 text-end">
-                                        <button type="button" class="btn btn-primary rounded-circle"
-                                            onclick="tabPersonales.click()">
-                                            <i class="bi bi-arrow-left-short fs-4"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-primary rounded-circle"
-                                            onclick="siguiente(1)">
-                                            <i class="bi bi-arrow-right-short fs-4"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="tab-pane fade" id="inscripcion" role="tabpanel"
-                                aria-labelledby="pills-contact-tab">
-                                <div class="row mx-lg-2 ">
-                                    <div class="col-sm-6">
-                                        <label class="text-primary fw-bold">
-                                            ¿Que deseas estudiar?
-                                            <small class="text-danger">*</small>
-                                        </label>
-                                        <select class="form-select form-select-sm" onchange="comboSecciones()"
-                                            name="idCarrera" id="idCarrera">
-                                            <option value="">Selecciona</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="row mx-lg-2 pt-2">
-                                    <div class="col-sm-6">
-                                        <label class="text-primary fw-bold">
-                                            ¿En que sección?
-                                            <small class="text-danger">*</small>
-                                        </label>
-                                        <select class="form-select form-select-sm" onchange="comboPeriodos()"
-                                            name="idSeccion" id="idSeccion">
-                                            <option value="">Selecciona una carrera</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="row mx-lg-2 pt-2">
-                                    <div class="col-sm-10">
-                                        <label class="text-primary fw-bold">
-                                            ¿Cúando deseas empezar?
-                                            <small class="text-danger">*</small>
-                                        </label>
-                                        <select class="form-select form-select-sm" name="idPeriodo" id="idPeriodo">
-                                            <option value="">Selecciona una sección</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="row mt-4">
-                                    <div class="col-sm-12 text-end">
-                                        <button type="button" class="btn btn-primary rounded-circle"
-                                            onclick="tabAcademicos.click()">
-                                            <i class="bi bi-arrow-left-short fs-4"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-success rounded-circle"
-                                            title="Inscribirse y finalizar el proceso"
-                                            onclick="guardar()"><i class="bi bi-check2 fs-4"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
+                            </form>
                         </div>
-                    </form>
+                    </div>
                 </div>
+
             </div>
         </div>
     </div>
-    <!-- Callback End -->
+    <!-- Carousel End -->
+    @* <!-- Callback Start -->
+    <div class="container-fluid callback pt-lg-2 pt-md-2 pt-xl-2 pt-sm-2 " id="formulario">
+
+    </div>
+    <!-- Callback End --> *@
     <!-- Footer Start -->
     <div class="container-fluid bg-primary text-light footer py-5 wow fadeIn" data-wow-delay="0.1s">
         <div class="container py-2">
@@ -502,6 +581,30 @@
     <!-- <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i
             class="bi bi-arrow-up"></i></a> -->
     <!-- JavaScript Libraries -->
+    <div class="modal" tabindex="-1" id="modalEspere">
+        <div class="modal-dialog modal-sm modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body text-center" style="min-height: 190px;">
+                    <div class="row">
+                        <div class='col-sm-12'>
+                            <img src="~/templateInscripciones/img/logo.png" width="127" alt="">
+                        </div>
+                        <div class='col-sm-12' style='padding-top:19px;padding-bottom:19px'>
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-12" style='font-size:11px;color:black'>
+                            Espere por favor estamos procesando su solicitud...
+                        </div>
+                        <div class='col-sm-12 mt-1' style='font-size:11px;color:red'>
+                            <i class='bi-exclamation-triangle-fill me-2'></i>No cierre la ventana ni cancele el proceso
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>

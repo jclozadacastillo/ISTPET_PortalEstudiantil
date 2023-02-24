@@ -232,7 +232,9 @@ h6,
     background: linear-gradient(rgba(31, 41, 91, .95), rgba(31, 41, 91, .95)), url(../img/bg.png);
 }
 
-
+.modal.show{
+    background-color: rgba(31, 41, 91,0.73) !important;
+}
 /*** Callback ***/
 .callback {
     position: relative;
@@ -599,6 +601,10 @@ h6,
         padding-left: 19px !important;
         padding-right: 19px !important;
     }
+
+    .mt-109-lg {
+        margin-top: 19px !important;
+    }
 }
 
 
@@ -694,8 +700,8 @@ h6,
     content: '';
     display: block;
     position: absolute;
-    top: 7px;
-    left: 7px;
+    top: 5.7px;
+    left: 6.8px;
     width: 4px;
     height: 7px;
     border: solid white;
@@ -712,7 +718,7 @@ h6,
 }
 
 #frmDatos label {
-    margin-bottom: 3px;
+    margin-bottom: 2px;
     font-size: 13px !important;
 }
 
@@ -720,14 +726,103 @@ h6,
     font-size: 11px !important;
 }
 
-#formulario button.nav-link{
+#formulario button.nav-link {
     font-size: 13px !important;
 }
 
-.pt-28{
+.pt-28 {
     padding-top: 25vh;
 }
 
-.fs-7{
+.fs-7 {
     font-size: 7px;
+}
+
+.fs-12 {
+    font-size: 12px;
+}
+
+#navbar-fixed.bg-white {
+    background: rgba(255, 255, 255, 0.4) !important;
+    /* border-radius: 16px; */
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) o !important;
+    /* border: 1px solid rgba(255, 255, 255, 0.4) !important; */
+    border: none !important;
+}
+
+#navbar-fixed.bg-white .dropdown-menu {
+    background-color: rgba(253, 253, 253, 0.9) !important;
+    border-color: rgba(253, 253, 253, 0.9) !important;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1) !important;
+
+    @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+        -webkit-backdrop-filter: blur(10px) !important;
+        backdrop-filter: blur(10px) !important;
+        background-color: rgba(253, 253, 253, 0.9) !important;
+    }
+}
+
+#navbar-fixed.bg-white .dropdown-menu a:hover {
+    background-color: rgba(31, 41, 91, 0.1) !important;
+    color: #1F295B !important;
+
+}
+
+#navbar-fixed .dropdown-menu a:hover {
+    background-color: rgba(31, 41, 91, 0.1) !important;
+    color: #1F295B !important;
+
+}
+
+#navbar-fixed .dropdown-menu {
+    border-color: rgba(253, 253, 253, 0.9) !important;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1) !important;
+}
+
+body:has(div.advice)>#navbar-fixed {
+    background: rgba(255, 255, 255, 0.9) !important;
+    /* border-radius: 16px; */
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) o !important;
+    /* border: 1px solid rgba(255, 255, 255, 0.4) !important; */
+    border: none !important;
+}
+
+.crystal {
+    background: rgba(255, 255, 255, 0.46) !important;
+    /* border-radius: 16px; */
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) o !important;
+    border: 1px solid rgba(255, 255, 255, 0.73) !important;
+}
+
+.advice .crystal {
+    background: rgba(255, 255, 255, 0.91) !important;
+    /* border-radius: 16px; */
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) o !important;
+    border: 3px solid #1CC879 !important;
+}
+
+
+.advice .crystal>div i.bi-check-circle.text-success {
+    color: #1CC879 !important;
+}
+
+.rounded-2 {
+    border-radius: 20px !important;
+    padding: 12px 25px 12px 25px;
+}
+
+.mt-109-lg {
+    margin-top: 100.9px;
+}
+
+.text-uppercase-input * input,select{
+    text-transform: uppercase !important;
 }

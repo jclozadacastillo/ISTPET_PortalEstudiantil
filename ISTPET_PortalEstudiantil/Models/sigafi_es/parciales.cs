@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 
-#nullable disable
+namespace ISTPET_PortalEstudiantil.Models.sigafi_es;
 
-namespace ISTPET_PortalEstudiantil.Models.sigafi_es
+public partial class parciales
 {
-    public partial class parciales
-    {
-        public int idParcial { get; set; }
-        public string Parcial { get; set; }
-        public DateTime? fecha_inicio { get; set; }
-        public DateTime? fecha_final { get; set; }
-    }
+    public int idParcial { get; set; }
+
+    public string? Parcial { get; set; }
+
+    public DateTime? fecha_inicio { get; set; }
+
+    public DateTime? fecha_final { get; set; }
 }

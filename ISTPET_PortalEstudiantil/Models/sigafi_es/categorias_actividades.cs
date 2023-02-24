@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 
-#nullable disable
+namespace ISTPET_PortalEstudiantil.Models.sigafi_es;
 
-namespace ISTPET_PortalEstudiantil.Models.sigafi_es
+public partial class categorias_actividades
 {
-    public partial class categorias_actividades
-    {
-        public int idCategoria { get; set; }
-        public string categoria { get; set; }
-        public byte? esDocencia { get; set; }
-        public byte? activa { get; set; }
-    }
+    public int idCategoria { get; set; }
+
+    public string categoria { get; set; } = null!;
+
+    public sbyte? esDocencia { get; set; }
+
+    public sbyte? activa { get; set; }
 }

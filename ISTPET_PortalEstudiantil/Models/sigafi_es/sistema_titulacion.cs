@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace ISTPET_PortalEstudiantil.Models.sigafi_es;
 
-public partial class tiposdocumentosi
+public partial class sistema_titulacion
 {
-    public string tipoDocumento { get; set; } = null!;
+    public int codigo_sistema { get; set; }
 
-    public string? documento { get; set; }
+    public string? detalle { get; set; }
 
     public sbyte? activo { get; set; }
 }
