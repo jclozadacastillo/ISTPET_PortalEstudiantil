@@ -15,6 +15,8 @@ public partial class detalle_pagos
 
     public int? idCredito { get; set; }
 
+    public sbyte? migradoContabilidad { get; set; }
+
     public virtual especies idEspecieNavigation { get; set; } = null!;
 
     public virtual pagos idPagoNavigation { get; set; } = null!;

@@ -823,6 +823,6 @@ body:has(div.advice)>#navbar-fixed {
     margin-top: 100.9px;
 }
 
-.text-uppercase-input * input,select{
+.text-uppercase-input * input:not([data-validate="email"]), select {
     text-transform: uppercase !important;
 }

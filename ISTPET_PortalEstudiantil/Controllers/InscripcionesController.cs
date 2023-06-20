@@ -327,9 +327,9 @@ namespace ISTPET_PortalEstudiantil.Controllers
                     sql = $@"
                     INSERT INTO alumnos
                     (idAlumno, tipoDocumento, apellidoPaterno, apellidoMaterno, primerNombre, segundoNombre, fecha_Nacimiento, 
-                    telefono, celular, email, sexo, fecha_Inscripcion,idInstitucion,tituloColegio)
+                    telefono, celular, email, sexo, fecha_Inscripcion,idInstitucion,tituloColegio,password)
                     VALUES(@idAlumno, @tipoDocumento, @apellidoPaterno, @apellidoMaterno, @primerNombre, @segundoNombre, @fecha_Inscripcion, 
-                    @telefono, @celular, @email, @sexo, current_date,@idInstitucion,@tituloColegio);
+                    @telefono, @celular, @email, @sexo, current_date,@idInstitucion,@tituloColegio,@idAlumno);
                     ";
                     novedades += "Bienvenido a ISTPET.</br>";
                 }
@@ -387,7 +387,7 @@ namespace ISTPET_PortalEstudiantil.Controllers
                 var datosInscripcion = dapper.QueryFirstOrDefault(sql, _inscripcion);
                 var path = Path.Combine(_webHostEnvironment.WebRootPath, "correos", "confirmacion.html");
                 StringBuilder emailHtml = new StringBuilder(System.IO.File.ReadAllText(path));
-                emailHtml.Replace("@urlSistema", $"{host()}Inscripciones/Confirmacion/?id={_inscripcion.idInscripcion}&dni={_datos.idAlumno}&e={_datos.email}");
+                emailHtml.Replace("@urlSistema", $"https://servicios.istpet.edu.ec/appEstudiantes/Inscripciones/Confirmacion/?id={_inscripcion.idInscripcion}&dni={_datos.idAlumno}&e={_datos.email}");
                 emailHtml.Replace("@alumno", datosInscripcion.alumno);
                 emailHtml.Replace("@carrera ", datosInscripcion.carrera);
                 emailHtml.Replace("@periodo", datosInscripcion.periodo);

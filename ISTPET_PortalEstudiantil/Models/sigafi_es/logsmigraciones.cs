@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 
-#nullable disable
+namespace ISTPET_PortalEstudiantil.Models.sigafi_es;
 
-namespace ISTPET_PortalEstudiantil.Models.sigafi_es
+public partial class logsmigraciones
 {
-    public partial class logsmigraciones
-    {
-        public int idLogMigracion { get; set; }
-        public string status { get; set; }
-        public DateTime? fecha { get; set; }
-    }
+    public int idLog { get; set; }
+
+    public string? status { get; set; }
+
+    public DateTime? fecha { get; set; }
 }

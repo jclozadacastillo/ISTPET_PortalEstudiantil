@@ -127,6 +127,8 @@ public partial class sigafi_esContext : DbContext
 
     public virtual DbSet<instituciones> instituciones { get; set; }
 
+    public virtual DbSet<logsmigraciones> logsmigraciones { get; set; }
+
     public virtual DbSet<mallas> mallas { get; set; }
 
     public virtual DbSet<mallas_periodos> mallas_periodos { get; set; }
@@ -182,8 +184,7 @@ public partial class sigafi_esContext : DbContext
     public virtual DbSet<vehiculos> vehiculos { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseMySQL("server=localhost;user=root;password=123;database=sigafi_es;SslMode=none");
+        => optionsBuilder.UseMySQL("name=sigafi_es");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -604,6 +605,7 @@ public partial class sigafi_esContext : DbContext
             entity.HasKey(e => e.idCarrera).HasName("PRIMARY");
 
             entity.Property(e => e.Carrera).HasMaxLength(100);
+            entity.Property(e => e.aliasCarrera).HasMaxLength(5);
             entity.Property(e => e.codigo_cases).HasMaxLength(20);
             entity.Property(e => e.directorCarrera).HasMaxLength(100);
             entity.Property(e => e.fechaCreacion).HasColumnType("date");
@@ -717,8 +719,10 @@ public partial class sigafi_esContext : DbContext
             entity.Property(e => e.beca).HasPrecision(8);
             entity.Property(e => e.credito_inicial).HasPrecision(8);
             entity.Property(e => e.idCredito).ValueGeneratedOnAdd();
+            entity.Property(e => e.idDeudaApi).HasMaxLength(50);
             entity.Property(e => e.saldo).HasPrecision(8);
             entity.Property(e => e.saldo_beca).HasPrecision(8);
+            entity.Property(e => e.valorDetallePago).HasPrecision(7);
             entity.Property(e => e.valor_cuotas).HasPrecision(8);
         });
 
@@ -737,6 +741,7 @@ public partial class sigafi_esContext : DbContext
             entity.HasIndex(e => e.idCarrera, "R_5");
 
             entity.Property(e => e.Nivel).HasMaxLength(20);
+            entity.Property(e => e.aliasCurso).HasMaxLength(5);
             entity.Property(e => e.esRecuperacion).HasDefaultValueSql("'0'");
 
             entity.HasOne(d => d.idCarreraNavigation).WithMany(p => p.cursos)
@@ -752,6 +757,7 @@ public partial class sigafi_esContext : DbContext
             entity.HasIndex(e => e.idEspecie, "R_36");
 
             entity.Property(e => e.descuento).HasPrecision(8);
+            entity.Property(e => e.migradoContabilidad).HasDefaultValueSql("'0'");
             entity.Property(e => e.valor).HasPrecision(8);
 
             entity.HasOne(d => d.idEspecieNavigation).WithMany(p => p.detalle_pagos)
@@ -968,6 +974,16 @@ public partial class sigafi_esContext : DbContext
             entity.Property(e => e.provincia).HasMaxLength(100);
         });
 
+        modelBuilder.Entity<logsmigraciones>(entity =>
+        {
+            entity.HasKey(e => e.idLog).HasName("PRIMARY");
+
+            entity.Property(e => e.fecha)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnType("datetime");
+            entity.Property(e => e.status).HasMaxLength(500);
+        });
+
         modelBuilder.Entity<mallas>(entity =>
         {
             entity.HasKey(e => e.idMalla).HasName("PRIMARY");
@@ -1084,9 +1100,7 @@ public partial class sigafi_esContext : DbContext
         {
             entity.HasKey(e => e.idMedio).HasName("PRIMARY");
 
-            entity.Property(e => e.activo)
-                .HasDefaultValueSql("b'1'")
-                .HasColumnType("bit(1)");
+            entity.Property(e => e.activo).HasDefaultValueSql("'1'");
             entity.Property(e => e.medio).HasMaxLength(100);
         });
 
@@ -1163,9 +1177,7 @@ public partial class sigafi_esContext : DbContext
             entity.HasKey(e => e.idPeriodoInscripcion).HasName("PRIMARY");
 
             entity.Property(e => e.activo).HasDefaultValueSql("'1'");
-            entity.Property(e => e.conduccion)
-                .HasDefaultValueSql("b'0'")
-                .HasColumnType("bit(1)");
+            entity.Property(e => e.conduccion).HasDefaultValueSql("'0'");
             entity.Property(e => e.fechaFinal).HasColumnType("date");
             entity.Property(e => e.fechaInicio).HasColumnType("date");
             entity.Property(e => e.fechaRegistro)

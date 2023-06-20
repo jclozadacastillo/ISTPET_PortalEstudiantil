@@ -1,7 +1,7 @@
 ﻿const baseUrl = `${_route}Inscripciones/`;
 const espere = new bootstrap.Modal(modalEspere, {
-    keyboard:false,
-    backdrop:false
+    keyboard: false,
+    backdrop: false
 })
 window.addEventListener("load", () => {
     setTimeout(() => {
@@ -9,28 +9,28 @@ window.addEventListener("load", () => {
     }, 109);
     activarValidadores(frmDatos);
     comboMedios();
-    comboProvincias();
+    //comboProvincias();
 });
 
 function terminos() {
-    btnFinalizar.hidden=!btnFinalizar.hidden;
+    btnFinalizar.hidden = !btnFinalizar.hidden;
 }
 
 async function siguiente(_from) {
     try {
         if (_from == 0) {
-            divAcademicos.hidden = true;
+            //divAcademicos.hidden = true;
             divInscripcion.hidden = true;
             if (!await validarTodo(personales)) throw new Error("Verifique los campos requeridos");
-            if(confir.value!=email.value) throw new Error("Los correos electrónicos no coinciden");
-            if (await validarTodo(academicos)) divInscripcion.hidden = false;
-            limpiarValidadoresForm(academicos);
-            tabAcademicos.click();
-            divAcademicos.hidden = false;
+            if (confir.value != email.value) throw new Error("Los correos electrónicos no coinciden");
+            //if (await validarTodo(academicos)) divInscripcion.hidden = false;
+            //limpiarValidadoresForm(academicos);
+            //tabAcademicos.click();
+            //divAcademicos.hidden = false;
         }
-        if (_from == 1) {
+        if (_from == 2) {
             divInscripcion.hidden = true;
-            if (!await validarTodo(academicos)) throw new Error("Verifique los campos requeridos");
+            if (!await validarTodo(personales)) throw new Error("Verifique los campos requeridos");
             tabInscripcion.click();
             divInscripcion.hidden = false;
         }
@@ -49,18 +49,17 @@ async function cambiarTipoDocumento() {
         validarVacio(idAlumno);
     }
     activarValidadores(personales);
-
 }
 
 async function comboCarreras() {
     try {
         const url = `${baseUrl}comboCarreras`;
-        const data=new FormData(frmDatos);
-        const res = (await axios.post(url,data)).data;
+        const data = new FormData(frmDatos);
+        const res = (await axios.post(url, data)).data;
         if (!!res.error) throw new Error(res.error);
         let html = `<option value=''>Selecciona</option>`;
         res.forEach(item => {
-            html += `<option value="${item.idNivel}">${conduccion.value=='true'?item.nivel:item.Carrera}</option>`;
+            html += `<option value="${item.idNivel}">${conduccion.value == 'true' ? item.nivel : item.Carrera}</option>`;
         });
         idNivel.innerHTML = html;
     } catch (e) {
@@ -83,16 +82,15 @@ async function comboProvincias() {
     }
 }
 
-
 async function comboCiudades() {
     try {
-        if(provincia.value==""){
+        if (provincia.value == "") {
             ciudad.innerHTML = `<option value=''>Selecciona una provincia</option>`;
             return;
         }
         const url = `${baseUrl}comboCiudades`;
-        const data=new FormData(frmDatos);
-        const res = (await axios.post(url,data)).data;
+        const data = new FormData(frmDatos);
+        const res = (await axios.post(url, data)).data;
         if (!!res.error) throw new Error(res.error);
         let html = `<option value=''>Selecciona</option>`;
         res.forEach(item => {
@@ -104,16 +102,15 @@ async function comboCiudades() {
     }
 }
 
-
 async function comboInstituciones() {
     try {
-        if(ciudad.value==""){
+        if (ciudad.value == "") {
             idInstitucion.innerHTML = `<option value=''>Selecciona una ciudad</option>`;
             return;
         }
         const url = `${baseUrl}comboInstituciones`;
-        const data=new FormData(frmDatos);
-        const res = (await axios.post(url,data)).data;
+        const data = new FormData(frmDatos);
+        const res = (await axios.post(url, data)).data;
         if (!!res.error) throw new Error(res.error);
         let html = `<option value=''>Selecciona</option>`;
         res.forEach(item => {
@@ -124,7 +121,6 @@ async function comboInstituciones() {
         toastError(`${e.message}`);
     }
 }
-
 
 async function comboMedios() {
     try {
@@ -144,12 +140,12 @@ async function comboMedios() {
 async function comboSecciones() {
     try {
         if (idNivel.value == "") {
-            divSeccion.hidden=true;
-            divModalidad.hidden=true;
-            divPeriodo.hidden=true;
-            divTerminos.hidden=true;
-            politicas.checked=false
-            btnFinalizar.hidden=true;
+            divSeccion.hidden = true;
+            divModalidad.hidden = true;
+            divPeriodo.hidden = true;
+            divTerminos.hidden = true;
+            politicas.checked = false
+            btnFinalizar.hidden = true;
             idSeccion.innerHTML = "<option value=''>Selecciona</option>";
             return;
         }
@@ -162,22 +158,21 @@ async function comboSecciones() {
             html += `<option value="${item.idSeccion}">${item.seccion}</option>`;
         });
         idSeccion.innerHTML = html;
-        divSeccion.hidden=false;
-        divModalidad.hidden=true;
+        divSeccion.hidden = false;
+        divModalidad.hidden = true;
     } catch (e) {
         toastError(`${e.message}`);
     }
 }
 
-
 async function comboModalidades() {
     try {
         if (idSeccion.value == "") {
-            divModalidad.hidden=true;
-            divPeriodo.hidden=true;
-            divTerminos.hidden=true;
-            politicas.checked=false
-            btnFinalizar.hidden=true;
+            divModalidad.hidden = true;
+            divPeriodo.hidden = true;
+            divTerminos.hidden = true;
+            politicas.checked = false
+            btnFinalizar.hidden = true;
             idModalidad.innerHTML = "<option value=''>Selecciona</option>";
             return;
         }
@@ -191,20 +186,19 @@ async function comboModalidades() {
             html += `<option value="${item.idModalidad}">${item.modalidad}</option>`;
         });
         idModalidad.innerHTML = html;
-        divModalidad.hidden=false;
+        divModalidad.hidden = false;
     } catch (e) {
         toastError(`${e.message}`);
     }
 }
 
-
 async function comboPeriodos() {
     try {
         if (idModalidad.value == "") {
-            divPeriodo.hidden=true;
-            divTerminos.hidden=true;
-            politicas.checked=false
-            btnFinalizar.hidden=true;
+            divPeriodo.hidden = true;
+            divTerminos.hidden = true;
+            politicas.checked = false
+            btnFinalizar.hidden = true;
             idPeriodo.innerHTML = "<option value=''>Selecciona una modalidad</option>";
             return;
         }
@@ -218,7 +212,7 @@ async function comboPeriodos() {
             const fecha = moment(item.fecha_inicial).format("LLLL").split("0:00")[0];
             html += `<option value="${item.idPeriodo}">${fecha.toUpperCase()} PERIODO: ${item.detalle}</option>`;
         });
-        divPeriodo.hidden=false;
+        divPeriodo.hidden = false;
         idPeriodo.innerHTML = html;
     } catch (e) {
         toastError(`${e.message}`);
@@ -228,15 +222,17 @@ async function comboPeriodos() {
 async function guardar() {
     try {
         if (!await validarTodo(frmDatos)) throw new Error("Verifique todos los campos requeridos");
-        if(confir.value!=email.value) throw new Error("Los correos electrónicos no coinciden");
-        frmDatos.querySelectorAll("input").forEach(item=>{
-           item.value=item.value.toUpperCase(); 
+        if (confir.value.toString().toLowerCase() != email.value.toString().toLowerCase()) throw new Error("Los correos electrónicos no coinciden");
+        frmDatos.querySelectorAll("input").forEach(item => {
+            if (!(item.dataset.validate == "email")) {
+                item.value = item.value.toUpperCase();
+            }
         });
-        const url=`${baseUrl}guardar`;
-        const data=new FormData(frmDatos);
+        const url = `${baseUrl}guardar`;
+        const data = new FormData(frmDatos);
         espere.show();
-        const res=(await axios.post(url,data)).data;
-        if(!!res.error) throw new Error(res.error);
+        const res = (await axios.post(url, data)).data;
+        if (!!res.error) throw new Error(res.error);
         formulario.classList.remove(...formulario.classList);
         formulario.classList.add("container-fluid");
         formulario.innerHTML = `
@@ -260,30 +256,29 @@ async function guardar() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (e) {
         toastError(`${e.message}`);
-    }finally{
-        setTimeout(()=>{espere.hide()},109);
+        console.error(`${e.message}`);
+    } finally {
+        setTimeout(() => { espere.hide() }, 109);
     }
 }
 
-function personalizarCombos(){
-    
-    if(conduccion.value==""){
-        divNivel.hidden=true;
-        divSeccion.hidden=true;
-        divModalidad.hidden=true;
-        divPeriodo.hidden=true;
-        divTerminos.hidden=true;
+function personalizarCombos() {
+    if (conduccion.value == "") {
+        divNivel.hidden = true;
+        divSeccion.hidden = true;
+        divModalidad.hidden = true;
+        divPeriodo.hidden = true;
+        divTerminos.hidden = true;
         return;
     }
-    labelNivel.innerText=conduccion.value=="true"?"¿Qué tipo de licencia?":"¿Qué carrera?";
-    divNivel.hidden=false;
+    labelNivel.innerText = conduccion.value == "true" ? "¿Qué tipo de licencia?" : "¿Qué carrera?";
+    divNivel.hidden = false;
 }
 
-function verTerminos(){
-    divTerminos.hidden=idPeriodo.value=="";
-    if(idPeriodo.value==""){
-        politicas.checked=false
-        btnFinalizar.hidden=true;
+function verTerminos() {
+    divTerminos.hidden = idPeriodo.value == "";
+    if (idPeriodo.value == "") {
+        politicas.checked = false
+        btnFinalizar.hidden = true;
     };
-
 }

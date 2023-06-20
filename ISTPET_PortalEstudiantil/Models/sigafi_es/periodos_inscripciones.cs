@@ -23,5 +23,5 @@ public partial class periodos_inscripciones
 
     public sbyte? activo { get; set; }
 
-    public ulong? conduccion { get; set; }
+    public sbyte? conduccion { get; set; }
 }

@@ -1,1 +1,2 @@
-﻿Scaffold-DbContext "server=localhost;user=root;password=123;database=sigafi_es;SslMode=none" MySql.EntityFrameworkCore -OutputDir Models/sigafi_es -f -UseDatabaseNames -NoPluralize -Context sigafi_esContext
+﻿Scaffold-DbContext name=sigafi_es MySql.EntityFrameworkCore -OutputDir  Models/sigafi_es -f -UseDatabaseNames -NoPluralize -Context sigafi_esContext
+Scaffold-DbContext name=sigafi_es MySql.EntityFrameworkCore -OutputDir Models/sigafi_es -UseDatabaseNames -NoPluralize -Context sigafi_esContext

@@ -18,11 +18,12 @@
     <script defer src="~/template/js/core/popper.min.js"></script>
     <script defer src="~/template/js/core/bootstrap.min.js"></script>
     <script defer src="~/utilities/axios/axios.min.js@_version"></script>
-    <script defer src="~/js/router.js@_version"></script>
+    <script>const _route = top.location.href.toLowerCase().indexOf("localhost:") >= 0 ? "../../" : "../../../appEstudiantes/"</script>
     <script defer src="~/utilities/toast/sweetalert2.all.min.js"></script>
     <script defer src="~/utilities/toast/siiimple-toast.min.js"></script>
     <script defer src="~/utilities/toast/toast.js@_version"></script>
     <script defer>var _token = `@(Html.AntiForgeryToken())`;</script>
+    <script defer src="~/js/token.js"></script>
     <script defer src="~/utilities/forms.js@_version"></script>
     <script defer src="~/template/js/material-dashboard.js?v=3.0.2"></script>
     <script defer src="~/js/siteLayout.js@_version"></script>

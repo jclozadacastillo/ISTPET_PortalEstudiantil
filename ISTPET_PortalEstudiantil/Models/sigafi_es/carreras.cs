@@ -25,6 +25,8 @@ public partial class carreras
 
     public string? codigo_cases { get; set; }
 
+    public string? aliasCarrera { get; set; }
+
     public virtual ICollection<cursos> cursos { get; } = new List<cursos>();
 
     public virtual ICollection<mallas> mallas { get; } = new List<mallas>();

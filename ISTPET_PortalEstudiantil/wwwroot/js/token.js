@@ -1,4 +1,4 @@
-﻿const _route = { pruebas: "../../", produccion: "../../../PortalEstudiantil/" }.pruebas;
+﻿//const _route = { pruebas: "../../", produccion: "../../../PortalEstudiantil/" }.pruebas;
 function _getToken() {
     const el = document.createElement("div");
     el.innerHTML = _token;

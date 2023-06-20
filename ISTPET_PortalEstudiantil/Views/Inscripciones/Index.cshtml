@@ -1,7 +1,7 @@
 ﻿@{
     Layout = null;
     var _v = $"?v={@DateTime.Now.Ticks}";
-    string _rotue = Context.Request.Host.ToString().Contains("localhost") ? "../../" : "../../../appLaboratorios/";
+    string _rotue = Context.Request.Host.ToString().Contains("localhost:") ? "../../" : "../../../appEstudiantes/";
 }
 
 <!DOCTYPE html>
@@ -28,7 +28,7 @@
     <script defer src="~/utilities/axios/axios.min.js"></script>
     <script defer src="~/utilities/jquery-3.6.0.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>const _route = `@_rotue`</script>
+    <script>const _route = top.location.href.toLowerCase().indexOf("localhost:") >= 0 ? "../../" : "../../../appEstudiantes/"</script>
     <script defer src="~/utilities/moment-with-locales.js"></script>
     <script defer src="~/templateInscripciones/lib/wow/wow.min.js"></script>
     <script defer src="~/templateInscripciones/lib/easing/easing.min.js"></script>
@@ -265,7 +265,7 @@
                                                     <small class="text-danger">*</small>
                                                 </label>
                                                 <input type="text" class="form-control form-control-sm" maxlength="40"
-                                                    data-validate="email" placeholder="Correo electrónico" id="email"
+                                                    data-validate="email" placeholder="CORREO ELECTRÓNICO" id="email"
                                                     name="email">
                                                 <div class="invalid-feedback">
                                                     * Campo requerido
@@ -277,16 +277,30 @@
                                                     <small class="text-danger">*</small>
                                                 </label>
                                                 <input type="text" class="form-control form-control-sm" maxlength="40"
-                                                    data-validate="email" placeholder="Confirmar correo electrónico"
+                                                       data-validate="email" placeholder="CONFIRMAR CORREO ELECTRÓNICO"
                                                     id="confir" name="confir">
                                                 <div class="invalid-feedback">
                                                     * Campo requerido
                                                 </div>
                                             </div>
+                           
+                                                <div class="col-sm-8">
+                                                    <label class="text-primary fw-bold">
+                                                        ¿Por qué medio encontraste nuestro sitio web?
+                                                        <small class="text-danger">*</small>
+                                                    </label>
+                                                    <select class="form-select form-select-sm" name="idMedio" id="idMedio">
+                                                        <option value="">Selecciona</option>
+                                                    </select>
+                                                    <div class="invalid-feedback">
+                                                        * Campo requerido
+                                                    </div>
+                                     
+                                            </div>
                                             <div class="row mt-4">
                                                 <div class="col-sm-12 text-end">
                                                     <button type="button" class="btn btn-primary rounded-circle"
-                                                        onclick="siguiente(0)">
+                                                        onclick="siguiente(2)">
                                                         <i class="bi bi-arrow-right-short fs-4"></i>
                                                     </button>
                                                 </div>
@@ -305,7 +319,7 @@
                                     </div> -->
                                         </div>
                                     </div>
-                                    <div class="tab-pane fade" id="academicos" role="tabpanel"
+                                    <!--<div class="tab-pane fade" id="academicos" role="tabpanel"
                                         aria-labelledby="pills-profile-tab">
                                         <div class="row mx-lg-2 pt-2" style="margin-bottom: 37px;">
                                             <div class="col-sm-6">
@@ -357,20 +371,7 @@
                                             </div>
                                         </div>
                                         <hr>
-                                        <div class="row mx-lg-2 pt-2">
-                                            <div class="col-sm-8">
-                                                <label class="text-primary fw-bold">
-                                                    ¿Por qué medio encontraste nuestro sitio web?
-                                                    <small class="text-danger">*</small>
-                                                </label>
-                                                <select class="form-select form-select-sm" name="idMedio" id="idMedio">
-                                                    <option value="">Selecciona</option>
-                                                </select>
-                                                <div class="invalid-feedback">
-                                                    * Campo requerido
-                                                </div>
-                                            </div>
-                                        </div>
+
                                         <div class="row mt-4">
                                             <div class="col-sm-12 text-end">
                                                 <button type="button" class="btn btn-primary rounded-circle"
@@ -383,7 +384,7 @@
                                                 </button>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div>-->
                                     <div class="tab-pane fade" id="inscripcion" role="tabpanel"
                                         aria-labelledby="pills-contact-tab">
                                         <div class="row mx-lg-2 ">
@@ -496,7 +497,7 @@
                                         <div class="row mx-lg-2 mt-4">
                                             <div class="col-sm-12  text-end">
                                                 <button type="button" class="btn btn-primary rounded-circle"
-                                                    onclick="tabAcademicos.click()">
+                                                    onclick="tabPersonales.click()">
                                                     <i class="bi bi-arrow-left-short fs-4"></i>
                                                 </button>
                                                 @* <button type="button" class="btn btn-success rounded-circle"

@@ -17,6 +17,8 @@ public partial class cursos
 
     public sbyte? esRecuperacion { get; set; }
 
+    public string? aliasCurso { get; set; }
+
     public virtual ICollection<detallemallas> detallemallas { get; } = new List<detallemallas>();
 
     public virtual carreras idCarreraNavigation { get; set; } = null!;

@@ -16,6 +16,7 @@
     <link id="pagestyle" href="~/template/css/material-dashboard.css@_version" rel="stylesheet" />
     <link href="~/utilities/toast/style.css@_version" rel="stylesheet" />
     @*Scripts*@
+    <script>const _route = top.location.href.toLowerCase().indexOf("localhost:") >= 0 ? "../../" : "../../../appEstudiantes/"</script>
     <script defer src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
     <script defer src="~/template/js/core/popper.min.js"></script>
     <script defer src="~/template/js/core/bootstrap.min.js"></script>
@@ -24,7 +25,7 @@
     <script defer src="~/utilities/toast/siiimple-toast.min.js"></script>
     <script defer src="~/utilities/toast/toast.js@_version"></script>
     <script defer>var _token = `@(Html.AntiForgeryToken())`;</script>
-    <script defer src="~/js/router.js@_version"></script>
+    <script defer src="~/js/token.js"></script>
     <script defer src="~/utilities/forms.js@_version"></script>
     <script defer src="~/js/siteLogin.js@_version"></script>
 </head>

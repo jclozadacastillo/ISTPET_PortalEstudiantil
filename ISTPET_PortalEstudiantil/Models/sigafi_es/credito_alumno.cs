@@ -22,4 +22,8 @@ public partial class credito_alumno
     public decimal? valor_cuotas { get; set; }
 
     public int idCredito { get; set; }
+
+    public string? idDeudaApi { get; set; }
+
+    public decimal? valorDetallePago { get; set; }
 }
