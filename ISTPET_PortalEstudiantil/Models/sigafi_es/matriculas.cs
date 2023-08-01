@@ -49,7 +49,7 @@ public partial class matriculas
 
     public string? documentoFactura { get; set; }
 
-    public virtual ICollection<calificaciones> calificaciones { get; } = new List<calificaciones>();
+    public virtual ICollection<calificaciones> calificaciones { get; set; } = new List<calificaciones>();
 
     public virtual alumnos idAlumnoNavigation { get; set; } = null!;
 
@@ -60,4 +60,6 @@ public partial class matriculas
     public virtual periodos idPeriodoNavigation { get; set; } = null!;
 
     public virtual secciones idSeccionNavigation { get; set; } = null!;
+
+    public virtual ICollection<seddheteroevaluacion> seddheteroevaluacion { get; set; } = new List<seddheteroevaluacion>();
 }

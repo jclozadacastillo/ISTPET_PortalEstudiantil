@@ -29,5 +29,5 @@ public partial class detallemallas
 
     public virtual cursos idNivelNavigation { get; set; } = null!;
 
-    public virtual ICollection<prerequisitos> prerequisitos { get; } = new List<prerequisitos>();
+    public virtual ICollection<prerequisitos> prerequisitos { get; set; } = new List<prerequisitos>();
 }

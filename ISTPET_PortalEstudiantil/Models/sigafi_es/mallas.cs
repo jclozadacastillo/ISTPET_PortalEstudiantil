@@ -21,9 +21,9 @@ public partial class mallas
 
     public bool? activa { get; set; }
 
-    public virtual ICollection<cambiosmalla> cambiosmalla { get; } = new List<cambiosmalla>();
+    public virtual ICollection<cambiosmalla> cambiosmalla { get; set; } = new List<cambiosmalla>();
 
-    public virtual ICollection<detallemallas> detallemallas { get; } = new List<detallemallas>();
+    public virtual ICollection<detallemallas> detallemallas { get; set; } = new List<detallemallas>();
 
     public virtual carreras idCarreraNavigation { get; set; } = null!;
 }

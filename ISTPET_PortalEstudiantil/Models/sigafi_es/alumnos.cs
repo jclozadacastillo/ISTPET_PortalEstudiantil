@@ -89,5 +89,5 @@ public partial class alumnos
 
     public string? email_institucional { get; set; }
 
-    public virtual ICollection<matriculas> matriculas { get; } = new List<matriculas>();
+    public virtual ICollection<matriculas> matriculas { get; set; } = new List<matriculas>();
 }

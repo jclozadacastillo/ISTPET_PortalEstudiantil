@@ -42,4 +42,6 @@ public partial class profesores
     public sbyte? practicas { get; set; }
 
     public string? tipo { get; set; }
+
+    public string? foto { get; set; }
 }

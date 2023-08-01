@@ -149,6 +149,10 @@ public partial class sigafi_esContext : DbContext
 
     public virtual DbSet<parciales> parciales { get; set; }
 
+    public virtual DbSet<parciales_modalidades> parciales_modalidades { get; set; }
+
+    public virtual DbSet<parciales_modalidades_fechas> parciales_modalidades_fechas { get; set; }
+
     public virtual DbSet<periodos> periodos { get; set; }
 
     public virtual DbSet<periodos_inscripciones> periodos_inscripciones { get; set; }
@@ -168,6 +172,30 @@ public partial class sigafi_esContext : DbContext
     public virtual DbSet<restricciones> restricciones { get; set; }
 
     public virtual DbSet<secciones> secciones { get; set; }
+
+    public virtual DbSet<seddautoevaluacion> seddautoevaluacion { get; set; }
+
+    public virtual DbSet<seddautoridadesperiodos> seddautoridadesperiodos { get; set; }
+
+    public virtual DbSet<seddcoevaluacion> seddcoevaluacion { get; set; }
+
+    public virtual DbSet<sedddetalleautoevaluacion> sedddetalleautoevaluacion { get; set; }
+
+    public virtual DbSet<sedddetallecoevaluacion> sedddetallecoevaluacion { get; set; }
+
+    public virtual DbSet<sedddetalleevaluacionautoridad> sedddetalleevaluacionautoridad { get; set; }
+
+    public virtual DbSet<sedddetalleheteroevaluacion> sedddetalleheteroevaluacion { get; set; }
+
+    public virtual DbSet<seddevaluacionautoridad> seddevaluacionautoridad { get; set; }
+
+    public virtual DbSet<seddheteroevaluacion> seddheteroevaluacion { get; set; }
+
+    public virtual DbSet<seddinstrumentos> seddinstrumentos { get; set; }
+
+    public virtual DbSet<seddinstrumentospreguntas> seddinstrumentospreguntas { get; set; }
+
+    public virtual DbSet<seddpreguntas> seddpreguntas { get; set; }
 
     public virtual DbSet<sistema_titulacion> sistema_titulacion { get; set; }
 
@@ -625,8 +653,10 @@ public partial class sigafi_esContext : DbContext
             entity.HasKey(e => e.idCategoria).HasName("PRIMARY");
 
             entity.Property(e => e.activa).HasDefaultValueSql("'1'");
+            entity.Property(e => e.activo).HasDefaultValueSql("'1'");
             entity.Property(e => e.categoria).HasMaxLength(100);
             entity.Property(e => e.esDocencia).HasDefaultValueSql("'0'");
+            entity.Property(e => e.porcentaje).HasDefaultValueSql("'0'");
         });
 
         modelBuilder.Entity<categorias_examenes_conduccion>(entity =>
@@ -718,11 +748,14 @@ public partial class sigafi_esContext : DbContext
 
             entity.Property(e => e.beca).HasPrecision(8);
             entity.Property(e => e.credito_inicial).HasPrecision(8);
+            entity.Property(e => e.fechaMigracion)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnType("datetime");
             entity.Property(e => e.idCredito).ValueGeneratedOnAdd();
-            entity.Property(e => e.idDeudaApi).HasMaxLength(50);
+            entity.Property(e => e.idDeudaApi).HasMaxLength(150);
+            entity.Property(e => e.migradoContabilidad).HasDefaultValueSql("'0'");
             entity.Property(e => e.saldo).HasPrecision(8);
             entity.Property(e => e.saldo_beca).HasPrecision(8);
-            entity.Property(e => e.valorDetallePago).HasPrecision(7);
             entity.Property(e => e.valor_cuotas).HasPrecision(8);
         });
 
@@ -757,6 +790,9 @@ public partial class sigafi_esContext : DbContext
             entity.HasIndex(e => e.idEspecie, "R_36");
 
             entity.Property(e => e.descuento).HasPrecision(8);
+            entity.Property(e => e.fechaMigracion)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnType("datetime");
             entity.Property(e => e.migradoContabilidad).HasDefaultValueSql("'0'");
             entity.Property(e => e.valor).HasPrecision(8);
 
@@ -978,10 +1014,8 @@ public partial class sigafi_esContext : DbContext
         {
             entity.HasKey(e => e.idLog).HasName("PRIMARY");
 
-            entity.Property(e => e.fecha)
-                .HasDefaultValueSql("CURRENT_TIMESTAMP")
-                .HasColumnType("datetime");
-            entity.Property(e => e.status).HasMaxLength(500);
+            entity.Property(e => e.fecha).HasColumnType("datetime");
+            entity.Property(e => e.status).HasMaxLength(1000);
         });
 
         modelBuilder.Entity<mallas>(entity =>
@@ -1100,7 +1134,9 @@ public partial class sigafi_esContext : DbContext
         {
             entity.HasKey(e => e.idMedio).HasName("PRIMARY");
 
-            entity.Property(e => e.activo).HasDefaultValueSql("'1'");
+            entity.Property(e => e.activo)
+                .HasDefaultValueSql("b'1'")
+                .HasColumnType("bit(1)");
             entity.Property(e => e.medio).HasMaxLength(100);
         });
 
@@ -1151,6 +1187,23 @@ public partial class sigafi_esContext : DbContext
             entity.Property(e => e.Parcial).HasMaxLength(40);
             entity.Property(e => e.fecha_final).HasColumnType("date");
             entity.Property(e => e.fecha_inicio).HasColumnType("date");
+        });
+
+        modelBuilder.Entity<parciales_modalidades>(entity =>
+        {
+            entity.HasNoKey();
+
+            entity.Property(e => e.activo).HasDefaultValueSql("'1'");
+        });
+
+        modelBuilder.Entity<parciales_modalidades_fechas>(entity =>
+        {
+            entity.HasNoKey();
+
+            entity.Property(e => e.activo).HasDefaultValueSql("'1'");
+            entity.Property(e => e.fechaFin).HasColumnType("date");
+            entity.Property(e => e.fechaInicio).HasColumnType("date");
+            entity.Property(e => e.idPeriodo).HasMaxLength(7);
         });
 
         modelBuilder.Entity<periodos>(entity =>
@@ -1239,6 +1292,7 @@ public partial class sigafi_esContext : DbContext
             entity.Property(e => e.fecha_ingreso).HasColumnType("date");
             entity.Property(e => e.fecha_nacimiento).HasColumnType("date");
             entity.Property(e => e.fecha_retiro).HasColumnType("date");
+            entity.Property(e => e.foto).HasMaxLength(100);
             entity.Property(e => e.nacionalidad).HasMaxLength(40);
             entity.Property(e => e.nombres).HasMaxLength(60);
             entity.Property(e => e.practicas).HasDefaultValueSql("'0'");
@@ -1261,8 +1315,11 @@ public partial class sigafi_esContext : DbContext
             entity.HasKey(e => new { e.idAsignacion, e.idParcial }).HasName("PRIMARY");
 
             entity.Property(e => e.activo).HasDefaultValueSql("'1'");
+            entity.Property(e => e.activoAtraso).HasDefaultValueSql("'0'");
             entity.Property(e => e.codigo_impresion).HasMaxLength(10);
             entity.Property(e => e.entrega_acta).HasDefaultValueSql("'0'");
+            entity.Property(e => e.fechaFin).HasColumnType("date");
+            entity.Property(e => e.fechaInicio).HasColumnType("date");
             entity.Property(e => e.fecha_grabar)
                 .ValueGeneratedOnAddOrUpdate()
                 .HasDefaultValueSql("CURRENT_TIMESTAMP")
@@ -1304,6 +1361,222 @@ public partial class sigafi_esContext : DbContext
             entity.Property(e => e.sufijo)
                 .HasMaxLength(1)
                 .IsFixedLength();
+        });
+
+        modelBuilder.Entity<seddautoevaluacion>(entity =>
+        {
+            entity.HasKey(e => e.idTest).HasName("PRIMARY");
+
+            entity.HasIndex(e => e.idInstrumento, "idInstrumento");
+
+            entity.Property(e => e.fechaRegistro)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnType("timestamp");
+            entity.Property(e => e.idPeriodo).HasMaxLength(7);
+            entity.Property(e => e.idProfesor).HasMaxLength(14);
+
+            entity.HasOne(d => d.idInstrumentoNavigation).WithMany(p => p.seddautoevaluacion)
+                .HasForeignKey(d => d.idInstrumento)
+                .HasConstraintName("seddautoevaluacion_ibfk_1");
+        });
+
+        modelBuilder.Entity<seddautoridadesperiodos>(entity =>
+        {
+            entity.HasKey(e => e.idAsignacion).HasName("PRIMARY");
+
+            entity.Property(e => e.activo).HasDefaultValueSql("'1'");
+            entity.Property(e => e.designacion).HasMaxLength(100);
+            entity.Property(e => e.idPeriodo).HasMaxLength(14);
+            entity.Property(e => e.idProfesor).HasMaxLength(14);
+        });
+
+        modelBuilder.Entity<seddcoevaluacion>(entity =>
+        {
+            entity.HasKey(e => e.idTest).HasName("PRIMARY");
+
+            entity.HasIndex(e => e.idAsignacion, "idAsignacion");
+
+            entity.HasIndex(e => e.idInstrumento, "idInstrumento");
+
+            entity.Property(e => e.fechaRegistro).HasColumnType("datetime");
+            entity.Property(e => e.fechaTest).HasColumnType("datetime");
+            entity.Property(e => e.idPeriodo).HasMaxLength(7);
+            entity.Property(e => e.idProfesor).HasMaxLength(14);
+
+            entity.HasOne(d => d.idAsignacionNavigation).WithMany(p => p.seddcoevaluacion)
+                .HasPrincipalKey(p => p.idAsignacion)
+                .HasForeignKey(d => d.idAsignacion)
+                .HasConstraintName("seddcoevaluacion_ibfk_2");
+
+            entity.HasOne(d => d.idInstrumentoNavigation).WithMany(p => p.seddcoevaluacion)
+                .HasForeignKey(d => d.idInstrumento)
+                .HasConstraintName("seddcoevaluacion_ibfk_1");
+        });
+
+        modelBuilder.Entity<sedddetalleautoevaluacion>(entity =>
+        {
+            entity.HasKey(e => e.idDetalle).HasName("PRIMARY");
+
+            entity.HasIndex(e => e.idPregunta, "idPregunta");
+
+            entity.HasIndex(e => e.idTest, "idTest");
+
+            entity.Property(e => e.respuesta).HasDefaultValueSql("'0'");
+
+            entity.HasOne(d => d.idPreguntaNavigation).WithMany(p => p.sedddetalleautoevaluacion)
+                .HasForeignKey(d => d.idPregunta)
+                .HasConstraintName("sedddetalleautoevaluacion_ibfk_1");
+
+            entity.HasOne(d => d.idTestNavigation).WithMany(p => p.sedddetalleautoevaluacion)
+                .HasForeignKey(d => d.idTest)
+                .HasConstraintName("sedddetalleautoevaluacion_ibfk_2");
+        });
+
+        modelBuilder.Entity<sedddetallecoevaluacion>(entity =>
+        {
+            entity.HasKey(e => e.idDetalle).HasName("PRIMARY");
+
+            entity.HasIndex(e => e.idPregunta, "idPregunta");
+
+            entity.HasIndex(e => e.idTest, "idTest");
+
+            entity.Property(e => e.respuesta).HasDefaultValueSql("'0'");
+
+            entity.HasOne(d => d.idPreguntaNavigation).WithMany(p => p.sedddetallecoevaluacion)
+                .HasForeignKey(d => d.idPregunta)
+                .HasConstraintName("sedddetallecoevaluacion_ibfk_1");
+
+            entity.HasOne(d => d.idTestNavigation).WithMany(p => p.sedddetallecoevaluacion)
+                .HasForeignKey(d => d.idTest)
+                .HasConstraintName("sedddetallecoevaluacion_ibfk_2");
+        });
+
+        modelBuilder.Entity<sedddetalleevaluacionautoridad>(entity =>
+        {
+            entity.HasKey(e => e.idDetalle).HasName("PRIMARY");
+
+            entity.HasIndex(e => e.idPregunta, "idPregunta");
+
+            entity.HasIndex(e => e.idTest, "idTest");
+
+            entity.Property(e => e.respuesta).HasDefaultValueSql("'0'");
+
+            entity.HasOne(d => d.idPreguntaNavigation).WithMany(p => p.sedddetalleevaluacionautoridad)
+                .HasForeignKey(d => d.idPregunta)
+                .HasConstraintName("sedddetalleevaluacionautoridad_ibfk_1");
+
+            entity.HasOne(d => d.idTestNavigation).WithMany(p => p.sedddetalleevaluacionautoridad)
+                .HasForeignKey(d => d.idTest)
+                .HasConstraintName("sedddetalleevaluacionautoridad_ibfk_2");
+        });
+
+        modelBuilder.Entity<sedddetalleheteroevaluacion>(entity =>
+        {
+            entity.HasKey(e => e.idDetalle).HasName("PRIMARY");
+
+            entity.HasIndex(e => e.idPregunta, "idPregunta");
+
+            entity.HasIndex(e => e.idTest, "idTest");
+
+            entity.Property(e => e.respuesta).HasDefaultValueSql("'0'");
+
+            entity.HasOne(d => d.idPreguntaNavigation).WithMany(p => p.sedddetalleheteroevaluacion)
+                .HasForeignKey(d => d.idPregunta)
+                .HasConstraintName("sedddetalleheteroevaluacion_ibfk_1");
+
+            entity.HasOne(d => d.idTestNavigation).WithMany(p => p.sedddetalleheteroevaluacion)
+                .HasForeignKey(d => d.idTest)
+                .HasConstraintName("sedddetalleheteroevaluacion_ibfk_2");
+        });
+
+        modelBuilder.Entity<seddevaluacionautoridad>(entity =>
+        {
+            entity.HasKey(e => e.idTest).HasName("PRIMARY");
+
+            entity.HasIndex(e => e.idInstrumento, "idInstrumento");
+
+            entity.Property(e => e.fechaRegistro).HasColumnType("datetime");
+            entity.Property(e => e.fechaTest).HasColumnType("datetime");
+            entity.Property(e => e.idAutoridad).HasMaxLength(14);
+            entity.Property(e => e.idPeriodo).HasMaxLength(7);
+            entity.Property(e => e.idProfesor).HasMaxLength(14);
+
+            entity.HasOne(d => d.idInstrumentoNavigation).WithMany(p => p.seddevaluacionautoridad)
+                .HasForeignKey(d => d.idInstrumento)
+                .HasConstraintName("seddevaluacionautoridad_ibfk_1");
+        });
+
+        modelBuilder.Entity<seddheteroevaluacion>(entity =>
+        {
+            entity.HasKey(e => e.idTest).HasName("PRIMARY");
+
+            entity.HasIndex(e => e.idAsignacion, "idAsignacion");
+
+            entity.HasIndex(e => e.idInstrumento, "idInstrumento");
+
+            entity.HasIndex(e => e.idMatricula, "idMatricula");
+
+            entity.Property(e => e.fechaRegistro).HasColumnType("datetime");
+            entity.Property(e => e.idPeriodo).HasMaxLength(7);
+
+            entity.HasOne(d => d.idAsignacionNavigation).WithMany(p => p.seddheteroevaluacion)
+                .HasPrincipalKey(p => p.idAsignacion)
+                .HasForeignKey(d => d.idAsignacion)
+                .HasConstraintName("seddheteroevaluacion_ibfk_2");
+
+            entity.HasOne(d => d.idInstrumentoNavigation).WithMany(p => p.seddheteroevaluacion)
+                .HasForeignKey(d => d.idInstrumento)
+                .HasConstraintName("seddheteroevaluacion_ibfk_1");
+
+            entity.HasOne(d => d.idMatriculaNavigation).WithMany(p => p.seddheteroevaluacion)
+                .HasForeignKey(d => d.idMatricula)
+                .HasConstraintName("seddheteroevaluacion_ibfk_3");
+        });
+
+        modelBuilder.Entity<seddinstrumentos>(entity =>
+        {
+            entity.HasKey(e => e.idInstrumento).HasName("PRIMARY");
+
+            entity.HasIndex(e => e.idCategoria, "idCategoria");
+
+            entity.Property(e => e.Instrumento).HasMaxLength(100);
+            entity.Property(e => e.activo).HasDefaultValueSql("'1'");
+            entity.Property(e => e.codigo).HasMaxLength(3);
+            entity.Property(e => e.porcentaje).HasDefaultValueSql("'0'");
+
+            entity.HasOne(d => d.idCategoriaNavigation).WithMany(p => p.seddinstrumentos)
+                .HasForeignKey(d => d.idCategoria)
+                .HasConstraintName("seddinstrumentos_ibfk_1");
+        });
+
+        modelBuilder.Entity<seddinstrumentospreguntas>(entity =>
+        {
+            entity.HasKey(e => e.idInstrumentoPregunta).HasName("PRIMARY");
+
+            entity.HasIndex(e => e.idInstrumento, "idInstrumento");
+
+            entity.HasIndex(e => e.idPregunta, "idPregunta");
+
+            entity.Property(e => e.activo).HasDefaultValueSql("'1'");
+            entity.Property(e => e.fechaRegistro)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnType("timestamp");
+
+            entity.HasOne(d => d.idInstrumentoNavigation).WithMany(p => p.seddinstrumentospreguntas)
+                .HasForeignKey(d => d.idInstrumento)
+                .HasConstraintName("seddinstrumentospreguntas_ibfk_1");
+
+            entity.HasOne(d => d.idPreguntaNavigation).WithMany(p => p.seddinstrumentospreguntas)
+                .HasForeignKey(d => d.idPregunta)
+                .HasConstraintName("seddinstrumentospreguntas_ibfk_2");
+        });
+
+        modelBuilder.Entity<seddpreguntas>(entity =>
+        {
+            entity.HasKey(e => e.idPregunta).HasName("PRIMARY");
+
+            entity.Property(e => e.activo).HasDefaultValueSql("'1'");
+            entity.Property(e => e.pregunta).HasMaxLength(100);
         });
 
         modelBuilder.Entity<sistema_titulacion>(entity =>

@@ -1,0 +1,65 @@
+﻿@{
+    ViewData["Title"] = "Evaluación Docente";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="pt-2 text-center" id="loader">
+    <div class="spinner-grow text-dark spinner-grow-sm" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+    <div class="spinner-grow text-dark spinner-grow-sm" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+    <div class="spinner-grow text-dark spinner-grow-sm" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+</div>
+<div class="w-100 pt-2 container-main" id="container" hidden>
+    <div class="card-container">
+        <div class="card">
+            <div class="card-body">
+                <form enctype="multipart/form-data" id="frmDatos">
+                    <div class="row">
+                        <div class="col-sm-3 text-start">
+                            <h3 class="m-0">Calificaciones</h3>
+                            <p class="text-muted text-sm p-0 m-0">Seleccione la carrera y la asignatura</p>
+                        </div>
+                        <div class="col-sm-4">
+                            <strong class="text-dark">Carrera</strong>
+                            <select class="form-select form-select-sm text-uppercase" id="idMatricula" name="idMatricula">
+                                <option value="">Seleccione</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-5">
+                            <strong class="text-dark">Asignatura</strong>
+                            <select class="form-select form-select-sm text-uppercase" id="idAsignatura" name="idAsignatura">
+                                <option value="">Seleccione una Carrera</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 mt-2" hidden id="contenedorPreguntas">
+        <div class="card">
+            <div class="card-body container">
+                <div class="table-responsive table-responsive-sm p-2">
+                    <table class="table table-sm table-checkbox">
+                        <thead>
+                            <tr class="text-secondary">
+                                <th class="text-end">#</th>
+                                <th>Pregunta</th>
+                                <th>Respuesta</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaEvaluacion"></tbody>
+                    </table>
+                </div>
+            </div>
+            <button onclick="guardar()" class="btn btn-sm btn-success rounded-phill float-button"><i class="bi bi-check-square fs-6 me-2"></i> Guardar</button>
+        </div>
+    </div>
+
+</div>
+<script defer src="~/js/siteEvaluacionDocente.js?v=@DateTime.Now.Ticks"></script>

@@ -11,5 +11,5 @@ public partial class secciones
 
     public string? sufijo { get; set; }
 
-    public virtual ICollection<matriculas> matriculas { get; } = new List<matriculas>();
+    public virtual ICollection<matriculas> matriculas { get; set; } = new List<matriculas>();
 }

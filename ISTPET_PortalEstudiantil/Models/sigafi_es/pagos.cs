@@ -41,7 +41,7 @@ public partial class pagos
 
     public string? documentoFactura { get; set; }
 
-    public virtual ICollection<detalle_pagos> detalle_pagos { get; } = new List<detalle_pagos>();
+    public virtual ICollection<detalle_pagos> detalle_pagos { get; set; } = new List<detalle_pagos>();
 
-    public virtual ICollection<detalles_documentos_pagos> detalles_documentos_pagos { get; } = new List<detalles_documentos_pagos>();
+    public virtual ICollection<detalles_documentos_pagos> detalles_documentos_pagos { get; set; } = new List<detalles_documentos_pagos>();
 }

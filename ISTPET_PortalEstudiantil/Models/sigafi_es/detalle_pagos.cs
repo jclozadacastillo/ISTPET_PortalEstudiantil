@@ -17,6 +17,8 @@ public partial class detalle_pagos
 
     public sbyte? migradoContabilidad { get; set; }
 
+    public DateTime? fechaMigracion { get; set; }
+
     public virtual especies idEspecieNavigation { get; set; } = null!;
 
     public virtual pagos idPagoNavigation { get; set; } = null!;

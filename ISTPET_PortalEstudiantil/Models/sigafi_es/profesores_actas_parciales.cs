@@ -22,4 +22,10 @@ public partial class profesores_actas_parciales
     public sbyte? ingresa_notas { get; set; }
 
     public string? usuario_graba { get; set; }
+
+    public sbyte? activoAtraso { get; set; }
+
+    public DateTime? fechaInicio { get; set; }
+
+    public DateTime? fechaFin { get; set; }
 }
