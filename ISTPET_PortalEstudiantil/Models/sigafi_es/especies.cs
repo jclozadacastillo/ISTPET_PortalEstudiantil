@@ -25,5 +25,5 @@ public partial class especies
 
     public int? idNivel { get; set; }
 
-    public virtual ICollection<detalle_pagos> detalle_pagos { get; } = new List<detalle_pagos>();
+    public virtual ICollection<detalle_pagos> detalle_pagos { get; set; } = new List<detalle_pagos>();
 }

@@ -9,5 +9,5 @@ public partial class medios_contacto
 
     public string? medio { get; set; }
 
-    public sbyte? activo { get; set; }
+    public ulong? activo { get; set; }
 }

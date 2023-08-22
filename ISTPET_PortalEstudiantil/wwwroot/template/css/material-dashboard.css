@@ -27435,4 +27435,56 @@ padding: 10px 3px !important;
 .m-w-170{
     min-width:170.7px;
 }
+
+table.table-checkbox thead tr {
+    color: #1F295B !important;
+}
+
+table.table-checkbox tbody tr td:first-child {
+    color: #1F295B !important;
+    font-weight:500;
+}
+
+table.table-checkbox tbody tr td {
+    font-size:13px !important;
+    vertical-align:middle;
+}
+
+table.table-checkbox tbody tr td .form-check-inline{
+    margin-right:0 !important;
+    margin-left:0 !important;
+}
+
+    table.table-checkbox tbody tr td .form-check-inline * {
+        cursor: pointer;
+        font-weight: 500;
+    }
+    .float-button{
+        position:fixed !important;
+        bottom:3vh;
+        right:3vw;
+    }
+.verificarValidador{
+    display:none !important;
+}
+
+
+tr.invalid td:nth-child(-2n+2) {
+    background-color: rgba(255, 0, 0 ,0.19);
+}
+
+tr.invalid td:first-child::before {
+    content: "* ";
+    color: red !important;
+}
+
+.badge-custom{
+    position:absolute;
+    line-height:15px;
+    padding:2px 2px 2px 0px !important;
+    min-height:19px;
+    min-width:19px;
+    margin-top:0px;
+    margin-left:10px;
+}
     /*# sourceMappingURL=material-dashboard.css.map */

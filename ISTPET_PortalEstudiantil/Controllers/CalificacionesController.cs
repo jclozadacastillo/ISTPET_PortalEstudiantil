@@ -25,12 +25,13 @@ namespace ISTPET_PortalEstudiantil.Controllers
             try
             {
                 string usuario = _auth.getUser();
-                string sql = @"select distinct(c.idCarrera),c.Carrera
+                string sql = @"select distinct(idCarrera),Carrera from(
+                                select m.idMatricula,c.idCarrera,c.Carrera
                                 from matriculas m
                                 inner join cursos n on n.idNivel = m.idNivel
                                 inner join carreras c on c.idCarrera = n.idCarrera
                                 where m.idAlumno =@usuario
-                                order by m.idMatricula desc;
+                                order by idMatricula desc)t1
                                 ";
 
                 return JsonConvert.SerializeObject(

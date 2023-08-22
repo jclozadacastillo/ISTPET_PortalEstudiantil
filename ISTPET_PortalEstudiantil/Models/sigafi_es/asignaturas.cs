@@ -13,9 +13,9 @@ public partial class asignaturas
 
     public string? codigo { get; set; }
 
-    public virtual ICollection<calificaciones> calificaciones { get; } = new List<calificaciones>();
+    public virtual ICollection<calificaciones> calificaciones { get; set; } = new List<calificaciones>();
 
-    public virtual ICollection<detallemallas> detallemallas { get; } = new List<detallemallas>();
+    public virtual ICollection<detallemallas> detallemallas { get; set; } = new List<detallemallas>();
 
-    public virtual ICollection<prerequisitos> prerequisitos { get; } = new List<prerequisitos>();
+    public virtual ICollection<prerequisitos> prerequisitos { get; set; } = new List<prerequisitos>();
 }

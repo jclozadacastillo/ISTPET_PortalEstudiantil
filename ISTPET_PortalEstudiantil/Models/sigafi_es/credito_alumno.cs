@@ -23,7 +23,9 @@ public partial class credito_alumno
 
     public int idCredito { get; set; }
 
-    public string? idDeudaApi { get; set; }
+    public sbyte? migradoContabilidad { get; set; }
 
-    public decimal? valorDetallePago { get; set; }
+    public DateTime? fechaMigracion { get; set; }
+
+    public string? idDeudaApi { get; set; }
 }

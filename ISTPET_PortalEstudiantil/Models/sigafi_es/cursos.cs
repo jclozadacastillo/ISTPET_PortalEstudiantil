@@ -19,9 +19,9 @@ public partial class cursos
 
     public string? aliasCurso { get; set; }
 
-    public virtual ICollection<detallemallas> detallemallas { get; } = new List<detallemallas>();
+    public virtual ICollection<detallemallas> detallemallas { get; set; } = new List<detallemallas>();
 
     public virtual carreras idCarreraNavigation { get; set; } = null!;
 
-    public virtual ICollection<matriculas> matriculas { get; } = new List<matriculas>();
+    public virtual ICollection<matriculas> matriculas { get; set; } = new List<matriculas>();
 }

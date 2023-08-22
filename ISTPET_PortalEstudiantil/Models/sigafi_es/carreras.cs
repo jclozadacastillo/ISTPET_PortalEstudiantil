@@ -27,7 +27,7 @@ public partial class carreras
 
     public string? aliasCarrera { get; set; }
 
-    public virtual ICollection<cursos> cursos { get; } = new List<cursos>();
+    public virtual ICollection<cursos> cursos { get; set; } = new List<cursos>();
 
-    public virtual ICollection<mallas> mallas { get; } = new List<mallas>();
+    public virtual ICollection<mallas> mallas { get; set; } = new List<mallas>();
 }
