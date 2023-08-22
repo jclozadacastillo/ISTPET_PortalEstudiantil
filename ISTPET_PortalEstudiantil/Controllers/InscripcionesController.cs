@@ -114,8 +114,7 @@ namespace ISTPET_PortalEstudiantil.Controllers
                                 from periodos_inscripciones pi 
                                 inner join cursos n on n.idNivel = pi.idNivel
                                 inner join carreras c on c.idCarrera = n.idCarrera
-                                inner join periodos_matriculas_niveles mn on mn.idNivel = n.idNivel
-                                inner join periodos p on p.idPeriodo = mn.idPeriodo
+                                inner join periodos p on p.idPeriodo = pi.idPeriodo
                                 where pi.activo=1 and conduccion =@conduccion 
                                 and datediff(pi.fechaFinal,pi.fechaInicio) > 0";
                 return Json(await dapper.QueryAsync(sql, new { conduccion }));
@@ -140,8 +139,7 @@ namespace ISTPET_PortalEstudiantil.Controllers
                                 from periodos_inscripciones pi 
                                 inner join cursos n on n.idNivel = pi.idNivel
                                 inner join carreras c on c.idCarrera = n.idCarrera
-                                inner join periodos_matriculas_niveles mn on mn.idNivel = n.idNivel
-                                inner join periodos p on p.idPeriodo = mn.idPeriodo
+                                inner join periodos p on p.idPeriodo = pi.idPeriodo
                                 inner join secciones s on s.idSeccion=pi.idSeccion
                                 where pi.activo=1 and pi.idNivel = @idNivel 
                                 and datediff(pi.fechaFinal,pi.fechaInicio) > 0";
@@ -167,8 +165,7 @@ namespace ISTPET_PortalEstudiantil.Controllers
                                 from periodos_inscripciones pi 
                                 inner join cursos n on n.idNivel = pi.idNivel
                                 inner join carreras c on c.idCarrera = n.idCarrera
-                                inner join periodos_matriculas_niveles mn on mn.idNivel = n.idNivel
-                                inner join periodos p on p.idPeriodo = mn.idPeriodo
+                                inner join periodos p on p.idPeriodo = pi.idPeriodo
                                 inner join secciones s on s.idSeccion=pi.idSeccion
                                 inner join modalidades m on m.idModalidad=pi.idModalidad
                                 where pi.activo=1 and pi.idNivel = @idNivel and pi.idSeccion=@idSeccion
