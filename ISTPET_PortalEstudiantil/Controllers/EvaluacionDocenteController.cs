@@ -93,7 +93,8 @@ namespace ISTPET_PortalEstudiantil.Controllers
             try
             {
                 string sql = @"select idInstrumento from SeddInstrumentos where activo = 1 and idCategoria = 1 and codigo = 'F2'";
-                var idInstrumento=await dapper.ExecuteScalarAsync<int>(sql);
+                var idInstrumento=await dapper.ExecuteScalarAsync<int?>(sql);
+                if (idInstrumento == null) throw new Exception("Aún no se ha configurado el instrumento.");
                 sql = @"select * from seddinstrumentospreguntas sip
                                inner join seddpreguntas sp on sp.idPregunta = sip.idPregunta
                                inner join seddinstrumentos si on si.idInstrumento = sip.idInstrumento

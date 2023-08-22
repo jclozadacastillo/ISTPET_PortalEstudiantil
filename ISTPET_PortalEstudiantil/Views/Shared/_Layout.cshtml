@@ -57,7 +57,7 @@
                         <span class="nav-link-text ms-1">Calificaciones</span>
                     </a>
                 </li>
-                @if (_pendientes>0)
+                @if (_pendientes > 0)
                 {
                     <li class="nav-item mt-3">
                         <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Evaluaciones</h6>
@@ -69,6 +69,21 @@
                                 <i class="bi-file-check text-lg"></i>
                             </div>
                             <span class="nav-link-text ms-1">Evaluación Docente <span class="badge rounded-circle bg-danger text-white badge-custom">@_pendientes</span></span>
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item mt-3">
+                        <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Evaluaciones</h6>
+                    </li>
+
+                    <li class="nav-item " title="Ninguna evaluación docente pendiente">
+                        <a class="nav-link text-muted" href="javascript:;" style="pointer-events:none">
+                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="bi-file-check text-lg text-muted"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Evaluación Docente <span class="badge rounded-circle bg-success text-white badge-custom" style="padding-left:2px !important;"><i class="bi-check2" style="position:absolute;margin-top:1px !important;margin-left:-5px"></i></span></span>
                         </a>
                     </li>
                 }
