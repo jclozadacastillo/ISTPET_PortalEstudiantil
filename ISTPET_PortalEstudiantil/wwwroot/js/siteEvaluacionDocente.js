@@ -61,6 +61,10 @@ async function cargarEvaluacion() {
         const res = (await axios.get(url)).data;
         idInstrumento = res[0].idInstrumento;
         let numero = 0;
+        const _evaluacion = evaluaciones.find(x => x.idAsignacion == idAsignatura.value);
+        if (!!_evaluacion) {
+            nombreDocente.innerHTML = `<b>DOCENTE: </b>${_evaluacion.abreviatura} ${_evaluacion.apellidos} ${_evaluacion.nombres}`
+        }
         res.forEach(async function (item, id) {
             numero++;
             tablaEvaluacion.insertAdjacentHTML('beforeend',

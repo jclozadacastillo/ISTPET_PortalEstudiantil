@@ -61,7 +61,7 @@ namespace ISTPET_PortalEstudiantil.Controllers
             try
             {
                 string sql = @"select m.idmatricula,concat(apellidopaterno,' ',apellidomaterno,' ',primernombre,' ',segundonombre) alumno,
-                            ag.asignatura, p.idPeriodo, ap.idAsignacion, m.idMatricula
+                            ag.asignatura, p.idPeriodo, ap.idAsignacion, m.idMatricula,pr.apellidos,pr.nombres,pr.idProfesor,ag.idAsignatura,pr.abreviatura
                             from alumnos a 
                             inner join matriculas m on a.idalumno=m.idalumno 
                             inner join calificaciones c on m.idmatricula=c.idmatricula
@@ -70,6 +70,7 @@ namespace ISTPET_PortalEstudiantil.Controllers
                             inner join asignaciones_profesores ap 
                             on ap.idPeriodo = p.idPeriodo and ap.idAsignatura = ag.idAsignatura and ap.idnivel = m.idNivel and ap.idseccion = m.idSeccion
                             and ap.paralelo = m.paralelo and ap.idModalidad = m.idModalidad and ap.activo = '1'
+                            inner join profesores pr on pr.idProfesor=ap.idProfesor 
                             where m.idMatricula = @idMatricula
                             and p.activo = 1 and p.permiteCalificacionesInstituto = 1
                             and idAsignacion not in(select sh.idAsignacion from seddheteroevaluacion sh
