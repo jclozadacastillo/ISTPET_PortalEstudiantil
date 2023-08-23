@@ -61,9 +61,11 @@ anterior.addEventListener("keyup",function(){
     const msg=this.closest("div").querySelector(".invalid-feedback");
     msg.innerText="* Campo requerido";
     if(this.value=="") return;
-    if(this.value!=datos.password){
-        msg.innerText="* La contraseña no es la correcta";
+    if (this.value != datos.password) {
+        msg.innerText = "* La contraseña no es la correcta";
         this.classList.add("is-invalid");
+    } else {
+        this.classList.remove("is-invalid");
     }
 });
 
@@ -75,6 +77,8 @@ confir.addEventListener("keyup",function(){
     if(this.value!=nueva.value){
         msg.innerText="* Las contraseñas no coinciden";
         this.classList.add("is-invalid");
+    } else {
+        this.classList.remove("is-invalid");
     }
 });
 
@@ -118,11 +122,14 @@ async function guardar(){
     }
 }
 
-function validarClaves(){
-    return new Promise(resolve=>{
-        let mensaje=null;
-        if(anterior.value!=datos.password && anterior.value!="") mensaje="La contraseña no es la correcta";
-        if(nueva.value!=confir.value) mensaje="Las contraseñas no coinciden";
+function validarClaves() {
+    return new Promise(resolve => {
+        let mensaje = null;
+        if (anterior.value != datos.password && anterior.value != "") mensaje = "La contraseña no es la correcta";
+        if (nueva.value != confir.value) mensaje = "Las contraseñas no coinciden";
+        if (!nueva.value.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/)) {
+            mensaje = "La contraseña debe tener de 6 a 20 dígitos con un dígito numerico, uno en mayúsculas y uno en minúsculas";
+        }
         resolve(mensaje);
     });
 }
