@@ -5,11 +5,10 @@ const form=document.querySelector("form");
 const modal= new bootstrap.Modal(document.getElementById("modal"),{
     keyboard:false
 });
-
 const anterior=form.querySelector("#anterior");
 const nueva=form.querySelector("#password");
-const confir=form.querySelector("#confir");
-
+const confir = form.querySelector("#confir");
+crearPasswordPreview();
 
 document.querySelector("#btnClave").addEventListener("click",()=>{
     form.querySelectorAll("input").forEach(item=>{

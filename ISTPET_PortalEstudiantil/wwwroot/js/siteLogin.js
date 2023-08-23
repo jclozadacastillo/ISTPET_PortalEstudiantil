@@ -4,6 +4,7 @@ const baseUrl = `${_route}Login/`;
 const modal = new bootstrap.Modal(document.getElementById("modal"), {
     keyboard: false
 });
+crearPasswordPreview();
 form.addEventListener("submit", e => {
     e.preventDefault();
     login();
@@ -90,3 +91,5 @@ function validarClaves() {
         resolve(mensaje);
     });
 }
+
+
