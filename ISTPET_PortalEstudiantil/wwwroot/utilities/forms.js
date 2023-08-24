@@ -938,7 +938,7 @@ function crearPasswordPreview() {
             const element = document.querySelector(`#_pvw_${item.id}`);
             if (!element) {
                 const itemBounds = item.getBoundingClientRect();
-                const elementHTML = `<a id="_pvw_${item.id}" href='javascript:;' onclick='__handlePasswordView("${item.id}")' 
+                const elementHTML = `<a tabindex="-1" id="_pvw_${item.id}" href='javascript:;' onclick='__handlePasswordView("${item.id}")' 
                 style='position:absolute;left:${itemBounds.width-10}px;margin-top:-${((itemBounds.height/1.3)+1.72).toFixed(2)}px;z-index:99999'><i class='bi-eye-fill text-blue'></i></a>`;
                 item.insertAdjacentHTML("afterend", elementHTML);
             } else {

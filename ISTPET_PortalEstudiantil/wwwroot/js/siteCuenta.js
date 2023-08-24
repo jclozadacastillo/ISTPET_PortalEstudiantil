@@ -126,8 +126,8 @@ function validarClaves() {
         let mensaje = null;
         if (anterior.value != datos.password && anterior.value != "") mensaje = "La contraseña no es la correcta";
         if (nueva.value != confir.value) mensaje = "Las contraseñas no coinciden";
-        if (!nueva.value.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/)) {
-            mensaje = "La contraseña debe tener de 6 a 20 dígitos con un dígito numerico, uno en mayúsculas y uno en minúsculas";
+        if (!nueva.value.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,10}$/)) {
+            mensaje = "La contraseña debe tener de 6 a 10 dígitos con un dígito numerico, uno en mayúsculas y uno en minúsculas";
         }
         resolve(mensaje);
     });
