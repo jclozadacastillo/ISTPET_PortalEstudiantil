@@ -62,6 +62,7 @@ namespace ISTPET_PortalEstudiantil.Controllers
                                 </div>
                             ";
                     ViewData["mensaje"] = mensaje;
+                    enviarCorreoNuevaInscripcion(id);
                     return View();
                 }
 
@@ -88,7 +89,6 @@ namespace ISTPET_PortalEstudiantil.Controllers
                     ViewData["mensaje"] = mensaje;
                     return View();
                 }
-
                 return View();
             }
             catch (Exception ex)
@@ -104,6 +104,66 @@ namespace ISTPET_PortalEstudiantil.Controllers
 
 
         }
+
+        private bool enviarCorreoNuevaInscripcion(string idInscripcion)
+        {
+            var dapper = new MySqlConnection(cn);
+            try
+            {
+                var sql = @"SELECT concat('(',p.idPeriodo,') ',p.detalle) AS periodo,
+                            c.Carrera as carrera,m.modalidad,s.seccion,a.idAlumno,
+                            concat(a.primerNombre,' ',a.segundoNombre,' ',a.apellidoPaterno,' ',a.apellidoMaterno) AS alumno,
+                            a.celular,a.telefono,a.email,p.idPeriodo
+                            FROM alumnos_inscripciones ai 
+                            INNER JOIN alumnos a ON a.idAlumno =ai.idalumno 
+                            INNER JOIN periodos p ON p.idPeriodo = ai.idPeriodo 
+                            INNER JOIN modalidades m ON m.idModalidad = ai.idModalidad 
+                            INNER JOIN cursos n ON n.idNivel =ai.idNivel 
+                            INNER JOIN carreras c ON c.idCarrera = n.idCarrera 
+                            INNER JOIN secciones s ON s.idSeccion = ai.idSeccion 
+                            WHERE idInscripcion =@idInscripcion";
+                var _datos = dapper.QueryFirstOrDefault(sql, new {idInscripcion});
+                var path = Path.Combine(_webHostEnvironment.WebRootPath, "correos", "nuevaInscripcion.html");
+                StringBuilder emailHtml = new StringBuilder(System.IO.File.ReadAllText(path));
+                emailHtml.Replace("@alumno", _datos.alumno);
+                emailHtml.Replace("@carrera", _datos.carrera);
+                emailHtml.Replace("@periodo", _datos.periodo);
+                emailHtml.Replace("@seccion", _datos.seccion);
+                emailHtml.Replace("@modalidad", _datos.modalidad);
+                emailHtml.Replace("@idAlumno", _datos.idAlumno);
+                emailHtml.Replace("@telefono", _datos.telefono);
+                emailHtml.Replace("@celular", _datos.celular);
+                emailHtml.Replace("@email", _datos.email);
+                AlternateView htmlimagen;
+                htmlimagen = AlternateView.CreateAlternateViewFromString(emailHtml.ToString(), null, "text/html");
+                MailMessage correo = new MailMessage();
+                correo.To.Add(_config["Sistema:email_adminisiones"]);
+                correo.From = new MailAddress(_config["Sistema:email"]);
+                correo.Subject = $"ISTPET: NUEVA INSCRIPCIÓN {_datos.carrera} {_datos.idPeriodo}";
+                correo.Body = emailHtml.ToString();
+                correo.AlternateViews.Add(htmlimagen);
+                correo.IsBodyHtml = true;
+                correo.Priority = MailPriority.Normal;
+                SmtpClient smtp = new SmtpClient();
+                smtp.Host = "smtp.office365.com";
+                smtp.Port = 587;
+                smtp.EnableSsl = true;
+                smtp.Credentials = new NetworkCredential(_config["Sistema:email"], _config["Sistema:clave_email"]);
+                smtp.Send(correo);
+                //dapper.Execute(sql, new { emailNotificacion = docente.emailInstitucion, idReservacion });
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+            finally
+            {
+                dapper.Dispose();
+            }
+        }
+
         [HttpPost]
         public async Task<IActionResult> comboCarreras(bool conduccion)
         {
