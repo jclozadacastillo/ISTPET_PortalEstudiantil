@@ -25,6 +25,7 @@ async function login() {
         if (!!res.error) throw new Error(res.error);
         if (res == "clave") {
             limpiarForm(frmClaves);
+            activarValidadores(frmClaves);
             modal.show();
         } else {
             top.location.reload();
