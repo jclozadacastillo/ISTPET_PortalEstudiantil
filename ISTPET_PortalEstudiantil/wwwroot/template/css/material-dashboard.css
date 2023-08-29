@@ -22145,7 +22145,7 @@ label,
 .form-control.is-invalid {
   border: 1px solid #d2d6da;
   padding: 0.625rem 0.75rem;
-  line-height: 1.3 !important;
+  /*line-height: 1.3 !important;*/
 }
 
 .form-control.is-invalid:focus {
