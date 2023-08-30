@@ -137,7 +137,7 @@ namespace ISTPET_PortalEstudiantil.Controllers
                 AlternateView htmlimagen;
                 htmlimagen = AlternateView.CreateAlternateViewFromString(emailHtml.ToString(), null, "text/html");
                 MailMessage correo = new MailMessage();
-                correo.To.Add(_config["Sistema:email_adminisiones"]);
+                correo.To.Add(_config["Sistema:email_admisiones"]);
                 correo.From = new MailAddress(_config["Sistema:email"]);
                 correo.Subject = $"ISTPET: NUEVA INSCRIPCIÓN {_datos.carrera} {_datos.idPeriodo}";
                 correo.Body = emailHtml.ToString();
