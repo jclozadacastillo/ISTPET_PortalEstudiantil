@@ -1,10 +1,11 @@
 using ISTPET_PortalEstudiantil.Auth;
 using ISTPET_PortalEstudiantil.Models.sigafi_es;
+using ISTPET_PortalEstudiantil.Utilities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
-
+Tools.Initialize(builder.Configuration, builder.Environment.WebRootPath);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();

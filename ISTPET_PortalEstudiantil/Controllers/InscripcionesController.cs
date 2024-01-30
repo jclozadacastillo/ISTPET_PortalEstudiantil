@@ -9,6 +9,7 @@ using System.Net.Mail;
 using System.Net;
 using System.Text;
 using System.Drawing;
+using ISTPET_PortalEstudiantil.Utilities;
 
 namespace ISTPET_PortalEstudiantil.Controllers
 {
@@ -53,8 +54,8 @@ namespace ISTPET_PortalEstudiantil.Controllers
                 }
                 if (inscripcion != null && Convert.ToBoolean(inscripcion?.activo) == false && inscripcion?.mesesPasado <= 0)
                 {
-                    sql = "UPDATE alumnos_inscripciones SET activo=1 WHERE idInscripcion=@id";
-                    dapper.Execute(sql, new { id });
+                    sql = @"UPDATE alumnos_inscripciones SET activo=1 WHERE idInscripcion=@id;";
+                    dapper.Execute(sql, new { id,dni });
                     ViewData["clase"] = "alert alert-success";
                     mensaje = @"<div class='text-center'><i class='bi-check-circle fs-1 mb-2'></i></div>
                                 <div class='text-center'>
@@ -394,7 +395,23 @@ namespace ISTPET_PortalEstudiantil.Controllers
                 sql = @"SELECT count(idAlumno) 
                 FROM alumnos_inscripciones 
                 WHERE idAlumno=@idAlumno and idPeriodo=@idPeriodo";
-                if (await dapper.ExecuteScalarAsync<int>(sql, _inscripcion) > 0) throw new Exception("Ya te encuentras inscrito para el presente periodo");
+                if (await dapper.ExecuteScalarAsync<int>(sql, _inscripcion) > 0)
+                {
+                    sql = @"SELECT * FROM alumnos_inscripciones
+                            WHERE idAlumno=@idAlumno and idPeriodo=@idPeriodo AND (activo is null or activo=0) LIMIT 1";
+                    var inscripcion_pendiente = await dapper.QueryFirstOrDefaultAsync<alumnos_inscripciones>(sql, _inscripcion);
+                    if (inscripcion_pendiente != null)
+                    {
+                        enviarCorreo(_alumno, inscripcion_pendiente);
+                        throw new Exception($"Ya te encuentras inscrito revisa tú correo {_alumno.email} para validar tú inscripción");
+                    }
+                    else
+                    {
+                        throw new Exception("Ya te encuentras inscrito para el presente periodo");
+                    }
+
+          
+                };
                 sql = @"INSERT INTO alumnos_inscripciones
                     (idalumno, idPeriodo, idModalidad, idNivel, idSeccion, fechaRegistro, usuario, activo,idMedio)
                     VALUES(@idalumno, @idPeriodo, @idModalidad, @idNivel, @idSeccion, current_timestamp, 'root', 0,@idMedio);
@@ -410,14 +427,16 @@ namespace ISTPET_PortalEstudiantil.Controllers
                 catch (Exception exC)
                 {
                     Console.WriteLine(exC.Message);
+                    sql = "DELETE FROM alumnos_inscripciones WHERE idInscripcion=@idInscripcion";
+                    await dapper.ExecuteAsync(sql, _inscripcion);
                     throw new Exception("Ha ocurrido un error al enviar su correo de confirmación intente nuevamente.");
                 }
                 return Ok(novedades);
             }
             catch (Exception ex)
             {
-                string sql = "DELETE FROM alumnos_inscripciones WHERE idInscripcion=@idInscripcion";
-                await dapper.ExecuteAsync(sql, _inscripcion);
+                //string sql = "DELETE FROM alumnos_inscripciones WHERE idInscripcion=@idInscripcion";
+                //await dapper.ExecuteAsync(sql, _inscripcion);
                 return Json(new { error = ex.Message });
             }
             finally
@@ -450,6 +469,7 @@ namespace ISTPET_PortalEstudiantil.Controllers
                 emailHtml.Replace("@periodo", datosInscripcion.periodo);
                 emailHtml.Replace("@seccion", datosInscripcion.seccion);
                 emailHtml.Replace("@modalidad", datosInscripcion.modalidad);
+                emailHtml.Replace("@idBtn", $"id='btn{DateTime.Now.Ticks}'");
                 AlternateView htmlimagen;
                 htmlimagen = AlternateView.CreateAlternateViewFromString(emailHtml.ToString(), null, "text/html");
                 LinkedResource imagen;
@@ -482,7 +502,8 @@ namespace ISTPET_PortalEstudiantil.Controllers
                 //        notificado=0
                 //        WHERE idReservacion=@idReservacion";
                 //dapper.Execute(sql, new { emailNotificacion = emailDocente, idReservacion });
-                Console.WriteLine(ex.Message);
+                //Console.WriteLine(ex.Message);
+                Tools.logError(ex);
                 return false;
             }
             finally

@@ -6,7 +6,7 @@
     warning: "#000",
     textColor: "#FFF",
     textColorWarning: "#000",
-    position: "topRight",
+    position: "topCenter",
     successBar: "#068331",
     infoBar: "#146CA7",
     errorBar: "#661518",

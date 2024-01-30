@@ -1,0 +1,8 @@
+29/1/2024 19:37:28 - Error: Cannot perform runtime binding on a null reference  - Source:    at CallSite.Target(Closure, CallSite, Object)
+   at System.Dynamic.UpdateDelegates.UpdateAndExecute1[T0,TRet](CallSite site, T0 arg0)
+   at ISTPET_PortalEstudiantil.Controllers.InscripcionesController.enviarCorreo(alumnos _datos, alumnos_inscripciones _inscripcion)
+29/1/2024 19:38:12 - Error: Cannot perform runtime binding on a null reference - Source:    at CallSite.Target(Closure, CallSite, Object)
+   at ISTPET_PortalEstudiantil.Controllers.InscripcionesController.enviarCorreo(alumnos _datos, alumnos_inscripciones _inscripcion)
+29/1/2024 19:40:35 - Error: Cannot perform runtime binding on a null reference - Source:    at CallSite.Target(Closure, CallSite, Object)
+   at System.Dynamic.UpdateDelegates.UpdateAndExecute1[T0,TRet](CallSite site, T0 arg0)
+   at ISTPET_PortalEstudiantil.Controllers.InscripcionesController.enviarCorreo(alumnos _datos, alumnos_inscripciones _inscripcion)
