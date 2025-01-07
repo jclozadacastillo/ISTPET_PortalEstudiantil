@@ -60,6 +60,4 @@ public partial class matriculas
     public virtual periodos idPeriodoNavigation { get; set; } = null!;
 
     public virtual secciones idSeccionNavigation { get; set; } = null!;
-
-    public virtual ICollection<seddheteroevaluacion> seddheteroevaluacion { get; set; } = new List<seddheteroevaluacion>();
 }

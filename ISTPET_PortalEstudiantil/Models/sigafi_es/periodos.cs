@@ -35,5 +35,7 @@ public partial class periodos
 
     public sbyte? periodoactivoinstituto { get; set; }
 
+    public sbyte? visualizaPowerBi { get; set; }
+
     public virtual ICollection<matriculas> matriculas { get; set; } = new List<matriculas>();
 }

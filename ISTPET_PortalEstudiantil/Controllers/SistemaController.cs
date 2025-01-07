@@ -27,7 +27,11 @@ namespace ISTPET_PortalEstudiantil.Controllers
             if (!_auth.isLogged()) return RedirectToAction("Index", "Login");
             return View();
         }
-
+        public IActionResult EditarPerfil()
+        {
+            if (!_auth.isLogged()) return RedirectToAction("Index", "Login");
+            return View();
+        }
         public IActionResult EvaluacionDocente()
         {
             if (!_auth.isLogged() || _auth.evaluacionesPendientes()==0) return RedirectToAction("Index", "Login");

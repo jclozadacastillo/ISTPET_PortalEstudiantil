@@ -11,11 +11,9 @@ public partial class categorias_actividades
 
     public sbyte? esDocencia { get; set; }
 
-    public sbyte? activa { get; set; }
-
-    public int? porcentaje { get; set; }
-
     public sbyte? activo { get; set; }
+
+    public sbyte? porcentaje { get; set; }
 
     public virtual ICollection<seddinstrumentos> seddinstrumentos { get; set; } = new List<seddinstrumentos>();
 }

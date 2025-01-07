@@ -23,9 +23,11 @@ public partial class seddinstrumentos
 
     public virtual ICollection<seddcoevaluacion> seddcoevaluacion { get; set; } = new List<seddcoevaluacion>();
 
-    public virtual ICollection<seddevaluacionautoridad> seddevaluacionautoridad { get; set; } = new List<seddevaluacionautoridad>();
+    public virtual ICollection<seddcoevaluacionautoridad> seddcoevaluacionautoridad { get; set; } = new List<seddcoevaluacionautoridad>();
 
     public virtual ICollection<seddheteroevaluacion> seddheteroevaluacion { get; set; } = new List<seddheteroevaluacion>();
+
+    public virtual ICollection<seddinsitu> seddinsitu { get; set; } = new List<seddinsitu>();
 
     public virtual ICollection<seddinstrumentospreguntas> seddinstrumentospreguntas { get; set; } = new List<seddinstrumentospreguntas>();
 }

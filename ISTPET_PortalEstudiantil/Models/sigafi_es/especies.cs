@@ -25,5 +25,9 @@ public partial class especies
 
     public int? idNivel { get; set; }
 
+    public string? sufijo { get; set; }
+
+    public string? codigo_financiero { get; set; }
+
     public virtual ICollection<detalle_pagos> detalle_pagos { get; set; } = new List<detalle_pagos>();
 }

@@ -1,0 +1,79 @@
+﻿@{
+    ViewData["Title"] = "Editar Perfil";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="loader pt-2 text-center">
+    <div class="spinner-grow text-dark spinner-grow-sm" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+</div>
+<div class="w-100 pt-2 container-main" hidden>
+    <div class="card-container">
+        <div class="card container-main-perfil">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-3 text-start">
+                        <h3 class="m-0">Editar Perfil</h3>
+                        <p class="text-muted text-sm p-0 m-0">Modifique su información personal</p>
+                    </div>
+                </div>
+                <form id="formEditarPerfil" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <small>Dirección</small>
+                                <input type="text" class="form-control form-control-sm" id="direccion" name="direccion" required>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <small>Email Personal</small>
+                                <input type="email" class="form-control form-control-sm" id="email" name="email" required>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <small>Teléfono</small>
+                                <input type="text" class="form-control form-control-sm" id="telefono" name="telefono" required>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <small>Celular</small>
+                                <input type="text" class="form-control form-control-sm" id="celular" name="celular" required>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 etnia-field">
+                            <div class="form-group">
+                                <small>Etnia</small>
+                                <select class="form-select form-select-sm" id="idEtnia" name="idEtnia" required>
+                                    <option value="">Seleccione...</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <small>Foto</small>
+                                <input type="file" class="form-control form-control-sm" id="foto" name="foto" accept="image/*" onchange="validarYMostrarFoto()">
+                                <div class="mt-2">
+                                    <img id="previewFoto" src="#" alt="Vista previa" style="display: none; max-width: 150px; max-height: 150px;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-sm-3">
+                            <button type="button" class="btn btn-dark btn-sm w-100" onclick="guardar()">Guardar Cambios</button>
+                        </div>
+                        <div class="col-sm-3">
+                            <a class="btn btn-light btn-sm w-100" href="~/Sistema/Perfil">Cancelar</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script defer src="~/js/siteEditarPerfil.js?v=@DateTime.Now.Ticks"></script>

@@ -42,8 +42,4 @@ public partial class asignaciones_profesores
     public int idAsignacion { get; set; }
 
     public sbyte? esActivaAsignacion { get; set; }
-
-    public virtual ICollection<seddcoevaluacion> seddcoevaluacion { get; set; } = new List<seddcoevaluacion>();
-
-    public virtual ICollection<seddheteroevaluacion> seddheteroevaluacion { get; set; } = new List<seddheteroevaluacion>();
 }

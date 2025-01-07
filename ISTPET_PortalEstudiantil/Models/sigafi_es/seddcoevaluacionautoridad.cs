@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ISTPET_PortalEstudiantil.Models.sigafi_es;
 
-public partial class seddautoevaluacion
+public partial class seddcoevaluacionautoridad
 {
     public int idTest { get; set; }
 
@@ -13,9 +13,13 @@ public partial class seddautoevaluacion
 
     public string? idProfesor { get; set; }
 
-    public DateTime fechaRegistro { get; set; }
+    public string? idEvaluador { get; set; }
+
+    public DateTime? fechaRegistro { get; set; }
+
+    public DateTime? fechaTest { get; set; }
 
     public virtual seddinstrumentos? idInstrumentoNavigation { get; set; }
 
-    public virtual ICollection<sedddetalleautoevaluacion> sedddetalleautoevaluacion { get; set; } = new List<sedddetalleautoevaluacion>();
+    public virtual ICollection<sedddetallecoevaluacionautoridad> sedddetallecoevaluacionautoridad { get; set; } = new List<sedddetallecoevaluacionautoridad>();
 }

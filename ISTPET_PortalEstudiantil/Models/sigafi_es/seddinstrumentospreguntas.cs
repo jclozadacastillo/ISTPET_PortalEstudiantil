@@ -11,7 +11,7 @@ public partial class seddinstrumentospreguntas
 
     public int? idPregunta { get; set; }
 
-    public DateTime? fechaRegistro { get; set; }
+    public DateTime fechaRegistro { get; set; }
 
     public sbyte? activo { get; set; }
 

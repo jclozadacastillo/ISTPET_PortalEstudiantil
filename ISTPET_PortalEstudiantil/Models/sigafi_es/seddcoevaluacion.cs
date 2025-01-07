@@ -19,8 +19,6 @@ public partial class seddcoevaluacion
 
     public DateTime? fechaTest { get; set; }
 
-    public virtual asignaciones_profesores? idAsignacionNavigation { get; set; }
-
     public virtual seddinstrumentos? idInstrumentoNavigation { get; set; }
 
     public virtual ICollection<sedddetallecoevaluacion> sedddetallecoevaluacion { get; set; } = new List<sedddetallecoevaluacion>();
