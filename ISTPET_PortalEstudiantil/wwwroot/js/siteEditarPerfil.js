@@ -4,7 +4,7 @@ const loader = document.querySelector(".loader");
 const form = document.querySelector("#formEditarPerfil");
 const etniaSelect = document.querySelector("#idEtnia");
 const previewFoto = document.querySelector("#previewFoto");
-const etniaField = document.querySelector(".etnia-field"); 
+const etniaField = document.querySelector(".etnia-field");
 
 init();
 
@@ -104,6 +104,16 @@ function validarFormulario() {
             input.classList.add("is-invalid");
             input.classList.remove("is-valid");
             isValid = false;
+        } else if (input.id === "email" && !validarEmail(input.value)) {
+            input.classList.add("is-invalid");
+            input.classList.remove("is-valid");
+            isValid = false;
+            toastError("Ingrese un correo válido.");
+        } else if (input.id === "celular" && !validarCelular(input.value)) {
+            input.classList.add("is-invalid");
+            input.classList.remove("is-valid");
+            isValid = false;
+            toastError("El celular debe tener exactamente 10 dígitos.");
         } else {
             input.classList.remove("is-invalid");
             input.classList.add("is-valid");
@@ -113,11 +123,21 @@ function validarFormulario() {
     return isValid;
 }
 
+function validarEmail(email) {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+}
+
+function validarCelular(celular) {
+    return /^\d{10}$/.test(celular);
+}
+
 async function guardar() {
     if (!validarFormulario()) {
         toastError("Por favor, complete todos los campos requeridos.");
         return;
     }
+
     const formData = new FormData(form);
     const url = `${baseUrl}GuardarCambios`;
 
