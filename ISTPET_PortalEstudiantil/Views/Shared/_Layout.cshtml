@@ -19,7 +19,16 @@
     <script defer src="~/template/js/core/popper.min.js"></script>
     <script defer src="~/template/js/core/bootstrap.min.js"></script>
     <script defer src="~/utilities/axios/axios.min.js@_version"></script>
-    <script>const _route = top.location.href.toLowerCase().indexOf("localhost:") >= 0 ? "../../" : "../../../appEstudiantes/"</script>
+<script>
+    let urlActual = window.location.href;
+    if (urlActual.toLowerCase().includes("appestudiantes") && !urlActual.includes("appEstudiantes")) {
+        let urlCorregida = urlActual.replace(/appestudiantes/gi, "appEstudiantes");
+        window.location.replace(urlCorregida);
+    }
+    const _route = top.location.href.toLowerCase().indexOf("localhost:") >= 0 ? "../../" : "../../../appEstudiantes/";
+</script>
+
+
     <script defer src="~/utilities/toast/toast.js@_version"></script>
     <script defer>var _token = `@(Html.AntiForgeryToken())`;</script>
     <script defer src="~/js/token.js"></script>
