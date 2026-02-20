@@ -4,6 +4,9 @@ const baseUrl = `${_route}Login/`;
 const modal = new bootstrap.Modal(document.getElementById("modal"), {
     keyboard: false
 });
+const modalRecuperar = new bootstrap.Modal(document.getElementById("modalRecuperarClave"), {
+    keyboard: false
+});
 crearPasswordPreview();
 form.addEventListener("submit", e => {
     e.preventDefault();
@@ -38,7 +41,6 @@ async function login() {
         button.innerHTML = "Ingresar";
     }
 }
-
 
 async function cambiarClave() {
     try {
@@ -93,4 +95,32 @@ function validarClaves() {
     });
 }
 
+function recuperarClave() {
+    try {
+        limpiarForm(frmRecuperar);
+        activarValidadores(frmRecuperar);
+        modalRecuperar.show();
+    } catch (e) {
+        handleError(e);
+    }
+}
 
+async function solicitudRecuperarClave() {
+    try {
+        if (!await validarTodo(frmRecuperar)) {
+            toastInfo("Verifica los campos requeridos");
+            return;
+        }
+        disableForm(frmRecuperar);
+        const url = `${baseUrl}recuperarClave`;
+        const data = new FormData(frmRecuperar);
+        const responsae = (await axios.post(url, data)).data;
+        if (!!responsae.error) throw new Error(responsae.error);
+        toastSuccess("Se ha enviado un correo con las instrucciones para recuperar su contraseña");
+        modalRecuperar.hide();
+    } catch (e) {
+        handleError(e);
+    } finally {
+        enableForm(frmRecuperar);
+    }
+}
