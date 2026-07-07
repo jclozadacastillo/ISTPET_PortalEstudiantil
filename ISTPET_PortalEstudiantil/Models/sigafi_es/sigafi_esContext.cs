@@ -17,6 +17,8 @@ public partial class sigafi_esContext : DbContext
 
     public virtual DbSet<agenda_academica> agenda_academica { get; set; }
 
+    public virtual DbSet<aceptaciones_usuarios> aceptaciones_usuarios { get; set; }
+
     public virtual DbSet<alumnos> alumnos { get; set; }
 
     public virtual DbSet<alumnos_acta_conduccion> alumnos_acta_conduccion { get; set; }
@@ -143,6 +145,8 @@ public partial class sigafi_esContext : DbContext
 
     public virtual DbSet<modalidades> modalidades { get; set; }
 
+    public virtual DbSet<motivos_becas> motivos_becas { get; set; }
+
     public virtual DbSet<nacionalidades> nacionalidades { get; set; }
 
     public virtual DbSet<pagos> pagos { get; set; }
@@ -215,6 +219,10 @@ public partial class sigafi_esContext : DbContext
 
     public virtual DbSet<subcategorias_actividades> subcategorias_actividades { get; set; }
 
+    public virtual DbSet<terminos_condiciones> terminos_condiciones { get; set; }
+
+    public virtual DbSet<tipos_apoyo_financiero> tipos_apoyo_financiero { get; set; }
+
     public virtual DbSet<tiposdocumentosi> tiposdocumentosi { get; set; }
 
     public virtual DbSet<titulos> titulos { get; set; }
@@ -238,6 +246,25 @@ public partial class sigafi_esContext : DbContext
             entity.Property(e => e.fecha_desde).HasColumnType("date");
             entity.Property(e => e.fecha_hasta).HasColumnType("date");
             entity.Property(e => e.idperiodo).HasMaxLength(7);
+        });
+
+        modelBuilder.Entity<aceptaciones_usuarios>(entity =>
+        {
+            entity.HasKey(e => e.idAceptacionUsuario).HasName("PRIMARY");
+
+            entity.HasIndex(e => e.idUsuario, "UX_Aceptaciones_Usuarios_idUsuario").IsUnique();
+
+            entity.HasIndex(e => new { e.idUsuario, e.idTermino }, "IX_Aceptaciones_Usuarios_Usuario_Termino");
+
+            entity.Property(e => e.dispositivo).HasMaxLength(200);
+            entity.Property(e => e.esAlumno).HasDefaultValueSql("'0'");
+            entity.Property(e => e.esDocente).HasDefaultValueSql("'0'");
+            entity.Property(e => e.fechaRegistro)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnType("datetime");
+            entity.Property(e => e.idUsuario).HasMaxLength(14);
+            entity.Property(e => e.ipOrigen).HasMaxLength(50);
+            entity.Property(e => e.sistema).HasMaxLength(100);
         });
 
         modelBuilder.Entity<alumnos>(entity =>
@@ -1166,6 +1193,17 @@ public partial class sigafi_esContext : DbContext
                 .IsFixedLength();
         });
 
+        modelBuilder.Entity<motivos_becas>(entity =>
+        {
+            entity.HasKey(e => e.idMotivo).HasName("PRIMARY");
+
+            entity.Property(e => e.activo).HasDefaultValueSql("'1'");
+            entity.Property(e => e.fechaRegistro)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnType("timestamp");
+            entity.Property(e => e.motivo).HasMaxLength(200);
+        });
+
         modelBuilder.Entity<nacionalidades>(entity =>
         {
             entity.HasKey(e => e.idNacionalidad).HasName("PRIMARY");
@@ -1694,6 +1732,30 @@ public partial class sigafi_esContext : DbContext
             entity.Property(e => e.activa).HasDefaultValueSql("'1'");
             entity.Property(e => e.esDocencia).HasDefaultValueSql("'0'");
             entity.Property(e => e.subcategoria).HasMaxLength(200);
+        });
+
+        modelBuilder.Entity<terminos_condiciones>(entity =>
+        {
+            entity.HasKey(e => e.idTermino).HasName("PRIMARY");
+
+            entity.Property(e => e.archivoHtml).HasMaxLength(100);
+            entity.Property(e => e.contenido).HasColumnType("text");
+            entity.Property(e => e.esVigente).HasDefaultValueSql("'1'");
+            entity.Property(e => e.fechaPublicacion).HasColumnType("date");
+            entity.Property(e => e.fechaRegistro)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnType("timestamp");
+            entity.Property(e => e.versionTermino).HasMaxLength(20);
+        });
+
+        modelBuilder.Entity<tipos_apoyo_financiero>(entity =>
+        {
+            entity.HasKey(e => e.idTipoApoyo).HasName("PRIMARY");
+
+            entity.Property(e => e.activo).HasDefaultValueSql("'1'");
+            entity.Property(e => e.esAyudaEconomica).HasDefaultValueSql("'0'");
+            entity.Property(e => e.esBeca).HasDefaultValueSql("'0'");
+            entity.Property(e => e.nombreApoyo).HasMaxLength(200);
         });
 
         modelBuilder.Entity<tiposdocumentosi>(entity =>

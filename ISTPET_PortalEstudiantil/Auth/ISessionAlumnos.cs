@@ -17,5 +17,6 @@
         Task<bool> logoutAsync();
         bool logoutSync();
         int evaluacionesPendientes();
+        bool terminosCondicionesPendientes();
     }
 }

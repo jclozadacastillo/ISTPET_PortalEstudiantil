@@ -1,4 +1,4 @@
-﻿@{
+@{
     Layout = null;
     var _version = $"?v={DateTime.Now.Ticks}";
 }
@@ -12,9 +12,317 @@
     <link rel="icon" type="image/png" href="~/template/img/icono.png">
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
     <link href="~/utilities/bootstrap-icons-1.8.1/bootstrap-icons.css" rel="stylesheet" />
-    <link href="~/template/css/custom-scrollbar.css" rel="stylesheet" />
     <link id="pagestyle" href="~/template/css/material-dashboard.css@_version" rel="stylesheet" />
     <link href="~/utilities/toast/toast.css" rel="stylesheet" />
+    <style>
+        #modalTerminos .modal-dialog {
+            width: min(1080px, calc(100vw - 1.5rem));
+            max-width: 1080px;
+            margin: .75rem auto;
+        }
+
+        #modalTerminos .modal-content {
+            height: min(90dvh, 780px);
+            max-height: calc(100dvh - 1.5rem);
+            border: 0;
+            border-radius: .65rem;
+            background: #fff;
+            box-shadow: 0 18px 42px rgba(10, 18, 38, .28);
+        }
+
+        #modalTerminos .terminos-modal-header {
+            min-height: 4.15rem;
+            padding: .85rem 1.15rem .8rem;
+            color: #1f295b;
+            background: #fff;
+            border-bottom: 1px solid #e5e8ef;
+            box-shadow: inset 0 4px 0 #1f295b;
+        }
+
+        #modalTerminos .terminos-heading {
+            position: relative;
+            min-width: 0;
+            padding-left: .85rem;
+        }
+
+        #modalTerminos .terminos-heading::before {
+            content: "";
+            position: absolute;
+            top: .2rem;
+            bottom: .2rem;
+            left: 0;
+            width: 3px;
+            background: #b77c22;
+            border-radius: 1rem;
+        }
+
+        #modalTerminos .terminos-kicker {
+            display: block;
+            margin-bottom: .15rem;
+            color: #7b809a;
+            font-size: .68rem;
+            font-weight: 700;
+            line-height: 1.15;
+            text-transform: uppercase;
+        }
+
+        #modalTerminos .terminos-title {
+            color: #1f295b;
+            font-size: 1rem;
+            line-height: 1.2;
+            letter-spacing: 0;
+            text-transform: uppercase;
+        }
+
+        #modalTerminos .terminos-close {
+            display: inline-flex;
+            width: 2.15rem;
+            height: 2.15rem;
+            flex: 0 0 auto;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            margin: 0;
+            color: #1f295b;
+            background: transparent;
+            border: 0;
+            border-radius: .45rem;
+            box-shadow: none !important;
+            font-size: 1.15rem;
+            line-height: 1;
+            opacity: .9;
+        }
+
+        #modalTerminos .terminos-close:hover {
+            background-color: #f0f2f5;
+            opacity: 1;
+        }
+
+        #modalTerminos .terminos-close:focus {
+            outline: 2px solid rgba(31, 41, 91, .24);
+            outline-offset: 2px;
+            box-shadow: none !important;
+        }
+
+        #modalTerminos .terminos-modal-body {
+            flex: 1 1 auto;
+            min-height: 0;
+            padding: 1rem 1.15rem;
+            overflow: hidden;
+            background: linear-gradient(180deg, #f7f8fb 0%, #eef2f7 100%);
+        }
+
+        #modalTerminos .terminos-document-frame {
+            height: 100%;
+            min-height: 0;
+            padding: .65rem;
+            background: #fff;
+            border: 1px solid #d9dee7;
+            border-radius: .55rem;
+            box-shadow: 0 10px 24px rgba(20, 30, 45, .08);
+        }
+
+        #modalTerminos #archivoTerminos {
+            display: block;
+            width: 100%;
+            height: 100%;
+            min-height: 0;
+            border: 0;
+            border-radius: .35rem;
+            background: #fff;
+        }
+
+        #modalTerminos .terminos-acceptance {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto;
+            align-items: center;
+            column-gap: 1rem;
+            row-gap: .65rem;
+            padding: .85rem 1.15rem;
+            background: #fff;
+            border-top: 1px solid #e5e8ef;
+        }
+
+        #modalTerminos .terminos-footer-copy {
+            display: grid;
+            grid-template-columns: max-content minmax(0, 1fr);
+            flex: 1 1 auto;
+            align-items: center;
+            gap: .75rem;
+            min-width: 0;
+            width: 100%;
+        }
+
+        #modalTerminos .terminos-read-state {
+            display: inline-flex;
+            align-items: center;
+            flex: 0 0 auto;
+            gap: .4rem;
+            color: #6f7482;
+            font-size: .72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        #modalTerminos .terminos-read-state.is-read {
+            color: #2e7d32;
+        }
+
+        #modalTerminos .form-check {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 1 1 auto;
+            gap: .75rem;
+            min-width: 0;
+            width: 100%;
+            min-height: 2.65rem;
+            max-width: none;
+            margin: 0;
+            padding: .55rem 1rem;
+            color: #1f295b;
+            background: #f7f9fc;
+            border: 1px solid #dce2ea;
+            border-radius: .5rem;
+            line-height: 1;
+        }
+
+        #modalTerminos .form-check-input:disabled,
+        #modalTerminos .form-check-input:disabled + label {
+            cursor: not-allowed;
+            opacity: .58;
+        }
+
+        #modalTerminos .form-check-input {
+            width: 1.2rem;
+            height: 1.2rem;
+            flex: 0 0 1.2rem;
+            margin: 0;
+            vertical-align: middle;
+            border: 2px solid #344767;
+            border-radius: .25rem;
+            background-color: #fff;
+            background-image: none;
+            cursor: pointer;
+            appearance: none;
+            -webkit-appearance: none;
+            float: none;
+            box-shadow: 0 0 0 2px rgba(52, 71, 103, .06);
+        }
+
+        #modalTerminos .form-check-input::after {
+            content: none !important;
+            display: none !important;
+        }
+
+        #modalTerminos .form-check-input:checked {
+            border-color: #1f295b;
+            background-color: #1f295b;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/%3e%3c/svg%3e");
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: .76rem .76rem;
+        }
+
+        #modalTerminos .form-check-input:focus {
+            outline: 0;
+            box-shadow: 0 0 0 .2rem rgba(31, 41, 91, .16);
+        }
+
+        #modalTerminos .form-check-label {
+            display: inline-flex;
+            align-items: center;
+            min-height: 1.2rem;
+            min-width: 0;
+            margin: 0;
+            padding: 0;
+            cursor: pointer;
+            line-height: 1.15;
+            text-align: center;
+            overflow-wrap: anywhere;
+        }
+
+        #modalTerminos .terminos-actions {
+            display: flex;
+            flex: 0 0 auto;
+            align-items: center;
+            gap: .55rem;
+        }
+
+        #modalTerminos .terminos-actions .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 6.1rem;
+            min-height: 2.5rem;
+            padding-right: 1rem;
+            padding-left: 1rem;
+        }
+
+        #modalTerminos .terminos-btn-secondary {
+            color: #4d5463;
+            background: #eceef2;
+            border: 1px solid #dfe3ea;
+            box-shadow: none !important;
+        }
+
+        #modalTerminos .terminos-btn-secondary:hover,
+        #modalTerminos .terminos-btn-secondary:focus,
+        #modalTerminos .terminos-btn-secondary:active {
+            color: #1f295b;
+            background: #e4e7ed;
+            box-shadow: none !important;
+        }
+
+        @@media (max-width: 860px) {
+            #modalTerminos .terminos-acceptance {
+                grid-template-columns: 1fr;
+            }
+
+            #modalTerminos .terminos-actions {
+                justify-content: flex-end;
+            }
+        }
+
+        @@media (max-width: 768px) {
+            #modalTerminos .modal-dialog {
+                width: calc(100vw - 1rem);
+                margin: .5rem auto;
+            }
+
+            #modalTerminos .modal-body {
+                padding: .75rem;
+            }
+
+            #modalTerminos .modal-content {
+                height: calc(100dvh - 1rem);
+            }
+
+            #modalTerminos .terminos-acceptance {
+                align-items: stretch;
+                gap: .75rem;
+            }
+
+            #modalTerminos .terminos-footer-copy {
+                align-items: stretch;
+                grid-template-columns: 1fr;
+                gap: .55rem;
+            }
+
+            #modalTerminos .form-check {
+                max-width: none;
+                justify-content: flex-start;
+            }
+
+            #modalTerminos .form-check-label {
+                text-align: left;
+            }
+
+            #modalTerminos .terminos-actions {
+                justify-content: flex-end;
+            }
+        }
+    </style>
     @*Scripts*@
 <script>
     let urlActual = window.location.href;
@@ -167,6 +475,44 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="modalTerminos" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalTerminosLabel" aria-modal="true" role="dialog">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content border-radius-lg overflow-hidden">
+                <div class="modal-header terminos-modal-header">
+                    <div class="terminos-heading">
+                        <span class="terminos-kicker">Directiva institucional</span>
+                        <label class="modal-title terminos-title fw-bold mb-0" id="modalTerminosLabel">ISTPET - Directiva de datos personales</label>
+                    </div>
+                    <button type="button" class="terminos-close" data-bs-dismiss="modal" aria-label="Cerrar">
+                        <i class="bi bi-x-lg"></i>
+                    </button>
+                </div>
+                <div class="modal-body terminos-modal-body">
+                    <input type="hidden" id="idTerminoVigente" />
+                    <div class="terminos-document-frame">
+                        <iframe id="archivoTerminos" title="Terminos y condiciones"></iframe>
+                    </div>
+                </div>
+                <div class="modal-footer terminos-acceptance">
+                    <div class="terminos-footer-copy">
+                        <span class="terminos-read-state" id="estadoLecturaTerminos">
+                            <i class="bi bi-arrow-down-circle"></i>
+                            Revise el documento hasta el final
+                        </span>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="chkAceptaTerminos" disabled>
+                            <label class="form-check-label text-sm text-dark fw-bold" for="chkAceptaTerminos">
+                                Acepto el tratamiento de mis datos personales
+                            </label>
+                        </div>
+                    </div>
+                    <div class="terminos-actions">
+                        <button type="button" class="btn btn-sm mb-0 terminos-btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn bg-gradient-dark btn-sm mb-0" id="btnAceptarTerminos" onclick="aceptarTerminos()" disabled>Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
-

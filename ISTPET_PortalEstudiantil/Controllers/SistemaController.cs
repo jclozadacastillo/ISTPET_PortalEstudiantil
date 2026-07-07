@@ -12,30 +12,48 @@ namespace ISTPET_PortalEstudiantil.Controllers
         }
         public IActionResult Index()
         {
-            if (!_auth.isLogged()) return RedirectToAction("Index", "Login");
+            var acceso = ValidarAcceso();
+            if (acceso != null) return acceso;
             return View();
         }
 
         public IActionResult Calificaciones()
         {
-            if (!_auth.isLogged()) return RedirectToAction("Index", "Login");
+            var acceso = ValidarAcceso();
+            if (acceso != null) return acceso;
             return View();
         }
 
         public IActionResult Perfil()
         {
-            if (!_auth.isLogged()) return RedirectToAction("Index", "Login");
+            var acceso = ValidarAcceso();
+            if (acceso != null) return acceso;
             return View();
         }
         public IActionResult EditarPerfil()
         {
-            if (!_auth.isLogged()) return RedirectToAction("Index", "Login");
+            var acceso = ValidarAcceso();
+            if (acceso != null) return acceso;
             return View();
         }
         public IActionResult EvaluacionDocente()
         {
-            if (!_auth.isLogged() || _auth.evaluacionesPendientes()==0) return RedirectToAction("Index", "Login");
+            var acceso = ValidarAcceso(validarEvaluaciones: true);
+            if (acceso != null) return acceso;
             return View();
+        }
+
+        private IActionResult? ValidarAcceso(bool validarEvaluaciones = false)
+        {
+            if (!_auth.isLogged()) return RedirectToAction("Index", "Login");
+            if (_auth.terminosCondicionesPendientes())
+            {
+                _auth.logoutSync();
+                return RedirectToAction("Index", "Login");
+            }
+            if (validarEvaluaciones && _auth.evaluacionesPendientes() == 0) return RedirectToAction("Index", "Login");
+
+            return null;
         }
 
     }

@@ -81,7 +81,7 @@ function validarYMostrarFoto() {
     }
 
     const file = input.files[0];
-    if (file.size > 500 * 1024) {
+    if (file.size > 100000 * 1024) {
         toastError("El archivo seleccionado excede el tamaño máximo de 500 KB.");
         return;
     }

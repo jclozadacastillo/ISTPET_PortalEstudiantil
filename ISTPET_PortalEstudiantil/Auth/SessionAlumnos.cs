@@ -150,5 +150,33 @@ namespace ISTPET_PortalEstudiantil.Auth
                 dapper.Dispose();
             }
         }
+
+        public bool terminosCondicionesPendientes()
+        {
+            var dapper = new MySqlConnection(_cn);
+            try
+            {
+                string sql = @"
+                    SELECT COUNT(1)
+                    FROM Terminos_Condiciones t
+                    WHERE t.esVigente = 1
+                    AND NOT EXISTS (
+                    SELECT 1
+                    FROM Aceptaciones_Usuarios au
+                    WHERE au.idUsuario = @usuario
+                    )";
+
+                return dapper.ExecuteScalar<int>(sql, new { usuario = getUser() }) > 0;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+            finally
+            {
+                dapper.Dispose();
+            }
+        }
     }
 }

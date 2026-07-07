@@ -1,4 +1,4 @@
-﻿using Dapper;
+using Dapper;
 using ISTPET_PortalEstudiantil.Auth;
 using ISTPET_PortalEstudiantil.Models.sigafi_es;
 using Microsoft.AspNetCore.Hosting;
@@ -14,6 +14,7 @@ namespace ISTPET_PortalEstudiantil.Controllers
 {
     public class LoginController : Controller
     {
+        private const string SistemaAceptacion = "Portal Estudiantil";
         private readonly string cn;
         private readonly ISessionAlumnos _auth;
         private readonly IConfiguration _config;
@@ -22,7 +23,7 @@ namespace ISTPET_PortalEstudiantil.Controllers
 
         public LoginController(IConfiguration config, ISessionAlumnos auth, IWebHostEnvironment webHostEnvironment, sigafi_esContext context)
         {
-            cn = config.GetConnectionString("sigafi_es");
+            cn = config.GetConnectionString("sigafi_es")??string.Empty;
             _config = config;
             _auth = auth;
             _webHostEnvironment = webHostEnvironment;
@@ -51,8 +52,8 @@ namespace ISTPET_PortalEstudiantil.Controllers
                 _auth.set("idAlumno", alumno.idAlumno);
                 _auth.set("usuario", alumno.idAlumno);
                 _auth.set("alumno", $"{alumno.apellidoPaterno} {alumno.apellidoMaterno} {alumno.primerNombre} {alumno.segundoNombre}");
-                _auth.set("email", alumno.email);
-                _auth.set("email_institucional", alumno.email_institucional);
+                _auth.set("email", alumno.email??string.Empty);
+                _auth.set("email_institucional", alumno.email_institucional??string.Empty);
                 return "ok";
             }
             catch (Exception ex)
@@ -62,6 +63,127 @@ namespace ISTPET_PortalEstudiantil.Controllers
             finally
             {
                 dapper?.Dispose();
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> terminoVigentePendiente()
+        {
+            var dapper = new MySqlConnection(cn);
+            try
+            {
+                if (!_auth.isLogged()) throw new Exception("Su sesión ha caducado");
+
+                var termino = await ObtenerTerminoPendienteAsync(dapper, _auth.getUser());
+                if (termino == null) return Json(new { requiereAceptar = false });
+
+                return Json(new
+                {
+                    requiereAceptar = true,
+                    termino.idTermino,
+                    termino.versionTermino,
+                    termino.fechaPublicacion,
+                    termino.archivoHtml,
+                    archivoHtmlUrl = Url.Action(nameof(archivoTermino), "Login", new { idTermino = termino.idTermino, v = termino.versionTermino })
+                });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { error = ex.Message });
+            }
+            finally
+            {
+                dapper.Dispose();
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> archivoTermino(int idTermino)
+        {
+            var dapper = new MySqlConnection(cn);
+            try
+            {
+                var termino = await dapper.QueryFirstOrDefaultAsync<TerminoCondicion>(@"
+                    SELECT idTermino, versionTermino, contenido, fechaPublicacion, archivoHtml
+                    FROM Terminos_Condiciones
+                    WHERE idTermino = @idTermino", new { idTermino });
+
+                if (termino == null) return NotFound("No se encontro el termino solicitado");
+
+                var archivoExterno = ConstruirUrlArchivoExterno(termino.archivoHtml);
+                if (!string.IsNullOrEmpty(archivoExterno)) return Redirect(archivoExterno);
+
+                var contenidoArchivo = LeerArchivoTermino(termino.archivoHtml);
+                if (!string.IsNullOrEmpty(contenidoArchivo))
+                {
+                    return Content(contenidoArchivo, "text/html", Encoding.UTF8);
+                }
+
+                var contenido = string.IsNullOrWhiteSpace(termino.contenido)
+                    ? "<p>No se encontro contenido para los terminos y condiciones vigentes.</p>"
+                    : termino.contenido;
+
+                return Content(contenido, "text/html", Encoding.UTF8);
+            }
+            catch (Exception ex)
+            {
+                return Content($"<p>{WebUtility.HtmlEncode(ex.Message)}</p>", "text/html", Encoding.UTF8);
+            }
+            finally
+            {
+                dapper.Dispose();
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<string> aceptarTerminos(int idTermino, string? datosDispositivo)
+        {
+            var dapper = new MySqlConnection(cn);
+            try
+            {
+                if (!_auth.isLogged()) throw new Exception("Su sesión ha caducado");
+
+                var idTerminoVigente = await ObtenerIdTerminoVigenteAsync(dapper);
+                if (idTerminoVigente == null) throw new Exception("No existe un termino vigente para aceptar");
+                if (idTerminoVigente != idTermino)
+                {
+                    throw new Exception("Los terminos y condiciones cambiaron. Vuelva a iniciar sesion.");
+                }
+
+                var idUsuario = _auth.getUser();
+                var existe = await dapper.ExecuteScalarAsync<int>(@"
+                    SELECT COUNT(1)
+                    FROM Aceptaciones_Usuarios
+                    WHERE idUsuario = @idUsuario
+                    LIMIT 1", new { idUsuario });
+
+                if (existe == 0)
+                {
+                    await dapper.ExecuteAsync(@"
+                        INSERT INTO Aceptaciones_Usuarios
+                        (idUsuario, idTermino, esAlumno, esDocente, sistema, fechaRegistro, ipOrigen, dispositivo)
+                        VALUES
+                        (@idUsuario, @idTermino, 1, 0, @sistema, NOW(), @ipOrigen, @dispositivo)",
+                        new
+                        {
+                            idUsuario,
+                            idTermino,
+                            sistema = SistemaAceptacion,
+                            ipOrigen = ObtenerIpOrigen(),
+                            dispositivo = ObtenerDispositivo(datosDispositivo)
+                        });
+                }
+
+                return "ok";
+            }
+            catch (Exception ex)
+            {
+                return JsonConvert.SerializeObject(new { error = ex.Message });
+            }
+            finally
+            {
+                dapper.Dispose();
             }
         }
 
@@ -146,6 +268,113 @@ namespace ISTPET_PortalEstudiantil.Controllers
             {
                 dapper.Dispose();
             }
+        }
+
+        private static async Task<TerminoCondicion?> ObtenerTerminoPendienteAsync(MySqlConnection dapper, string idUsuario)
+        {
+            return await dapper.QueryFirstOrDefaultAsync<TerminoCondicion>(@"
+                SELECT t.idTermino, t.versionTermino, t.contenido, t.fechaPublicacion, t.archivoHtml
+                FROM Terminos_Condiciones t
+                WHERE t.esVigente = 1
+                AND NOT EXISTS (
+                    SELECT 1
+                    FROM Aceptaciones_Usuarios au
+                    WHERE au.idUsuario = @idUsuario
+                )
+                ORDER BY t.fechaPublicacion DESC, t.idTermino DESC
+                LIMIT 1", new { idUsuario });
+        }
+
+        private static async Task<int?> ObtenerIdTerminoVigenteAsync(MySqlConnection dapper)
+        {
+            return await dapper.ExecuteScalarAsync<int?>(@"
+                SELECT idTermino
+                FROM Terminos_Condiciones
+                WHERE esVigente = 1
+                ORDER BY fechaPublicacion DESC, idTermino DESC
+                LIMIT 1");
+        }
+
+        private string? ConstruirUrlArchivoExterno(string? archivoHtml)
+        {
+            if (string.IsNullOrWhiteSpace(archivoHtml)) return null;
+            if (EsUrlHttp(archivoHtml)) return archivoHtml;
+
+            var baseUrl = _config["TerminosCondiciones:baseUrl"];
+            if (!EsUrlHttp(baseUrl)) return null;
+
+            var baseConSeparador = baseUrl!.EndsWith("/") ? baseUrl : $"{baseUrl}/";
+            return new Uri(new Uri(baseConSeparador), archivoHtml).ToString();
+        }
+
+        private static bool EsUrlHttp(string? valor)
+        {
+            return Uri.TryCreate(valor, UriKind.Absolute, out var uri)
+                && (uri.Scheme == Uri.UriSchemeHttp || uri.Scheme == Uri.UriSchemeHttps);
+        }
+
+        private string? LeerArchivoTermino(string? archivoHtml)
+        {
+            if (string.IsNullOrWhiteSpace(archivoHtml)) return null;
+
+            var basePath = _config["TerminosCondiciones:baseUrl"];
+            if (string.IsNullOrWhiteSpace(basePath) || EsUrlHttp(basePath)) return null;
+
+            var rutaBase = Path.GetFullPath(basePath);
+            var rutaArchivo = Path.GetFullPath(Path.Combine(rutaBase, archivoHtml));
+            var rutaBaseConSeparador = rutaBase.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)
+                + Path.DirectorySeparatorChar;
+
+            if (!rutaArchivo.StartsWith(rutaBaseConSeparador, StringComparison.OrdinalIgnoreCase))
+            {
+                throw new Exception("El archivo de terminos no pertenece a la ruta base configurada");
+            }
+
+            return System.IO.File.Exists(rutaArchivo)
+                ? System.IO.File.ReadAllText(rutaArchivo, Encoding.UTF8)
+                : null;
+        }
+
+        private string ObtenerIpOrigen()
+        {
+            var forwardedFor = Request.Headers["X-Forwarded-For"].FirstOrDefault();
+            if (!string.IsNullOrWhiteSpace(forwardedFor))
+            {
+                return forwardedFor.Split(',')[0].Trim();
+            }
+
+            return HttpContext.Connection.RemoteIpAddress?.ToString() ?? "";
+        }
+
+        private string ObtenerDispositivo(string? datosDispositivo)
+        {
+            var partes = new List<string>();
+            AgregarParteDispositivo(partes, "UA", Request.Headers.UserAgent.ToString());
+            AgregarParteDispositivo(partes, "Lang", Request.Headers.AcceptLanguage.ToString());
+            AgregarParteDispositivo(partes, "Host", Request.Headers.Host.ToString());
+            AgregarParteDispositivo(partes, "Ref", Request.Headers.Referer.ToString());
+            AgregarParteDispositivo(partes, "XFwd", Request.Headers["X-Forwarded-For"].ToString());
+            AgregarParteDispositivo(partes, "Client", datosDispositivo);
+
+            var dispositivo = string.Join(" | ", partes);
+            return dispositivo.Length <= 200 ? dispositivo : dispositivo[..200];
+        }
+
+        private static void AgregarParteDispositivo(List<string> partes, string etiqueta, string? valor)
+        {
+            if (!string.IsNullOrWhiteSpace(valor))
+            {
+                partes.Add($"{etiqueta}: {valor.Trim()}");
+            }
+        }
+
+        private class TerminoCondicion
+        {
+            public int idTermino { get; set; }
+            public string? versionTermino { get; set; }
+            public string? contenido { get; set; }
+            public DateTime? fechaPublicacion { get; set; }
+            public string? archivoHtml { get; set; }
         }
     }
 }
