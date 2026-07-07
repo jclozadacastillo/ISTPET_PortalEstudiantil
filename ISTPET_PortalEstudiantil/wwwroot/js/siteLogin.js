@@ -154,9 +154,13 @@ function reiniciarLecturaTerminos() {
     terminosLeidos = false;
     chkAceptaTerminos.checked = false;
     chkAceptaTerminos.disabled = true;
+    contenedorAceptaTerminos.classList.add("is-hidden");
     btnAceptarTerminos.disabled = true;
+    estadoLecturaTerminos.classList.add("is-pending");
+    estadoLecturaTerminos.classList.add("text-danger");
+    estadoLecturaTerminos.classList.remove("text-success");
     estadoLecturaTerminos.classList.remove("is-read");
-    estadoLecturaTerminos.innerHTML = `<i class="bi bi-arrow-down-circle"></i> Revise el documento hasta el final`;
+    estadoLecturaTerminos.innerHTML = `<i class="bi bi-arrow-down-circle"></i> Lea el documento hasta el final`;
 
     if (limpiarEventosLecturaTerminos) {
         limpiarEventosLecturaTerminos();
@@ -196,7 +200,11 @@ function configurarLecturaTerminos() {
 function habilitarAceptacionTerminos() {
     terminosLeidos = true;
     chkAceptaTerminos.disabled = false;
+    contenedorAceptaTerminos.classList.remove("is-hidden");
     actualizarEstadoAceptarTerminos();
+    estadoLecturaTerminos.classList.remove("is-pending");
+    estadoLecturaTerminos.classList.remove("text-danger");
+    estadoLecturaTerminos.classList.add("text-success");
     estadoLecturaTerminos.classList.add("is-read");
     estadoLecturaTerminos.innerHTML = `<i class="bi bi-check-circle"></i> Documento revisado`;
 }

@@ -162,9 +162,9 @@ namespace ISTPET_PortalEstudiantil.Controllers
                 {
                     await dapper.ExecuteAsync(@"
                         INSERT INTO Aceptaciones_Usuarios
-                        (idUsuario, idTermino, esAlumno, esDocente, sistema, fechaRegistro, ipOrigen, dispositivo)
+                        (idUsuario, idTermino, sistema, fechaRegistro, ipOrigen, dispositivo)
                         VALUES
-                        (@idUsuario, @idTermino, 1, 0, @sistema, NOW(), @ipOrigen, @dispositivo)",
+                        (@idUsuario, @idTermino, @sistema, NOW(), @ipOrigen, @dispositivo)",
                         new
                         {
                             idUsuario,
@@ -273,9 +273,12 @@ namespace ISTPET_PortalEstudiantil.Controllers
         private static async Task<TerminoCondicion?> ObtenerTerminoPendienteAsync(MySqlConnection dapper, string idUsuario)
         {
             return await dapper.QueryFirstOrDefaultAsync<TerminoCondicion>(@"
-                SELECT t.idTermino, t.versionTermino, t.contenido, t.fechaPublicacion, t.archivoHtml
+                SELECT t.idTermino, t.idCategoria, t.versionTermino, t.contenido, t.fechaPublicacion, t.archivoHtml
                 FROM Terminos_Condiciones t
+                INNER JOIN Categorias_Terminos_Condiciones c ON c.idCategoria = t.idCategoria
                 WHERE t.esVigente = 1
+                AND c.activo = 1
+                AND c.esAlumno = 1
                 AND NOT EXISTS (
                     SELECT 1
                     FROM Aceptaciones_Usuarios au
@@ -289,9 +292,12 @@ namespace ISTPET_PortalEstudiantil.Controllers
         {
             return await dapper.ExecuteScalarAsync<int?>(@"
                 SELECT idTermino
-                FROM Terminos_Condiciones
-                WHERE esVigente = 1
-                ORDER BY fechaPublicacion DESC, idTermino DESC
+                FROM Terminos_Condiciones t
+                INNER JOIN Categorias_Terminos_Condiciones c ON c.idCategoria = t.idCategoria
+                WHERE t.esVigente = 1
+                AND c.activo = 1
+                AND c.esAlumno = 1
+                ORDER BY t.fechaPublicacion DESC, t.idTermino DESC
                 LIMIT 1");
         }
 
@@ -371,6 +377,7 @@ namespace ISTPET_PortalEstudiantil.Controllers
         private class TerminoCondicion
         {
             public int idTermino { get; set; }
+            public int? idCategoria { get; set; }
             public string? versionTermino { get; set; }
             public string? contenido { get; set; }
             public DateTime? fechaPublicacion { get; set; }

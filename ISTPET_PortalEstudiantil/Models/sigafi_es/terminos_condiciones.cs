@@ -7,6 +7,8 @@ public partial class terminos_condiciones
 {
     public int idTermino { get; set; }
 
+    public int? idCategoria { get; set; }
+
     public string? versionTermino { get; set; }
 
     public string? contenido { get; set; }

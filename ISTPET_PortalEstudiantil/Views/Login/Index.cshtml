@@ -158,7 +158,6 @@
             align-items: center;
             flex: 0 0 auto;
             gap: .4rem;
-            color: #6f7482;
             font-size: .72rem;
             font-weight: 700;
             text-transform: uppercase;
@@ -166,6 +165,14 @@
 
         #modalTerminos .terminos-read-state.is-read {
             color: #2e7d32;
+        }
+
+        #modalTerminos .terminos-read-state.is-pending {
+            color: #d32f2f;
+        }
+
+        #modalTerminos .terminos-check-wrap.is-hidden {
+            display: none;
         }
 
         #modalTerminos .form-check {
@@ -495,11 +502,11 @@
                 </div>
                 <div class="modal-footer terminos-acceptance">
                     <div class="terminos-footer-copy">
-                        <span class="terminos-read-state" id="estadoLecturaTerminos">
+                        <span class="terminos-read-state is-pending text-danger" id="estadoLecturaTerminos">
                             <i class="bi bi-arrow-down-circle"></i>
-                            Revise el documento hasta el final
+                            Lea el documento hasta el final
                         </span>
-                        <div class="form-check">
+                        <div class="form-check terminos-check-wrap is-hidden" id="contenedorAceptaTerminos">
                             <input class="form-check-input" type="checkbox" id="chkAceptaTerminos" disabled>
                             <label class="form-check-label text-sm text-dark fw-bold" for="chkAceptaTerminos">
                                 Acepto el tratamiento de mis datos personales

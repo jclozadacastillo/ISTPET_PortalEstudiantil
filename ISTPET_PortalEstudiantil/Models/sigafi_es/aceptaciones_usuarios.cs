@@ -11,10 +11,6 @@ public partial class aceptaciones_usuarios
 
     public int? idTermino { get; set; }
 
-    public sbyte? esAlumno { get; set; }
-
-    public sbyte? esDocente { get; set; }
-
     public string? sistema { get; set; }
 
     public DateTime? fechaRegistro { get; set; }

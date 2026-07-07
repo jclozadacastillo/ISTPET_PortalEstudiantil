@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,6 +18,8 @@ public partial class sigafi_esContext : DbContext
     public virtual DbSet<agenda_academica> agenda_academica { get; set; }
 
     public virtual DbSet<aceptaciones_usuarios> aceptaciones_usuarios { get; set; }
+
+    public virtual DbSet<categorias_terminos_condiciones> categorias_terminos_condiciones { get; set; }
 
     public virtual DbSet<alumnos> alumnos { get; set; }
 
@@ -250,6 +252,8 @@ public partial class sigafi_esContext : DbContext
 
         modelBuilder.Entity<aceptaciones_usuarios>(entity =>
         {
+            entity.ToTable("Aceptaciones_Usuarios");
+
             entity.HasKey(e => e.idAceptacionUsuario).HasName("PRIMARY");
 
             entity.HasIndex(e => e.idUsuario, "UX_Aceptaciones_Usuarios_idUsuario").IsUnique();
@@ -257,14 +261,27 @@ public partial class sigafi_esContext : DbContext
             entity.HasIndex(e => new { e.idUsuario, e.idTermino }, "IX_Aceptaciones_Usuarios_Usuario_Termino");
 
             entity.Property(e => e.dispositivo).HasMaxLength(200);
-            entity.Property(e => e.esAlumno).HasDefaultValueSql("'0'");
-            entity.Property(e => e.esDocente).HasDefaultValueSql("'0'");
             entity.Property(e => e.fechaRegistro)
                 .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("datetime");
             entity.Property(e => e.idUsuario).HasMaxLength(14);
             entity.Property(e => e.ipOrigen).HasMaxLength(50);
             entity.Property(e => e.sistema).HasMaxLength(100);
+        });
+
+        modelBuilder.Entity<categorias_terminos_condiciones>(entity =>
+        {
+            entity.ToTable("Categorias_Terminos_Condiciones");
+
+            entity.HasKey(e => e.idCategoria).HasName("PRIMARY");
+
+            entity.Property(e => e.activo).HasDefaultValueSql("'1'");
+            entity.Property(e => e.categoria).HasMaxLength(50);
+            entity.Property(e => e.esAdministrativo).HasDefaultValueSql("'0'");
+            entity.Property(e => e.esAlumno).HasDefaultValueSql("'0'");
+            entity.Property(e => e.esDocente).HasDefaultValueSql("'0'");
+            entity.Property(e => e.esExterno).HasDefaultValueSql("'0'");
+            entity.Property(e => e.fechaRegistro).HasColumnType("date");
         });
 
         modelBuilder.Entity<alumnos>(entity =>
@@ -1736,7 +1753,11 @@ public partial class sigafi_esContext : DbContext
 
         modelBuilder.Entity<terminos_condiciones>(entity =>
         {
+            entity.ToTable("Terminos_Condiciones");
+
             entity.HasKey(e => e.idTermino).HasName("PRIMARY");
+
+            entity.HasIndex(e => e.idCategoria, "IX_Terminos_Condiciones_idCategoria");
 
             entity.Property(e => e.archivoHtml).HasMaxLength(100);
             entity.Property(e => e.contenido).HasColumnType("text");

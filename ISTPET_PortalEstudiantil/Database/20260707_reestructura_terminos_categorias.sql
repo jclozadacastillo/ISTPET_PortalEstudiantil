@@ -9,42 +9,50 @@ CREATE TABLE IF NOT EXISTS Categorias_Terminos_Condiciones (
     activo TINYINT DEFAULT 1
 );
 
-CREATE TABLE IF NOT EXISTS Terminos_Condiciones (
-    idTermino INT PRIMARY KEY AUTO_INCREMENT,
-    idCategoria INT,
-    versionTermino VARCHAR(20),
-    contenido TEXT,
-    fechaPublicacion DATE,
-    fechaRegistro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    archivoHtml VARCHAR(100),
-    esVigente TINYINT DEFAULT 1
+SET @sql = (
+    SELECT IF(
+        COUNT(*) = 0,
+        'ALTER TABLE Terminos_Condiciones ADD COLUMN idCategoria INT NULL AFTER idTermino',
+        'SELECT 1'
+    )
+    FROM INFORMATION_SCHEMA.COLUMNS
+    WHERE TABLE_SCHEMA = DATABASE()
+      AND TABLE_NAME = 'Terminos_Condiciones'
+      AND COLUMN_NAME = 'idCategoria'
 );
+PREPARE stmt FROM @sql;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
 
-CREATE TABLE IF NOT EXISTS Aceptaciones_Usuarios (
-    idAceptacionUsuario INT PRIMARY KEY AUTO_INCREMENT,
-    idUsuario VARCHAR(14),
-    idTermino INT,
-    sistema VARCHAR(100),
-    fechaRegistro DATETIME,
-    ipOrigen VARCHAR(50),
-    dispositivo VARCHAR(200)
+SET @sql = (
+    SELECT IF(
+        COUNT(*) > 0,
+        'ALTER TABLE Aceptaciones_Usuarios DROP COLUMN esAlumno',
+        'SELECT 1'
+    )
+    FROM INFORMATION_SCHEMA.COLUMNS
+    WHERE TABLE_SCHEMA = DATABASE()
+      AND TABLE_NAME = 'Aceptaciones_Usuarios'
+      AND COLUMN_NAME = 'esAlumno'
 );
+PREPARE stmt FROM @sql;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
 
-CREATE TABLE IF NOT EXISTS Tipos_Apoyo_Financiero (
-    idTipoApoyo INT PRIMARY KEY AUTO_INCREMENT,
-    nombreApoyo VARCHAR(200),
-    esBeca TINYINT DEFAULT 0,
-    esAyudaEconomica TINYINT DEFAULT 0,
-    activo TINYINT DEFAULT 1
+SET @sql = (
+    SELECT IF(
+        COUNT(*) > 0,
+        'ALTER TABLE Aceptaciones_Usuarios DROP COLUMN esDocente',
+        'SELECT 1'
+    )
+    FROM INFORMATION_SCHEMA.COLUMNS
+    WHERE TABLE_SCHEMA = DATABASE()
+      AND TABLE_NAME = 'Aceptaciones_Usuarios'
+      AND COLUMN_NAME = 'esDocente'
 );
-
-CREATE TABLE IF NOT EXISTS Motivos_Becas (
-    idMotivo INT PRIMARY KEY AUTO_INCREMENT,
-    idTipoApoyo INT,
-    motivo VARCHAR(200),
-    activo TINYINT DEFAULT 1,
-    fechaRegistro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
+PREPARE stmt FROM @sql;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
 
 INSERT INTO Categorias_Terminos_Condiciones
     (categoria, esAlumno, esDocente, esAdministrativo, esExterno, fechaRegistro, activo)
@@ -94,3 +102,18 @@ SET t.idCategoria = c.idCategoria,
     t.archivoHtml = 'directiva-datos-personales-v1.html',
     t.esVigente = 1
 WHERE t.versionTermino = 'DP-2026-001';
+
+SET @sql = (
+    SELECT IF(
+        COUNT(*) = 0,
+        'CREATE INDEX IX_Terminos_Condiciones_idCategoria ON Terminos_Condiciones (idCategoria)',
+        'SELECT 1'
+    )
+    FROM INFORMATION_SCHEMA.STATISTICS
+    WHERE TABLE_SCHEMA = DATABASE()
+      AND TABLE_NAME = 'Terminos_Condiciones'
+      AND INDEX_NAME = 'IX_Terminos_Condiciones_idCategoria'
+);
+PREPARE stmt FROM @sql;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
