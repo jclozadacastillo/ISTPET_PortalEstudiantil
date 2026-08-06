@@ -49,6 +49,10 @@ public partial class matriculas
 
     public string? documentoFactura { get; set; }
 
+    public virtual ICollection<bien_apoyo_financiero> bien_apoyo_financiero { get; set; } = new List<bien_apoyo_financiero>();
+
+    public virtual ICollection<bien_postulaciones_becas> bien_postulaciones_becas { get; set; } = new List<bien_postulaciones_becas>();
+
     public virtual ICollection<calificaciones> calificaciones { get; set; } = new List<calificaciones>();
 
     public virtual alumnos idAlumnoNavigation { get; set; } = null!;
@@ -60,4 +64,8 @@ public partial class matriculas
     public virtual periodos idPeriodoNavigation { get; set; } = null!;
 
     public virtual secciones idSeccionNavigation { get; set; } = null!;
+
+    public virtual ICollection<solicitudescalificaciones> solicitudescalificaciones { get; set; } = new List<solicitudescalificaciones>();
+
+    public virtual ICollection<vinculacionproyectosalumnos> vinculacionproyectosalumnos { get; set; } = new List<vinculacionproyectosalumnos>();
 }

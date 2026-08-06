@@ -28,4 +28,6 @@ public partial class vehiculos
     public string? motor { get; set; }
 
     public string? modelo { get; set; }
+
+    public virtual vehiculos_operacion? vehiculos_operacion { get; set; }
 }

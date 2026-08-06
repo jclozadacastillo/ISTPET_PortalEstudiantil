@@ -1,0 +1,25 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace ISTPET_PortalEstudiantil.Models.sigafi_es;
+
+public partial class vinculacionproyectosresultadosaprendizaje
+{
+    public int idProyectosResultadosAprendizaje { get; set; }
+
+    public int? idProyectoVinculacion { get; set; }
+
+    public int? idCategoriaResultadoAprendizaje { get; set; }
+
+    public string? resultado { get; set; }
+
+    public DateTime? fechaRegistro { get; set; }
+
+    public sbyte activo { get; set; }
+
+    public virtual vinculacioncategoriasresultadosaprendizajes? idCategoriaResultadoAprendizajeNavigation { get; set; }
+
+    public virtual vinculacionproyectos? idProyectoVinculacionNavigation { get; set; }
+
+    public virtual ICollection<vinculacionproyectosplanesaprendizaje> vinculacionproyectosplanesaprendizaje { get; set; } = new List<vinculacionproyectosplanesaprendizaje>();
+}

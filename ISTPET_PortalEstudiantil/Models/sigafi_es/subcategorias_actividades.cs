@@ -14,4 +14,8 @@ public partial class subcategorias_actividades
     public sbyte? esDocencia { get; set; }
 
     public sbyte? activa { get; set; }
+
+    public virtual categorias_actividades? idCategoriaNavigation { get; set; }
+
+    public virtual ICollection<profesores_actividades> profesores_actividades { get; set; } = new List<profesores_actividades>();
 }

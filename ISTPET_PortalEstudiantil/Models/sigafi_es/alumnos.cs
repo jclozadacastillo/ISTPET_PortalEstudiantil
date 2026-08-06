@@ -89,7 +89,37 @@ public partial class alumnos
 
     public string? email_institucional { get; set; }
 
-    public string? archivoFoto { get; set; }
+    public sbyte? primerIngreso { get; set; }
+
+    public string? archivofoto { get; set; }
+
+    public sbyte? fotoAprobada { get; set; }
+
+    public int? IdEstadoCivil { get; set; }
+
+    public int? idGeneroAlumno { get; set; }
+
+    public int? idNacionalidadEtnica { get; set; }
+
+    public int? idParroquiaResidencia { get; set; }
+
+    public string? tipoInstitucion { get; set; }
+
+    public virtual estadocivil? IdEstadoCivilNavigation { get; set; }
+
+    public virtual ICollection<bien_datos_educacion> bien_datos_educacion { get; set; } = new List<bien_datos_educacion>();
+
+    public virtual ICollection<bien_ficha_socioeconomica> bien_ficha_socioeconomica { get; set; } = new List<bien_ficha_socioeconomica>();
+
+    public virtual ICollection<bien_parentezcos_alumno> bien_parentezcos_alumno { get; set; } = new List<bien_parentezcos_alumno>();
+
+    public virtual ICollection<experiencias_laborales> experiencias_laborales { get; set; } = new List<experiencias_laborales>();
+
+    public virtual bien_genero_alumno? idGeneroAlumnoNavigation { get; set; }
+
+    public virtual etnias? idNacionalidadEtnicaNavigation { get; set; }
+
+    public virtual parroquias? idParroquiaResidenciaNavigation { get; set; }
 
     public virtual ICollection<matriculas> matriculas { get; set; } = new List<matriculas>();
 }

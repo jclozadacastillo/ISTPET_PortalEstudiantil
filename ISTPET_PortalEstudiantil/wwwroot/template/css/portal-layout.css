@@ -330,3 +330,592 @@ body.g-sidenav-show {
         grid-template-columns: 1fr;
     }
 }
+
+/* ==========================================
+   ISTPET Portal Estudiantil - Theme Enhancements
+   ========================================== */
+
+:root {
+    --istpet-primary: #1f295b;
+    --istpet-primary-dark: #151b3d;
+    --istpet-primary-light: #2c3c7e;
+    --istpet-gold: #c59b27;
+    --istpet-gold-hover: #a8811b;
+    --istpet-gold-light: #fef9c3;
+    --istpet-sidebar-bg: linear-gradient(195deg, #121838 0%, #1f295b 100%);
+    --istpet-card-radius: 1rem;
+    --istpet-shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+    --istpet-shadow-md: 0 10px 15px -3px rgba(31, 41, 91, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+    --istpet-shadow-lg: 0 20px 25px -5px rgba(31, 41, 91, 0.12), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+}
+
+/* Sidebar Improvements */
+#sidenav-main {
+    background: var(--istpet-sidebar-bg) !important;
+    box-shadow: 0 20px 27px 0 rgba(18, 24, 56, 0.3) !important;
+    border-radius: 1rem !important;
+}
+
+#sidenav-main .sidenav-header {
+    padding: 1rem 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid rgba(197, 155, 39, 0.2);
+}
+
+#sidenav-main .navbar-brand2 img {
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.4));
+    transition: transform 0.3s ease;
+}
+
+#sidenav-main .navbar-brand2 img:hover {
+    transform: scale(1.03);
+}
+
+#sidenav-main .nav-item .nav-link {
+    margin: 0.25rem 0.75rem;
+    padding: 0.65rem 1rem;
+    border-radius: 0.625rem;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    font-weight: 500;
+}
+
+#sidenav-main .nav-item .nav-link:hover {
+    background: rgba(255, 255, 255, 0.12);
+    transform: translateX(3px);
+}
+
+#sidenav-main .nav-item .nav-link.active {
+    background: linear-gradient(135deg, #1f295b 0%, #2c3c7e 100%) !important;
+    box-shadow: 0 4px 14px rgba(31, 41, 91, 0.4) !important;
+    border-left: 3px solid var(--istpet-gold);
+    font-weight: 600;
+}
+
+#sidenav-main .nav-item .nav-link i {
+    font-size: 1.15rem;
+    transition: transform 0.25s ease;
+}
+
+#sidenav-main .nav-item .nav-link:hover i {
+    transform: scale(1.15);
+    color: var(--istpet-gold) !important;
+}
+
+/* Badge animation & checkmark */
+.badge-custom.bg-danger,
+.badge-pending {
+    font-size: 0.72rem !important;
+    font-weight: 700 !important;
+    padding: 0.35em 0.65em !important;
+    animation: pulse-badge-red 2s infinite ease-in-out;
+}
+
+/* Fix for legacy green check badge override: 100% optical vector centering */
+.badge.rounded-circle.bg-success,
+.badge-custom.bg-success {
+    animation: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: auto !important;
+    height: auto !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+}
+
+.badge.rounded-circle.bg-success i,
+.badge-custom.bg-success i {
+    position: static !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: 1.15rem !important;
+    color: #10b981 !important;
+    line-height: 1 !important;
+}
+
+.badge-custom-check {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.25rem 0.65rem;
+    background: rgba(16, 185, 129, 0.16);
+    color: #10b981;
+    border: 1px solid rgba(16, 185, 129, 0.35);
+    border-radius: 2rem;
+    font-size: 0.68rem;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+}
+
+.badge-custom-check i {
+    position: static !important;
+    margin: 0 !important;
+    font-size: 0.82rem;
+}
+
+@keyframes pulse-badge-red {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+    }
+    50% {
+        transform: scale(1.08);
+        box-shadow: 0 0 0 6px rgba(239, 68, 68, 0);
+    }
+}
+
+.mb-35{
+    margin-bottom:1.125rem;
+}
+
+/* Navbar / Header Improvements */
+.navbar-main {
+    background: rgba(255, 255, 255, 0.92) !important;
+    backdrop-filter: blur(12px) saturate(180%);
+    -webkit-backdrop-filter: blur(12px) saturate(180%);
+    border: none;
+    box-shadow: 0 0.3125rem 0.625rem 0 rgba(0, 0, 0, 0.12) !important;
+    transition: all 0.3s ease;
+}
+
+.user-avatar-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.35rem 0.9rem;
+    background: #ffffff;
+    border: 1px solid rgba(197, 155, 39, 0.35);
+    border-radius: 2rem;
+    transition: all 0.25s ease;
+    cursor: pointer;
+}
+
+.user-avatar-pill:hover {
+    background: #f8fafc;
+    border-color: var(--istpet-gold);
+    box-shadow: 0 4px 14px rgba(31, 41, 91, 0.12) !important;
+}
+
+.avatar-circle-sm {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #151b3d 0%, #1f295b 100%);
+    border: 1.5px solid var(--istpet-gold);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    box-shadow: 0 2px 6px rgba(31, 41, 91, 0.25);
+}
+
+.text-navbar-user {
+    font-weight: 600;
+    color: var(--istpet-primary);
+    font-size: 0.86rem;
+    letter-spacing: -0.01em;
+}
+
+.dropdown-menu-portal {
+    min-width: 260px;
+    border-radius: 1rem !important;
+    border: 1px solid rgba(226, 232, 240, 0.8) !important;
+    border-top: 3px solid var(--istpet-gold) !important;
+    box-shadow: 0 15px 35px rgba(18, 24, 56, 0.18) !important;
+    margin-top: 0.6rem !important;
+}
+
+.dropdown-item-portal {
+    transition: all 0.2s ease;
+    border-radius: 0.5rem;
+}
+
+.dropdown-item-portal:hover {
+    background-color: rgba(31, 41, 91, 0.04) !important;
+    transform: translateX(2px);
+}
+
+.dropdown-item-logout:hover {
+    background-color: rgba(239, 68, 68, 0.06) !important;
+    transform: translateX(2px);
+}
+
+.dropdown-icon-box {
+    width: 36px;
+    height: 36px;
+    border-radius: 0.6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    transition: all 0.25s ease;
+}
+
+.dropdown-icon-profile {
+    background: linear-gradient(135deg, #151b3d 0%, #1f295b 100%);
+    color: var(--istpet-gold);
+    box-shadow: 0 3px 8px rgba(31, 41, 91, 0.25);
+}
+
+.dropdown-item-portal:hover .dropdown-icon-profile {
+    background: linear-gradient(135deg, #c59b27 0%, #a8811b 100%);
+    color: #ffffff;
+    box-shadow: 0 4px 10px rgba(197, 155, 39, 0.4);
+}
+
+.dropdown-icon-logout {
+    background: rgba(239, 68, 68, 0.12);
+    color: #ef4444;
+}
+
+.dropdown-item-logout:hover .dropdown-icon-logout {
+    background: #ef4444;
+    color: #ffffff;
+    box-shadow: 0 4px 10px rgba(239, 68, 68, 0.35);
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #10b981;
+    border-radius: 50%;
+    display: inline-block;
+    box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+}
+
+/* Dashboard Cards (`Sistema/Index.cshtml`) */
+.portal-card {
+    border: 1px solid rgba(226, 232, 240, 0.9);
+    border-radius: var(--istpet-card-radius);
+    background: #ffffff;
+    box-shadow: var(--istpet-shadow-sm);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.portal-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--istpet-shadow-lg);
+    border-color: rgba(197, 155, 39, 0.4);
+}
+
+.portal-card-header {
+    position: relative;
+    padding: 1.25rem 1.25rem 0.5rem;
+}
+
+.portal-card-icon {
+    width: 3.2rem;
+    height: 3.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.85rem;
+    background: linear-gradient(135deg, #151b3d 0%, #1f295b 100%);
+    color: #ffffff;
+    font-size: 1.4rem;
+    box-shadow: 0 6px 14px -2px rgba(31, 41, 91, 0.35);
+    transition: all 0.3s ease;
+}
+
+.portal-card:hover .portal-card-icon {
+    transform: scale(1.08) rotate(-3deg);
+    background: linear-gradient(135deg, #c59b27 0%, #a8811b 100%);
+    box-shadow: 0 6px 18px -2px rgba(197, 155, 39, 0.45);
+}
+
+.portal-card-img-wrapper {
+    overflow: hidden;
+    border-radius: 0.625rem;
+    margin-top: 0.85rem;
+    background: #f8fafc;
+    border: 1px solid #f1f5f9;
+}
+
+.portal-card-img-wrapper img {
+    transition: transform 0.4s ease;
+    display: block;
+    width: 100%;
+}
+
+.portal-card:hover .portal-card-img-wrapper img {
+    transform: scale(1.04);
+}
+
+.portal-card-footer {
+    padding: 0.75rem 1.25rem 1.25rem;
+    margin-top: auto;
+    background: transparent;
+    border-top: 1px solid #f1f5f9;
+}
+
+.btn-portal-action {
+    background: var(--istpet-primary);
+    color: #ffffff !important;
+    font-weight: 600;
+    font-size: 0.85rem;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1.15rem;
+    transition: all 0.25s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    border: none;
+    text-decoration: none;
+}
+
+.btn-portal-action:hover {
+    background: var(--istpet-gold);
+    color: #ffffff !important;
+    box-shadow: 0 4px 14px rgba(197, 155, 39, 0.4);
+    transform: translateX(3px);
+}
+
+/* Modernized Tables */
+.table-custom-portal {
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+}
+
+.table-custom-portal thead th {
+    background: #f8fafc;
+    color: var(--istpet-primary);
+    font-weight: 700;
+    font-size: 0.72rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.85rem 1rem;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.table-custom-portal tbody td {
+    padding: 0.85rem 1rem;
+    vertical-align: middle;
+    border-bottom: 1px solid #f1f5f9;
+    transition: background 0.15s ease;
+}
+
+.table-custom-portal tbody tr:hover td {
+    background-color: #f8fafc;
+}
+
+/* Footer modern */
+.portal-main .footer {
+    border-top: 1px solid rgba(226, 232, 240, 0.8);
+    padding-top: 1rem;
+    padding-bottom: 0.5rem;
+}
+
+.text-footer {
+    color: #64748b;
+    font-size: 0.82rem;
+    text-align: center;
+}
+
+.text-footer a {
+    color: var(--istpet-primary);
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+/* Custom Executive Select Control & Centered Arrow Fix */
+.form-select,
+.form-select-sm,
+select.form-select {
+    background-color: #ffffff !important;
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 0.5rem !important;
+    padding: 0.4rem 2.2rem 0.4rem 0.85rem !important;
+    font-size: 0.78rem !important;
+    font-weight: 600 !important;
+    color: #1e293b !important;
+    height: 38px !important;
+    line-height: 1.4 !important;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%231f295b' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 0.75rem center !important;
+    background-size: 12px 12px !important;
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04) !important;
+    transition: all 0.2s ease-in-out !important;
+}
+
+.form-select:focus,
+.form-select-sm:focus,
+select.form-select:focus {
+    border-color: #1f295b !important;
+    box-shadow: 0 0 0 3px rgba(31, 41, 91, 0.15) !important;
+    outline: 0 !important;
+}
+
+/* Universal Symmetrical Layout System: Pixel-Perfect Left/Right Grid Alignment */
+:root {
+    --portal-gap: 1rem;
+    --portal-horizontal-margin: 1.5rem;
+}
+
+.portal-main-container {
+    padding-left: var(--portal-horizontal-margin) !important;
+    padding-right: var(--portal-horizontal-margin) !important;
+    padding-top: 0 !important;
+    padding-bottom: var(--portal-gap) !important;
+    margin-top: 0 !important;
+}
+
+.portal-main-row {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+.navbar-main {
+    margin-left: var(--portal-horizontal-margin) !important;
+    margin-right: var(--portal-horizontal-margin) !important;
+    margin-bottom: var(--portal-gap) !important;
+    margin-top: 1rem !important;
+    width: auto !important;
+}
+
+.portal-card-space {
+    margin-bottom: var(--portal-gap) !important;
+}
+
+.text-footer a:hover {
+    color: var(--istpet-gold);
+    text-decoration: underline;
+}
+
+/* Universal Icon Box Centering Fix: Overrides material-dashboard offsets */
+.portal-card-icon-box {
+    width: 44px !important;
+    height: 44px !important;
+    min-width: 44px !important;
+    min-height: 44px !important;
+    border-radius: 0.75rem !important;
+    background: linear-gradient(135deg, #151b3d 0%, #1f295b 100%) !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-shadow: 0 4px 10px rgba(31, 41, 91, 0.25) !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    position: relative !important;
+}
+
+.portal-card-icon-box i,
+.icon-shape i,
+.icon-shape .material-icons,
+.icon-shape .bi {
+    position: static !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    transform: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: 1 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.portal-icon-gold,
+.portal-icon-white,
+.portal-card-icon-box i {
+    color: #ffffff !important;
+}
+
+/* Corrección Global de Alineación y Cuadrado Perfecto para _pvw_password */
+[id^="_pvw_"],
+.pvw-password-toggle {
+    position: absolute !important;
+    right: 12px !important;
+    left: auto !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 32px !important;
+    height: 32px !important;
+    min-width: 32px !important;
+    min-height: 32px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    z-index: 10 !important;
+    text-decoration: none !important;
+    box-shadow: none !important;
+    border: none !important;
+    background: transparent !important;
+}
+
+[id^="_pvw_"] i,
+.pvw-password-toggle i {
+    font-size: 1.15rem !important;
+    line-height: 1 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+/* Botón de Cerrar Modales (btn-close-white-custom y btn-close) en Blanco Puro y Pequeño */
+.btn-close-white-custom,
+.modal-header .btn-close,
+.modal .btn-close,
+.btn-close {
+    background: transparent !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    color: #ffffff !important;
+    opacity: 0.85 !important;
+    padding: 0.2rem !important;
+    margin: 0 !important;
+    width: 1.5rem !important;
+    height: 1.5rem !important;
+    min-width: 1.5rem !important;
+    min-height: 1.5rem !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-indent: 0 !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease-in-out !important;
+}
+
+.btn-close-white-custom i,
+.modal-header .btn-close i,
+.modal .btn-close i,
+.btn-close i {
+    color: #ffffff !important;
+    font-size: 0.9rem !important;
+    line-height: 1 !important;
+    display: inline-block !important;
+}
+
+.btn-close-white-custom:hover,
+.modal-header .btn-close:hover,
+.modal .btn-close:hover,
+.btn-close:hover {
+    opacity: 1 !important;
+    color: #ffffff !important;
+    transform: scale(1.15) !important;
+}
+
+

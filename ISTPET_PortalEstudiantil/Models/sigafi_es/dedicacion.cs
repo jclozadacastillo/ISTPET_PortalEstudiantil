@@ -1,0 +1,17 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace ISTPET_PortalEstudiantil.Models.sigafi_es;
+
+public partial class dedicacion
+{
+    public int idDedicacion { get; set; }
+
+    public string? nombre { get; set; }
+
+    public virtual ICollection<dedicacion_categorias> dedicacion_categorias { get; set; } = new List<dedicacion_categorias>();
+
+    public virtual ICollection<horas_academicas> horas_academicas { get; set; } = new List<horas_academicas>();
+
+    public virtual ICollection<plantilla_contrato> plantilla_contrato { get; set; } = new List<plantilla_contrato>();
+}

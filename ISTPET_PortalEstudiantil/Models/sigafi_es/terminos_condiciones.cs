@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace ISTPET_PortalEstudiantil.Models.sigafi_es;
@@ -15,7 +15,7 @@ public partial class terminos_condiciones
 
     public DateTime? fechaPublicacion { get; set; }
 
-    public DateTime? fechaRegistro { get; set; }
+    public DateTime fechaRegistro { get; set; }
 
     public string? archivoHtml { get; set; }
 

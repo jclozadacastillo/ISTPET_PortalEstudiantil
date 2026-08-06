@@ -164,7 +164,7 @@ namespace ISTPET_PortalEstudiantil.Controllers
                         await updatedAlumno.foto.CopyToAsync(fileStream);
                     }
 
-                    alumno.archivoFoto = Path.Combine("alumnos", idAlumno, fileName).Replace("\\", "/");
+                    alumno.archivofoto = Path.Combine("alumnos", idAlumno, fileName).Replace("\\", "/");
                 }
 
                 _context.alumnos.Update(alumno);

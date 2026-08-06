@@ -12,4 +12,14 @@ public partial class parciales
     public DateTime? fecha_inicio { get; set; }
 
     public DateTime? fecha_final { get; set; }
+
+    public sbyte? esPrimero { get; set; }
+
+    public sbyte? esSegundo { get; set; }
+
+    public sbyte? esExamenFinal { get; set; }
+
+    public sbyte? esRemedial { get; set; }
+
+    public virtual ICollection<solicitudescalificaciones> solicitudescalificaciones { get; set; } = new List<solicitudescalificaciones>();
 }

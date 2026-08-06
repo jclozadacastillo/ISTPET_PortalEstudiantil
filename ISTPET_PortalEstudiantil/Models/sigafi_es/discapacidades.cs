@@ -10,4 +10,6 @@ public partial class discapacidades
     public string? discapacidad { get; set; }
 
     public sbyte? esDefecto { get; set; }
+
+    public virtual ICollection<profesores> profesores { get; set; } = new List<profesores>();
 }

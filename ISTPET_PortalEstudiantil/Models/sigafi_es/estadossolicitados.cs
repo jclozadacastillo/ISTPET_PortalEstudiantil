@@ -1,0 +1,25 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace ISTPET_PortalEstudiantil.Models.sigafi_es;
+
+public partial class estadossolicitados
+{
+    public int idEstadoSolicitud { get; set; }
+
+    public string? estado { get; set; }
+
+    public int? orden { get; set; }
+
+    public sbyte? esTerminal { get; set; }
+
+    public sbyte? esPendiente { get; set; }
+
+    public sbyte? esFinalizado { get; set; }
+
+    public sbyte? esEnRevision { get; set; }
+
+    public sbyte? esAnulada { get; set; }
+
+    public sbyte? esReasignada { get; set; }
+}

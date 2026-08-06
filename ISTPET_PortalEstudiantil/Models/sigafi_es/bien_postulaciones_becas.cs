@@ -1,0 +1,41 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace ISTPET_PortalEstudiantil.Models.sigafi_es;
+
+public partial class bien_postulaciones_becas
+{
+    public int idPostulacionesBecas { get; set; }
+
+    public int? idConvocatoriasBecas { get; set; }
+
+    public int? idMotivosBeca { get; set; }
+
+    public int? idUsuarioBienestar { get; set; }
+
+    public int idMatricula { get; set; }
+
+    public DateTime fechaRegistro { get; set; }
+
+    public string estadoBienestar { get; set; } = null!;
+
+    public string? observacionBienestar { get; set; }
+
+    public sbyte esActivo { get; set; }
+
+    public DateTime? fechaValidacionBienestar { get; set; }
+
+    public DateTime? fechaActualizado { get; set; }
+
+    public virtual ICollection<bien_postulacion_requisitos_becas> bien_postulacion_requisitos_becas { get; set; } = new List<bien_postulacion_requisitos_becas>();
+
+    public virtual ICollection<bien_resoluciones_tribunales> bien_resoluciones_tribunales { get; set; } = new List<bien_resoluciones_tribunales>();
+
+    public virtual bien_convocatorias_becas? idConvocatoriasBecasNavigation { get; set; }
+
+    public virtual matriculas idMatriculaNavigation { get; set; } = null!;
+
+    public virtual bien_motivos_beca? idMotivosBecaNavigation { get; set; }
+
+    public virtual usuarios? idUsuarioBienestarNavigation { get; set; }
+}

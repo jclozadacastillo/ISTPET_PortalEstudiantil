@@ -1,66 +1,91 @@
-﻿@{
+@{
     ViewData["Title"] = "Evaluación Docente";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="pt-2 text-center" id="loader">
-    <div class="spinner-grow text-dark spinner-grow-sm" role="status">
+<div class="loader pt-3 text-center" id="loader">
+    <div class="spinner-grow text-primary spinner-grow-sm" role="status">
         <span class="visually-hidden">Loading...</span>
     </div>
-    <div class="spinner-grow text-dark spinner-grow-sm" role="status">
+    <div class="spinner-grow text-primary spinner-grow-sm" role="status">
         <span class="visually-hidden">Loading...</span>
     </div>
-    <div class="spinner-grow text-dark spinner-grow-sm" role="status">
+    <div class="spinner-grow text-primary spinner-grow-sm" role="status">
         <span class="visually-hidden">Loading...</span>
     </div>
 </div>
-<div class="w-100 pt-2 container-main" id="container" hidden>
-    <div class="card-container">
-        <div class="card">
-            <div class="card-body">
-                <form enctype="multipart/form-data" id="frmDatos">
-                    <div class="row">
-                        <div class="col-sm-3 text-start">
-                            <h3 class="m-0">Calificaciones</h3>
-                            <p class="text-muted text-sm p-0 m-0">Seleccione la carrera y la asignatura</p>
-                        </div>
-                        <div class="col-sm-4">
-                            <strong class="text-dark">Carrera</strong>
-                            <select class="form-select form-select-sm text-uppercase" id="idMatricula" name="idMatricula">
-                                <option value="">Seleccione</option>
-                            </select>
-                        </div>
-                        <div class="col-sm-5">
-                            <strong class="text-dark">Asignatura</strong>
-                            <select class="form-select form-select-sm text-uppercase" id="idAsignatura" name="idAsignatura">
-                                <option value="">Seleccione una Carrera</option>
-                            </select>
+
+<div class="w-100 container-main p-0" id="container" hidden>
+    <!-- Tarjeta Unificada Compacta (Encabezado + Filtros) -->
+    <div class="card shadow-sm border-0 border-radius-xl overflow-hidden portal-card-space">
+        <div class="card-body p-3 px-4">
+            <form enctype="multipart/form-data" id="frmDatos">
+                <div class="row align-items-center g-3">
+                    <!-- Titulo -->
+                    <div class="col-lg-4">
+                        <div class="d-flex align-items-center mb-0">
+                            <div class="portal-card-icon-box me-3" style="margin-right: 1.25rem !important;">
+                                <i class="bi-clipboard-data-fill text-white fs-5"></i>
+                            </div>
+                            <div>
+                                <h5 class="mb-0 font-weight-bold text-dark" style="letter-spacing: -0.01em;">Evaluación Docente</h5>
+                                <p class="text-muted text-xs p-0 m-0">Selecciona la carrera y la asignatura a evaluar</p>
+                            </div>
                         </div>
                     </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-12 mt-2" hidden id="contenedorPreguntas">
-        <div class="card">
-            <div class="card-body container">
-                <p id="nombreDocente" class="text-dark py-0 text-center"></p>
-                <div class="table-responsive table-responsive-sm p-2">
-                    <table class="table table-sm table-checkbox">
-                        <thead>
-                            <tr class="text-secondary">
-                                <th class="text-end">#</th>
-                                <th>Pregunta</th>
-                                <th>Respuesta</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tablaEvaluacion"></tbody>
-                    </table>
+
+                    <!-- Filtros -->
+                    <div class="col-lg-4 col-md-6">
+                        <label class="form-label text-xxs font-weight-bold text-uppercase text-secondary mb-1 d-flex align-items-center gap-1" for="idMatricula">
+                            <i class="bi-mortarboard" style="color: #1f295b !important; font-size: 0.9rem; line-height: 1;"></i> Carrera
+                        </label>
+                        <select class="form-select form-select-sm text-uppercase border-radius-md shadow-none" id="idMatricula" name="idMatricula" style="border-color: #cbd5e1;">
+                            <option value="">Seleccione</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <label class="form-label text-xxs font-weight-bold text-uppercase text-secondary mb-1 d-flex align-items-center gap-1" for="idAsignatura">
+                            <i class="bi-journal-bookmark" style="color: #1f295b !important; font-size: 0.9rem; line-height: 1;"></i> Asignatura
+                        </label>
+                        <select class="form-select form-select-sm text-uppercase border-radius-md shadow-none" id="idAsignatura" name="idAsignatura" style="border-color: #cbd5e1;">
+                            <option value="">Seleccione una Carrera</option>
+                        </select>
+                    </div>
                 </div>
-            </div>
-            <button onclick="guardar()" class="btn btn-sm btn-success rounded-phill float-button"><i class="bi bi-check-square fs-6 me-2"></i> Guardar</button>
+            </form>
         </div>
     </div>
 
+    <!-- Contenedor de Preguntas de Evaluación -->
+    <div class="card shadow-sm border-0 border-radius-xl overflow-hidden portal-card-space" hidden id="contenedorPreguntas">
+        <div class="card-header bg-transparent py-3 px-4 border-bottom border-light d-flex align-items-center justify-content-between flex-wrap gap-2">
+            <h6 class="mb-0 text-xs font-weight-bold text-uppercase text-dark d-flex align-items-center gap-2">
+                <i class="bi-person-badge-fill" style="color: #1f295b !important; font-size: 1.1rem; line-height: 1;"></i> Cuestionario de Evaluación
+            </h6>
+            <div class="px-3 py-1.5 border-radius-md" style="background: rgba(31, 41, 91, 0.08); border: 1px solid rgba(31, 41, 91, 0.15);">
+                <p id="nombreDocente" class="text-dark text-xs font-weight-bold mb-0"></p>
+            </div>
+        </div>
+        <div class="card-body p-3 px-4">
+            <div class="table-responsive p-0">
+                <table class="table table-sm table-checkbox align-items-center mb-0">
+                    <thead>
+                        <tr class="text-secondary text-xxs font-weight-bold text-uppercase border-bottom">
+                            <th class="text-center py-2" style="width: 50px;">#</th>
+                            <th class="py-2">Pregunta</th>
+                            <th class="text-center py-2">Respuesta (Escala 1 a 10)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaEvaluacion" class="text-sm"></tbody>
+                </table>
+            </div>
+            <div class="pt-3 mt-3 border-top text-end">
+                <button onclick="guardar()" class="btn btn-primary border-radius-md px-4 py-2 shadow-xs font-weight-bold btn-sm mb-0" style="background: #1f295b !important; border: none;">
+                    <i class="bi-check-circle-fill me-1"></i> Guardar Evaluación
+                </button>
+            </div>
+        </div>
+    </div>
 </div>
+
 <script defer src="~/js/siteEvaluacionDocente.js?v=@DateTime.Now.Ticks"></script>

@@ -24,4 +24,6 @@ public partial class cursos
     public virtual carreras idCarreraNavigation { get; set; } = null!;
 
     public virtual ICollection<matriculas> matriculas { get; set; } = new List<matriculas>();
+
+    public virtual ICollection<solicitudescalificaciones> solicitudescalificaciones { get; set; } = new List<solicitudescalificaciones>();
 }

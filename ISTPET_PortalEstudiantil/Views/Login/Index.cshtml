@@ -8,26 +8,312 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title> ISTPET: PORTAL ESTUDIANTIL LOGIN</title>
+    <title>ISTPET | Portal Estudiantil - Iniciar Sesión</title>
     <link rel="icon" type="image/png" href="~/template/img/icono.png">
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
     <link href="~/utilities/bootstrap-icons-1.8.1/bootstrap-icons.css" rel="stylesheet" />
     <link id="pagestyle" href="~/template/css/material-dashboard.css@_version" rel="stylesheet" />
     <link href="~/utilities/toast/toast.css" rel="stylesheet" />
     <style>
+        /* Rediseño Split-Screen Login ISTPET */
+        :root {
+            --istpet-navy: #1f295b;
+            --istpet-navy-dark: #151b3d;
+            --istpet-gold: #c59b27;
+        }
+
+        body.login-split-body {
+            background-color: #050814 !important;
+            background: #050814 linear-gradient(135deg, rgba(5, 8, 20, 0.95) 0%, rgba(10, 14, 34, 0.98) 100%), url('/template/img/login-bg.png') center/cover no-repeat fixed !important;
+            font-family: 'Roboto', sans-serif;
+            min-height: 100vh;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        .login-split-container {
+            min-height: 100vh;
+            width: 100%;
+        }
+
+        /* Panel Izquierdo: Imagen e Identidad */
+        .login-left-panel {
+            position: relative;
+            background: linear-gradient(135deg, rgba(7, 10, 26, 0.90) 0%, rgba(15, 21, 48, 0.95) 100%), url('/template/img/login-bg.png') center/cover no-repeat;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 3rem 4rem;
+            color: #ffffff;
+            overflow: hidden;
+        }
+
+        .login-left-panel::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.08) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .login-left-logo img {
+            max-width: 170px;
+            height: auto;
+            filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4));
+        }
+
+        .login-left-content {
+            position: relative;
+            z-index: 2;
+            max-width: 520px;
+        }
+
+        .login-left-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1.15;
+            color: #ffffff;
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.02em;
+        }
+
+        .login-gold-line {
+            width: 60px;
+            height: 4px;
+            background: var(--istpet-gold);
+            border-radius: 2px;
+            margin-bottom: 1.5rem;
+        }
+
+        .login-left-desc {
+            font-size: 1.05rem;
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .login-features-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .login-features-list li {
+            display: flex;
+            align-items: center;
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 0.85rem;
+            font-weight: 500;
+        }
+
+        .login-features-list i {
+            color: #ffffff;
+            font-size: 1.25rem;
+            margin-right: 0.75rem;
+        }
+
+        /* Panel Derecho: Formulario sin Fondo */
+        .login-right-panel {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2.5rem 2rem;
+            background: transparent;
+            position: relative;
+        }
+
+        .login-form-wrapper {
+            width: 100%;
+            max-width: 400px;
+            background: transparent;
+        }
+
+        .login-right-heading h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 0.35rem;
+            letter-spacing: -0.01em;
+        }
+
+        .login-right-heading p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Estilo de Controles de Entrada */
+        .login-field-group .form-control {
+            height: 48px;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            border: 1.5px solid rgba(255, 255, 255, 0.3) !important;
+            background-color: rgba(255, 255, 255, 0.08) !important;
+            color: #ffffff !important;
+            font-size: 0.95rem;
+            transition: all 0.25s ease;
+        }
+
+        .login-field-group .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.5) !important;
+        }
+
+        .login-field-group .form-control:focus {
+            background-color: rgba(255, 255, 255, 0.15) !important;
+            border-color: #ffffff !important;
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.2) !important;
+            outline: none;
+            color: #ffffff !important;
+        }
+
+        /* Botón de Iniciar Sesión en Azul Marino del Layout */
+        .btn-submit-portal {
+            background: linear-gradient(135deg, #151b3d 0%, #1f295b 100%) !important;
+            color: #ffffff !important;
+            height: 50px;
+            border-radius: 0.5rem;
+            font-weight: 700;
+            font-size: 0.95rem;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            border: 1px solid rgba(255, 255, 255, 0.25) !important;
+            box-shadow: 0 6px 18px rgba(15, 27, 61, 0.5);
+            transition: all 0.3s ease;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-submit-portal:hover {
+            background: linear-gradient(135deg, #1f295b 0%, #2a3875 100%) !important;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 24px rgba(15, 27, 61, 0.6);
+            color: #ffffff !important;
+            border-color: #ffffff !important;
+        }
+
+        .split-footer-text {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.78rem;
+            margin-top: 3rem;
+            text-align: center;
+        }
+
+        .split-footer-text a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .split-footer-text a:hover {
+            color: #ffffff;
+            text-decoration: underline;
+        }
+
+        /* Corrección Global de Alineación y Cuadrado Perfecto para _pvw_password */
+        [id^="_pvw_"],
+        .pvw-password-toggle {
+            position: absolute !important;
+            right: 12px !important;
+            left: auto !important;
+            top: 50% !important;
+            transform: translateY(-50%) !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            width: 32px !important;
+            height: 32px !important;
+            min-width: 32px !important;
+            min-height: 32px !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            z-index: 10 !important;
+            text-decoration: none !important;
+            box-shadow: none !important;
+            border: none !important;
+            background: transparent !important;
+        }
+
+        [id^="_pvw_"] i,
+        .pvw-password-toggle i {
+            font-size: 1.15rem !important;
+            line-height: 1 !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+        }
+
+        /* Botón de Cerrar Modales (btn-close-white-custom y btn-close) en Blanco Puro y Pequeño */
+        .btn-close-white-custom,
+        .modal-header .btn-close,
+        .modal .btn-close,
+        .btn-close {
+            background: transparent !important;
+            border: none !important;
+            outline: none !important;
+            box-shadow: none !important;
+            color: #ffffff !important;
+            opacity: 0.85 !important;
+            padding: 0.2rem !important;
+            margin: 0 !important;
+            width: 1.5rem !important;
+            height: 1.5rem !important;
+            min-width: 1.5rem !important;
+            min-height: 1.5rem !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            text-indent: 0 !important;
+            cursor: pointer !important;
+            transition: all 0.2s ease-in-out !important;
+        }
+
+        .btn-close-white-custom i,
+        .modal-header .btn-close i,
+        .modal .btn-close i,
+        .btn-close i {
+            color: #ffffff !important;
+            font-size: 0.9rem !important;
+            line-height: 1 !important;
+            display: inline-block !important;
+        }
+
+        .btn-close-white-custom:hover,
+        .modal-header .btn-close:hover,
+        .modal .btn-close:hover,
+        .btn-close:hover {
+            opacity: 1 !important;
+            color: #ffffff !important;
+            transform: scale(1.15) !important;
+        }
+
+        /* PRESERVED Modal Terminos Styles UNTOUCHED - Fullscreen Mode */
         #modalTerminos .modal-dialog {
-            width: min(1080px, calc(100vw - 1.5rem));
-            max-width: 1080px;
-            margin: .75rem auto;
+            width: 100vw !important;
+            max-width: 100vw !important;
+            height: 100vh !important;
+            max-height: 100vh !important;
+            margin: 0 !important;
+            padding: 0 !important;
         }
 
         #modalTerminos .modal-content {
-            height: min(90dvh, 780px);
-            max-height: calc(100dvh - 1.5rem);
-            border: 0;
-            border-radius: .65rem;
+            width: 100vw !important;
+            height: 100vh !important;
+            max-height: 100vh !important;
+            border: 0 !important;
+            border-radius: 0 !important;
             background: #fff;
-            box-shadow: 0 18px 42px rgba(10, 18, 38, .28);
+            box-shadow: none !important;
         }
 
         #modalTerminos .terminos-modal-header {
@@ -330,15 +616,18 @@
             }
         }
     </style>
-    @*Scripts*@
-<script>
-    let urlActual = window.location.href;
-    if (urlActual.toLowerCase().includes("appestudiantes") && !urlActual.includes("appEstudiantes")) {
-        let urlCorregida = urlActual.replace(/appestudiantes/gi, "appEstudiantes");
-        window.location.replace(urlCorregida);
-    }
-    const _route = top.location.href.toLowerCase().indexOf("localhost:") >= 0 ? "../../" : "../../../appEstudiantes/";
-</script>
+
+    <script>
+        if (window.self !== window.top) {
+            window.top.location.href = window.self.location.href;
+        }
+        let urlActual = window.location.href;
+        if (urlActual.toLowerCase().includes("appestudiantes") && !urlActual.includes("appEstudiantes")) {
+            let urlCorregida = urlActual.replace(/appestudiantes/gi, "appEstudiantes");
+            window.location.replace(urlCorregida);
+        }
+        const _route = top.location.href.toLowerCase().indexOf("localhost:") >= 0 ? "../../" : "../../../appEstudiantes/";
+    </script>
     <script defer src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
     <script defer src="~/template/js/core/popper.min.js"></script>
     <script defer src="~/template/js/core/bootstrap.min.js"></script>
@@ -349,142 +638,156 @@
     <script defer src="~/utilities/forms.js@_version"></script>
     <script defer src="~/js/siteLogin.js@_version"></script>
 </head>
-<body class="bg-gray-200">
-    <main class="main-content  mt-0">
-        <div class="page-header align-items-start min-vh-100 bg-login">
-            <span class="mask bg-gradient-dark opacity-6"></span>
-            <div class="container my-auto">
-                <div class="row">
-                    <div class="col-lg-4 col-md-8 col-12 mx-auto">
-                        <div class="card z-index-0 fadeIn3 fadeInBottom">
-                            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                                <div class="bg-gradient-dark shadow-primary border-radius-lg py-3 pe-1">
-                                    <h6 class="text-center mt-2 mb-0 text-white">PORTAL ESTUDIANTIL</h6>
-                                    <div class="row mt-2">
-                                        <div class="text-center">
-                                            <img src="~/template/img/logo-blanco.png" width="136" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <form class="text-start" id="frm" enctype="multipart/form-data">
-                                    <div class="my-3">
-                                        <input type="text" placeholder="Usuario (Documento de identidad)" class="form-control" id="idAlumno" name="idAlumno" maxlength="14">
-                                    </div>
-                                    <div class="mb-3">
-                                        <input type="password" placeholder="Contraseña" class="form-control" id="password" name="password" maxlength="20">
-                                    </div>
-                                    <div class="text-center mb-5">
-                                        <button type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">Ingresar</button>
-                                    </div>
-                                    <p class="mt-4 mb-0 p-0 text-sm text-center">
-                                        <span style="font-size:0.91em">¿Olvidaste tú contraseña?</span>
-                                    </p>
-                                    <p class="m-0 p-0 text-center text-sm">
-                                        <a style="font-size:0.91em" href="javascript:;" onclick="recuperarClave()" class="text-primary text-gradient font-weight-bold">Recuperar contraseña</a>
-                                    </p>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
+<body class="login-split-body">
+    <div class="container-fluid p-0 login-split-container">
+        <div class="row g-0 min-vh-100">
+            <!-- Columna Izquierda: Imagen e Identidad Institucional -->
+            <div class="col-lg-6 col-xl-7 d-none d-lg-flex login-left-panel">
+                <div class="login-left-logo">
+                    <img src="~/template/img/logo-blanco.png" alt="Logo ISTPET" />
+                </div>
+                <div class="login-left-content">
+                    <h1 class="login-left-title">Portal Estudiantil ISTPET</h1>
+                    <div class="login-gold-line"></div>
+                    <p class="login-left-desc">
+                        Bienvenido a tu plataforma académica institucional. Accede de forma segura a la consulta de calificaciones, recursos digitales y servicios del Instituto Superior Tecnológico Mayor Pedro Traversari.
+                    </p>
+                    <ul class="login-features-list">
+                        <li><i class="bi-check-circle-fill me-2"></i> Historial Académico y Promedio de Parciales</li>
+                        <li><i class="bi-check-circle-fill me-2"></i> Acceso a Biblioteca Virtual e-Libro</li>
+                        <li><i class="bi-check-circle-fill me-2"></i> Evaluación Docente y Gestión de Cuenta</li>
+                    </ul>
+                </div>
+                <div class="login-left-footer">
+                    <span class="text-xs text-white-50">&copy; @DateTime.Now.Year Instituto Superior Tecnológico Mayor Pedro Traversari</span>
                 </div>
             </div>
-            <footer class="text-center w-100 position-absolute bottom-2">
-                <div class="container">
-                    <div class="row align-items-center justify-content-lg-between">
-                        <div class="col-12 my-auto">
-                            <div class="text-center text-sm text-white footer-login">
-                                <span class="pe-1">© 2022 </span><a class="text-white" href="https://institutotraversari.edu.ec/" target="_blank">Instituto Superior Tecnológico Mayor Pedro Traversari</a>
-                            </div>
-                        </div>
 
+            <!-- Columna Derecha: Formulario sin Fondo sobre Fondo Azul Oscuro -->
+            <div class="col-lg-6 col-xl-5 login-right-panel">
+                <div class="login-form-wrapper">
+                    <!-- Logo visible solo en pantallas moviles -->
+                    <div class="text-center d-lg-none mb-4">
+                        <img src="~/template/img/logo-blanco.png" alt="Logo ISTPET" style="max-width: 140px;" />
                     </div>
-                </div>
-            </footer>
-        </div>
-    </main>
-    <div class="modal fade" id="modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-         aria-labelledby="modalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header py-2 px-3">
-                    <label class="modal-title text-dark fw-bold" id="modalLabel">CAMBIO DE CONTRASEÑA REQUERIDO</label>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
-                            aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <form enctype="multipart/form-data" id="frmClaves">
-                            <div class="col-sm-9">
-                                <div class="form-group">
-                                    <small>Contraseña anterior</small>
-                                    <input type="password" data-validate="no-espacios" class="form-control form-control-sm" id="anterior" name="anterior">
-                                    <div class="invalid-feedback">
-                                        * Campo requerido
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-9">
-                                <div class="form-group">
-                                    <small>Nueva contraseña</small>
-                                    <input maxlength="20" type="password" data-validate="no-espacios" class="form-control form-control-sm" id="nueva" name="nueva">
-                                    <div class="invalid-feedback">
-                                        * Campo requerido
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-9">
-                                <div class="form-group">
-                                    <small>Confirmar nueva contraseña</small>
-                                    <input maxlength="20" type="password" data-validate="no-espacios" class="form-control form-control-sm" id="confir" name="confir">
-                                    <div class="invalid-feedback">
-                                        * Campo requerido
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
+
+                    <div class="login-right-heading text-start">
+                        <h2>Iniciar Sesión</h2>
+                        <p>Ingresa tus credenciales para acceder al portal estudiantil</p>
                     </div>
-                </div>
-                <div class="modal-footer p-1">
-                    <button type="button" class="btn btn-light btn-sm" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-dark btn-sm" onclick="cambiarClave()">Cambiar Contraseña</button>
+
+                    <form class="text-start" id="frm" enctype="multipart/form-data">
+                        <div class="mb-3 login-field-group">
+                            <label class="form-label text-white text-xs font-weight-bold mb-1">
+                                <i class="bi-person-fill text-white me-1"></i> Usuario (Documento de identidad)
+                            </label>
+                            <input type="text" placeholder="Ingrese su cédula o pasaporte" class="form-control" id="idAlumno" name="idAlumno" maxlength="14" autocomplete="username">
+                        </div>
+                        <div class="mb-3 login-field-group">
+                            <label class="form-label text-white text-xs font-weight-bold mb-1">
+                                <i class="bi-lock-fill text-white me-1"></i> Contraseña
+                            </label>
+                            <div class="position-relative pvw-wrapper">
+                                <input type="password" placeholder="Ingrese su contraseña" class="form-control" id="password" name="password" maxlength="20" autocomplete="current-password">
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <button type="submit" class="btn btn-submit-portal">
+                                Ingresar al Portal <i class="bi-arrow-right-short ms-1 fs-5 align-middle text-white"></i>
+                            </button>
+                        </div>
+                        <div class="text-center mt-4 pt-3 border-top border-secondary border-opacity-25">
+                            <span class="text-xs text-white-50 d-block mb-1">¿Olvidaste tu contraseña?</span>
+                            <a href="javascript:;" onclick="recuperarClave()" class="text-white text-xs font-weight-bold opacity-9" style="text-decoration: underline;">
+                                <i class="bi-key-fill me-1 text-white"></i> Recuperar contraseña
+                            </a>
+                        </div>
+                    </form>
+
+                    <div class="split-footer-text d-lg-none">
+                        &copy; @DateTime.Now.Year <a href="https://institutotraversari.edu.ec/" target="_blank">ISTPET</a>. Todos los derechos reservados.
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Modal Cambio de Contraseña Requerido -->
+    <div class="modal fade" id="modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-radius-xl border-0 shadow-lg overflow-hidden">
+                <div class="modal-header text-white py-3 px-4" style="background: linear-gradient(135deg, #151b3d 0%, #1f295b 100%); border-bottom: 3px solid #c59b27;">
+                    <h6 class="modal-title text-white font-weight-bold mb-0" id="modalLabel">
+                        <i class="bi-shield-lock-fill me-2" style="color: #c59b27;"></i> CAMBIO DE CONTRASEÑA REQUERIDO
+                    </h6>
+                    <button type="button" class="btn-close-white-custom" data-bs-dismiss="modal" aria-label="Close">
+                        <i class="bi-x-lg text-white"></i>
+                    </button>
+                </div>
+                <div class="modal-body p-4">
+                    <form enctype="multipart/form-data" id="frmClaves">
+                        <div class="form-group mb-3">
+                            <label class="form-label text-xs font-weight-bold text-dark mb-1">Contraseña anterior</label>
+                            <input type="password" data-validate="no-espacios" class="form-control form-control-sm border-radius-md" id="anterior" name="anterior">
+                            <div class="invalid-feedback">* Campo requerido</div>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="form-label text-xs font-weight-bold text-dark mb-1">Nueva contraseña</label>
+                            <input maxlength="20" type="password" data-validate="no-espacios" class="form-control form-control-sm border-radius-md" id="nueva" name="nueva">
+                            <div class="invalid-feedback">* Campo requerido</div>
+                        </div>
+                        <div class="form-group mb-2">
+                            <label class="form-label text-xs font-weight-bold text-dark mb-1">Confirmar nueva contraseña</label>
+                            <input maxlength="20" type="password" data-validate="no-espacios" class="form-control form-control-sm border-radius-md" id="confir" name="confir">
+                            <div class="invalid-feedback">* Campo requerido</div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer bg-light py-2 px-3">
+                    <button type="button" class="btn btn-light btn-sm border-radius-md mb-0" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary btn-sm border-radius-md mb-0" onclick="cambiarClave()" style="background: #1f295b !important; border: none;">
+                        <i class="bi-check-circle-fill me-1"></i> Cambiar Contraseña
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Recuperar Contraseña -->
     <div class="modal fade" id="modalRecuperarClave" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalLabel" aria-modal="true" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header py-2 px-3">
-                    <label class="modal-title text-dark fw-bold" id="modalLabel">RECUPERAR CONTRASEÑA</label>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-radius-xl border-0 shadow-lg overflow-hidden">
+                <div class="modal-header text-white py-3 px-4" style="background: linear-gradient(135deg, #151b3d 0%, #1f295b 100%); border-bottom: 3px solid #c59b27;">
+                    <h6 class="modal-title text-white font-weight-bold mb-0" id="modalLabel">
+                        <i class="bi-key-fill me-2" style="color: #c59b27;"></i> RECUPERAR CONTRASEÑA
+                    </h6>
+                    <button type="button" class="btn-close-white-custom" data-bs-dismiss="modal" aria-label="Close">
+                        <i class="bi-x-lg text-white"></i>
+                    </button>
                 </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <form enctype="multipart/form-data" id="frmRecuperar">
-                            <div class="col-sm-9">
-                                <div class="form-group">
-                                    <small>Ingrese su usuario (Documento de identidad)</small>
-                                    <input type="text" class="form-control form-control-sm" id="usuarioRecuperar" name="usuarioRecuperar">
-                                    <div class="invalid-feedback">
-                                        * Campo requerido
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+                <div class="modal-body p-4">
+                    <form enctype="multipart/form-data" id="frmRecuperar">
+                        <div class="form-group mb-0">
+                            <label class="form-label text-xs font-weight-bold text-dark mb-1">Ingrese su usuario (Documento de identidad)</label>
+                            <input type="text" class="form-control form-control-sm border-radius-md" id="usuarioRecuperar" name="usuarioRecuperar">
+                            <div class="invalid-feedback">* Campo requerido</div>
+                        </div>
+                    </form>
                 </div>
-                <div class="modal-footer p-1">
-                    <button type="button" class="btn btn-light btn-sm" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-dark btn-sm" onclick="solicitudRecuperarClave()">Recuperar contraseña</button>
+                <div class="modal-footer bg-light py-2 px-3">
+                    <button type="button" class="btn btn-light btn-sm border-radius-md mb-0" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary btn-sm border-radius-md mb-0" onclick="solicitudRecuperarClave()" style="background: #1f295b !important; border: none;">
+                        <i class="bi-envelope-check-fill me-1"></i> Recuperar Contraseña
+                    </button>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Modal Terminos y Condiciones - Fullscreen -->
     <div class="modal fade" id="modalTerminos" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalTerminosLabel" aria-modal="true" role="dialog">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content border-radius-lg overflow-hidden">
+        <div class="modal-dialog modal-fullscreen m-0 p-0">
+            <div class="modal-content border-0 border-radius-0 shadow-none">
                 <div class="modal-header terminos-modal-header">
                     <div class="terminos-heading">
                         <span class="terminos-kicker">Directiva institucional</span>
@@ -503,12 +806,12 @@
                 <div class="modal-footer terminos-acceptance">
                     <div class="terminos-footer-copy">
                         <span class="terminos-read-state is-pending text-danger" id="estadoLecturaTerminos">
-                            <i class="bi bi-arrow-down-circle"></i>
+                            <i class="bi-arrow-down-circle"></i>
                             Lea el documento hasta el final
                         </span>
                         <div class="form-check terminos-check-wrap is-hidden" id="contenedorAceptaTerminos">
                             <input class="form-check-input" type="checkbox" id="chkAceptaTerminos" disabled>
-                            <label class="form-check-label text-sm text-dark fw-bold" for="chkAceptaTerminos">
+                            <label class="form-check-label text-sm text-dark WB-bold" for="chkAceptaTerminos">
                                 Acepto el tratamiento de mis datos personales
                             </label>
                         </div>

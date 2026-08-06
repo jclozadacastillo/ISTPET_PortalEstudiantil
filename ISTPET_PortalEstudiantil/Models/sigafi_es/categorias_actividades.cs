@@ -16,4 +16,6 @@ public partial class categorias_actividades
     public sbyte? porcentaje { get; set; }
 
     public virtual ICollection<seddinstrumentos> seddinstrumentos { get; set; } = new List<seddinstrumentos>();
+
+    public virtual ICollection<subcategorias_actividades> subcategorias_actividades { get; set; } = new List<subcategorias_actividades>();
 }

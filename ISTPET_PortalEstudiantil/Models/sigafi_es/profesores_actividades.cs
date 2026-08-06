@@ -16,4 +16,6 @@ public partial class profesores_actividades
     public string? usuario { get; set; }
 
     public DateTime? fecha { get; set; }
+
+    public virtual subcategorias_actividades idSubcategoriaNavigation { get; set; } = null!;
 }

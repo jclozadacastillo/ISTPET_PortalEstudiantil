@@ -1,87 +1,84 @@
-﻿@{
+@{
   ViewData["Title"] = "Calificaciones";
   Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div class="loader pt-2 text-center">
-  <div class="spinner-grow text-dark spinner-grow-sm" role="status">
+
+<div class="loader pt-3 text-center">
+  <div class="spinner-grow text-primary spinner-grow-sm" role="status">
     <span class="visually-hidden">Loading...</span>
   </div>
-  <div class="spinner-grow text-dark spinner-grow-sm" role="status">
+  <div class="spinner-grow text-primary spinner-grow-sm" role="status">
     <span class="visually-hidden">Loading...</span>
   </div>
-  <div class="spinner-grow text-dark spinner-grow-sm" role="status">
+  <div class="spinner-grow text-primary spinner-grow-sm" role="status">
     <span class="visually-hidden">Loading...</span>
   </div>
 </div>
-<div class="w-100 pt-2 container-main" hidden>
-  <div class="card-container">
-    <div class="card">
-      <div class="card-body">
-        <form enctype="multipart/form-data" id="frm">
-          <div class="row">
-            <div class="col-sm-3 text-start">
-              <h3 class="m-0">Calificaciones</h3>
-              <p class="text-muted text-sm p-0 m-0">Seleccione la carrera y el nivel</p>
-            </div>
-            <div class="col-sm-4">
-              <strong class="text-dark">Carrera</strong>
-              <select class="form-select form-select-sm text-uppercase" id="idCarrera" name="idCarrera">
-                <option value="">Seleccione</option>
-              </select>
-            </div>
-            <div class="col-sm-5">
-              <strong class="text-dark">Nivel</strong>
-              <select class="form-select form-select-sm text-uppercase" id="idMatricula" name="idMatricula">
-                <option value="">Seleccione una carrera</option>
-              </select>
+
+<div class="w-100 container-main p-0" hidden>
+  <!-- Tarjeta Unificada Compacta (Encabezado + Filtros) -->
+  <div class="card shadow-sm border-0 border-radius-xl overflow-hidden mb-35">
+    <div class="card-body p-3 px-4">
+      <form enctype="multipart/form-data" id="frm">
+        <div class="row align-items-center g-3">
+          <!-- Titulo -->
+          <div class="col-lg-4">
+            <div class="d-flex align-items-center mb-0">
+              <div class="portal-card-icon-box me-3" style="margin-right: 1.25rem !important;">
+                <i class="bi-file-earmark-spreadsheet-fill portal-icon-white fs-5"></i>
+              </div>
+              <div>
+                <h5 class="mb-0 font-weight-bold text-dark" style="letter-spacing: -0.01em;">Calificaciones</h5>
+                <p class="text-muted text-xs p-0 m-0">Selecciona carrera y nivel de consulta</p>
+              </div>
             </div>
           </div>
-        </form>
-      </div>
+
+          <!-- Filtros -->
+          <div class="col-lg-4 col-md-6">
+            <label class="form-label text-xxs font-weight-bold text-uppercase text-secondary mb-1 d-flex align-items-center gap-1" for="idCarrera">
+              <i class="bi-mortarboard" style="color: #1f295b !important; font-size: 0.9rem; line-height: 1;"></i> Carrera
+            </label>
+            <select class="form-select form-select-sm text-uppercase border-radius-md shadow-none" id="idCarrera" name="idCarrera" style="border-color: #cbd5e1;">
+              <option value="">Seleccione</option>
+            </select>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <label class="form-label text-xxs font-weight-bold text-uppercase text-secondary mb-1 d-flex align-items-center gap-1" for="idMatricula">
+              <i class="bi-layers" style="color: #1f295b !important; font-size: 0.9rem; line-height: 1;"></i> Nivel / Periodo
+            </label>
+            <select class="form-select form-select-sm text-uppercase border-radius-md shadow-none" id="idMatricula" name="idMatricula" style="border-color: #cbd5e1;">
+              <option value="">Seleccione una carrera</option>
+            </select>
+          </div>
+        </div>
+      </form>
     </div>
   </div>
-  <div class="container-table pt-2-5" hidden>
-    <div class="card">
-      <div class="card-body">
+
+  <!-- Contenedor de Tabla de Notas -->
+  <div class="container-table p-0" hidden>
+    <div class="card shadow-sm border-0 border-radius-xl overflow-hidden portal-card-space">
+      <div class="card-header bg-transparent py-2.5 px-4 border-bottom border-light">
+        <h6 class="mb-0 text-xs font-weight-bold text-uppercase text-dark d-flex align-items-center gap-2">
+          <i class="bi-journal-check" style="color: #1f295b !important; font-size: 1rem; line-height: 1;"></i> Detalle de Asignaturas y Calificaciones
+        </h6>
+      </div>
+      <div class="card-body p-0">
         <div class="table-responsive">
-          <table class="table table-hover mb-0">
+          <table class="table table-hover table-custom-portal mb-0 align-middle">
             <thead>
-              <tr>
-                <th class="text-uppercase text-secondary px-1-5 py-1 text-xxs font-weight-bolder opacity-7 no-wrap">
-                  ASIGNATURA</th>
-                <th
-                  class="text-uppercase text-secondary text-center py-1 px-0 text-xxs font-weight-bolder opacity-7 no-wrap"
-                  style="width:109px">EFI
-                </th>
-                <th
-                  class="text-uppercase text-secondary text-center py-1 px-0 text-xxs font-weight-bolder opacity-7 no-wrap"
-                  style="width:109px">EPI
-                </th>
-                <th
-                  class="text-uppercase text-secondary text-center py-1 px-0 text-xxs font-weight-bolder opacity-7 no-wrap"
-                  style="width:109px">PI
-                </th>
-                <th
-                  class="text-uppercase text-secondary text-center py-1 px-0 text-xxs font-weight-bolder opacity-7 no-wrap"
-                  style="width:109px">EFII
-                </th>
-                <th
-                  class="text-uppercase text-secondary text-center py-1 px-0 text-xxs font-weight-bolder opacity-7 no-wrap"
-                  style="width:109px">EPII</th>
-                <th
-                  class="text-uppercase text-secondary text-center py-1 px-0 text-xxs font-weight-bolder opacity-7 no-wrap"
-                  style="width:109px">PII</th>
-                <th
-                  class="text-uppercase text-secondary text-center py-1 px-0 text-xxs font-weight-bolder opacity-7 no-wrap"
-                  style="width:109px">EXÁMEN</th>
-                <th
-                  class="text-uppercase text-secondary text-center py-1 px-0 text-xxs font-weight-bolder opacity-7 no-wrap"
-                  style="width:109px">PROMEDIO
-                </th>
-                <th
-                  class="text-uppercase text-secondary text-center py-1 px-0 text-xxs font-weight-bolder opacity-7 no-wrap"
-                  style="width:109px">APROBADO
-                </th>
+              <tr style="background-color: #f8fafc;">
+                <th class="text-uppercase text-secondary px-4 py-2.5 text-xxs font-weight-bolder opacity-7 no-wrap">ASIGNATURA</th>
+                <th class="text-uppercase text-secondary text-center py-2.5 px-2 text-xxs font-weight-bolder opacity-7 no-wrap" style="width:85px" title="Examen Formativo I">EFI</th>
+                <th class="text-uppercase text-secondary text-center py-2.5 px-2 text-xxs font-weight-bolder opacity-7 no-wrap" style="width:85px" title="Examen Práctico I">EPI</th>
+                <th class="text-uppercase text-secondary text-center py-2.5 px-2 text-xxs font-weight-bolder opacity-7 no-wrap" style="width:85px" title="Parcial I">PI</th>
+                <th class="text-uppercase text-secondary text-center py-2.5 px-2 text-xxs font-weight-bolder opacity-7 no-wrap" style="width:85px" title="Examen Formativo II">EFII</th>
+                <th class="text-uppercase text-secondary text-center py-2.5 px-2 text-xxs font-weight-bolder opacity-7 no-wrap" style="width:85px" title="Examen Práctico II">EPII</th>
+                <th class="text-uppercase text-secondary text-center py-2.5 px-2 text-xxs font-weight-bolder opacity-7 no-wrap" style="width:85px" title="Parcial II">PII</th>
+                <th class="text-uppercase text-secondary text-center py-2.5 px-2 text-xxs font-weight-bolder opacity-7 no-wrap" style="width:85px" title="Examen Final / Supletorio">EXÁMEN</th>
+                <th class="text-uppercase text-secondary text-center py-2.5 px-2 text-xxs font-weight-bolder opacity-7 no-wrap" style="width:95px" title="Promedio Final acumulado">PROMEDIO</th>
+                <th class="text-uppercase text-secondary text-center py-2.5 px-2 text-xxs font-weight-bolder opacity-7 no-wrap" style="width:100px">ESTADO</th>
               </tr>
             </thead>
             <tbody>
@@ -92,4 +89,7 @@
     </div>
   </div>
 </div>
+
 <script defer src="~/js/siteCalificaciones.js?v=@DateTime.Now.Ticks"></script>
+
+

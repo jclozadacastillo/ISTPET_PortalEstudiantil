@@ -21,5 +21,7 @@ public partial class seddinsitu
 
     public DateTime? fechaActualizacion { get; set; }
 
+    public int? idPregunta { get; set; }
+
     public virtual seddinstrumentos? idInstrumentoNavigation { get; set; }
 }

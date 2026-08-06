@@ -23,7 +23,7 @@ namespace ISTPET_PortalEstudiantil.Controllers
 
         public LoginController(IConfiguration config, ISessionAlumnos auth, IWebHostEnvironment webHostEnvironment, sigafi_esContext context)
         {
-            cn = config.GetConnectionString("sigafi_es")??string.Empty;
+            cn = config.GetConnectionString("sigafi_es") ?? string.Empty;
             _config = config;
             _auth = auth;
             _webHostEnvironment = webHostEnvironment;
@@ -32,7 +32,15 @@ namespace ISTPET_PortalEstudiantil.Controllers
 
         public IActionResult Index()
         {
-            if (_auth.isLogged()) return RedirectToAction("Index", "Sistema");
+            if (_auth.isLogged())
+            {
+                if (_auth.terminosCondicionesPendientes())
+                {
+                    _auth.logoutSync();
+                    return View();
+                }
+                return RedirectToAction("Index", "Sistema");
+            }
             return View();
         }
 
@@ -52,8 +60,8 @@ namespace ISTPET_PortalEstudiantil.Controllers
                 _auth.set("idAlumno", alumno.idAlumno);
                 _auth.set("usuario", alumno.idAlumno);
                 _auth.set("alumno", $"{alumno.apellidoPaterno} {alumno.apellidoMaterno} {alumno.primerNombre} {alumno.segundoNombre}");
-                _auth.set("email", alumno.email??string.Empty);
-                _auth.set("email_institucional", alumno.email_institucional??string.Empty);
+                _auth.set("email", alumno.email ?? string.Empty);
+                _auth.set("email_institucional", alumno.email_institucional ?? string.Empty);
                 return "ok";
             }
             catch (Exception ex)
@@ -105,18 +113,14 @@ namespace ISTPET_PortalEstudiantil.Controllers
             {
                 var termino = await dapper.QueryFirstOrDefaultAsync<TerminoCondicion>(@"
                     SELECT idTermino, versionTermino, contenido, fechaPublicacion, archivoHtml
-                    FROM Terminos_Condiciones
+                    FROM pd_terminos_Condiciones
                     WHERE idTermino = @idTermino", new { idTermino });
 
                 if (termino == null) return NotFound("No se encontro el termino solicitado");
 
-                var archivoExterno = ConstruirUrlArchivoExterno(termino.archivoHtml);
-                if (!string.IsNullOrEmpty(archivoExterno)) return Redirect(archivoExterno);
-
-                var contenidoArchivo = LeerArchivoTermino(termino.archivoHtml);
-                if (!string.IsNullOrEmpty(contenidoArchivo))
+                if (!string.IsNullOrEmpty(termino.contenido))
                 {
-                    return Content(contenidoArchivo, "text/html", Encoding.UTF8);
+                    return Content(termino.contenido, "text/html", Encoding.UTF8);
                 }
 
                 var contenido = string.IsNullOrWhiteSpace(termino.contenido)
@@ -154,14 +158,14 @@ namespace ISTPET_PortalEstudiantil.Controllers
                 var idUsuario = _auth.getUser();
                 var existe = await dapper.ExecuteScalarAsync<int>(@"
                     SELECT COUNT(1)
-                    FROM Aceptaciones_Usuarios
+                    FROM pd_aceptaciones_usuarios
                     WHERE idUsuario = @idUsuario
                     LIMIT 1", new { idUsuario });
 
                 if (existe == 0)
                 {
                     await dapper.ExecuteAsync(@"
-                        INSERT INTO Aceptaciones_Usuarios
+                        INSERT INTO pd_aceptaciones_usuarios
                         (idUsuario, idTermino, sistema, fechaRegistro, ipOrigen, dispositivo)
                         VALUES
                         (@idUsuario, @idTermino, @sistema, NOW(), @ipOrigen, @dispositivo)",
@@ -274,14 +278,14 @@ namespace ISTPET_PortalEstudiantil.Controllers
         {
             return await dapper.QueryFirstOrDefaultAsync<TerminoCondicion>(@"
                 SELECT t.idTermino, t.idCategoria, t.versionTermino, t.contenido, t.fechaPublicacion, t.archivoHtml
-                FROM Terminos_Condiciones t
-                INNER JOIN Categorias_Terminos_Condiciones c ON c.idCategoria = t.idCategoria
+                FROM pd_terminos_condiciones t
+                INNER JOIN pd_categorias_terminos_condiciones c ON c.idCategoria = t.idCategoria
                 WHERE t.esVigente = 1
                 AND c.activo = 1
                 AND c.esAlumno = 1
                 AND NOT EXISTS (
                     SELECT 1
-                    FROM Aceptaciones_Usuarios au
+                    FROM pd_aceptaciones_usuarios au
                     WHERE au.idUsuario = @idUsuario
                 )
                 ORDER BY t.fechaPublicacion DESC, t.idTermino DESC
@@ -292,8 +296,8 @@ namespace ISTPET_PortalEstudiantil.Controllers
         {
             return await dapper.ExecuteScalarAsync<int?>(@"
                 SELECT idTermino
-                FROM Terminos_Condiciones t
-                INNER JOIN Categorias_Terminos_Condiciones c ON c.idCategoria = t.idCategoria
+                FROM pd_terminos_condiciones t
+                INNER JOIN pd_categorias_terminos_condiciones c ON c.idCategoria = t.idCategoria
                 WHERE t.esVigente = 1
                 AND c.activo = 1
                 AND c.esAlumno = 1

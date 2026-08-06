@@ -1,0 +1,47 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace ISTPET_PortalEstudiantil.Models.sigafi_es;
+
+public partial class empresas
+{
+    public string idempresa { get; set; } = null!;
+
+    public string? tipoDocumento { get; set; }
+
+    public int idsectores_empresas { get; set; }
+
+    public string? nombre_empresa { get; set; }
+
+    public string? pais_empresa { get; set; }
+
+    public string? ciudad_empresa { get; set; }
+
+    public string? direccion_empresa { get; set; }
+
+    public string? telefono_empresa { get; set; }
+
+    public string? email_empresa { get; set; }
+
+    public string? user_empresa { get; set; }
+
+    public string? password { get; set; }
+
+    public DateTime? fecha_Inscripcion { get; set; }
+
+    public DateTime? fecha_modificacion { get; set; }
+
+    public string? estado_verificacion { get; set; }
+
+    public DateTime? fecha_verificacion { get; set; }
+
+    public string? comentario_verificacion { get; set; }
+
+    public sbyte? EsActivo { get; set; }
+
+    public virtual ICollection<empresas_contactos> empresas_contactos { get; set; } = new List<empresas_contactos>();
+
+    public virtual sectores_empresas idsectores_empresasNavigation { get; set; } = null!;
+
+    public virtual ICollection<ofertas_laborales> ofertas_laborales { get; set; } = new List<ofertas_laborales>();
+}

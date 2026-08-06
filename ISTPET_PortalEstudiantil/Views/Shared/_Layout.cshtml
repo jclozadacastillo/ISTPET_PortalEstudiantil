@@ -1,4 +1,4 @@
-﻿@inject ISessionAlumnos _auth;
+@inject ISessionAlumnos _auth;
 @{
     var _version = $"?v={DateTime.Now.Ticks}";
     var _pendientes = _auth.evaluacionesPendientes();
@@ -12,13 +12,13 @@
     <link rel="icon" type="image/png" href="~/template/img/icono.png">
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
     <link href="~/utilities/bootstrap-icons-1.8.1/bootstrap-icons.css" rel="stylesheet" />
-    <link id="pagestyle" href="~/template/css/material-dashboard.css@_version" rel="stylesheet" />
-    <link href="~/template/css/portal-layout.css@_version" rel="stylesheet" />
+    <link id="pagestyle" href="~/template/css/material-dashboard.css?v=@DateTime.Now.Ticks" rel="stylesheet" />
+    <link href="~/template/css/portal-layout.css?v=@DateTime.Now.Ticks" rel="stylesheet" />
     <link href="~/utilities/toast/toast.css" rel="stylesheet" />
     <script defer src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
     <script defer src="~/template/js/core/popper.min.js"></script>
     <script defer src="~/template/js/core/bootstrap.min.js"></script>
-    <script defer src="~/utilities/axios/axios.min.js@_version"></script>
+    <script defer src="~/utilities/axios/axios.min.js?v=@DateTime.Now.Ticks"></script>
 <script>
     let urlActual = window.location.href;
     if (urlActual.toLowerCase().includes("appestudiantes") && !urlActual.includes("appEstudiantes")) {
@@ -29,12 +29,12 @@
 </script>
 
 
-    <script defer src="~/utilities/toast/toast.js@_version"></script>
+    <script defer src="~/utilities/toast/toast.js?v=@DateTime.Now.Ticks"></script>
     <script defer>var _token = `@(Html.AntiForgeryToken())`;</script>
     <script defer src="~/js/token.js"></script>
-    <script defer src="~/utilities/forms.js@_version"></script>
+    <script defer src="~/utilities/forms.js?v=@DateTime.Now.Ticks"></script>
     <script defer src="~/template/js/material-dashboard.js?v=3.0.2"></script>
-    <script defer src="~/js/siteLayout.js@_version"></script>
+    <script defer src="~/js/siteLayout.js?v=@DateTime.Now.Ticks"></script>
 </head>
 <body class="g-sidenav-show  bg-gray-400">
     <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-1 fixed-start ms-1 bg-gradient-dark" id="sidenav-main">
@@ -73,11 +73,14 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link text-white" data-menu='evaluaciondocente' href="~/Sistema/EvaluacionDocente">
-                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                                <i class="bi-file-check text-lg"></i>
+                        <a class="nav-link text-white d-flex align-items-center justify-content-between" data-menu='evaluaciondocente' href="~/Sistema/EvaluacionDocente">
+                            <div class="d-flex align-items-center">
+                                <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                                    <i class="bi-file-check text-lg"></i>
+                                </div>
+                                <span class="nav-link-text ms-1">Evaluación Docente</span>
                             </div>
-                            <span class="nav-link-text ms-1">Evaluación Docente <span class="badge rounded-circle bg-danger text-white badge-custom">@_pendientes</span></span>
+                            <span class="badge bg-danger text-white rounded-pill badge-custom me-1">@_pendientes</span>
                         </a>
                     </li>
                 }
@@ -87,12 +90,15 @@
                         <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Evaluaciones</h6>
                     </li>
 
-                    <li class="nav-item " title="Ninguna evaluación docente pendiente">
-                        <a class="nav-link text-muted" href="javascript:;" style="pointer-events:none">
-                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                                <i class="bi-file-check text-lg text-muted"></i>
+                    <li class="nav-item" title="Ninguna evaluación docente pendiente">
+                        <a class="nav-link text-white opacity-7 d-flex align-items-center justify-content-between" href="javascript:;" style="pointer-events:none">
+                            <div class="d-flex align-items-center">
+                                <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                                    <i class="bi-file-check text-lg"></i>
+                                </div>
+                                <span class="nav-link-text ms-1">Evaluación Docente</span>
                             </div>
-                            <span class="nav-link-text ms-1">Evaluación Docente <span class="badge rounded-circle bg-success text-white badge-custom" style="padding-left:2px !important;"><i class="bi-check2" style="position:absolute;margin-top:1px !important;margin-left:-5px"></i></span></span>
+                            <i class="bi-check-circle-fill text-success text-sm me-1" title="Sin evaluaciones pendientes"></i>
                         </a>
                     </li>
                 }
@@ -135,38 +141,45 @@
                             </a>
                         </div>
                     </div>
-                    <ul class="navbar-nav  justify-content-end">
-
+                    <ul class="navbar-nav justify-content-end">
                         <li class="nav-item dropdown pe-2 d-flex align-items-center">
-                            <a href="javascript:;" class="nav-link text-body p-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="bi-check-circle-fill cursor-pointer text-success"></i>
-                                <span class="d-sm-inline  text-dark text-navbar">@_auth.getName()</span>
-                            </a>
-                            <ul class="dropdown-menu  dropdown-menu-end  px-1 py-3 me-sm-n4" style="min-width:235px" aria-labelledby="dropdownMenuButton">
-                                <li class="mb-2">
-                                    <a class="dropdown-item border-radius-md" href="~/Sistema/Perfil">
-                                        <div class="d-flex py-1">
+                            <div class="user-avatar-pill shadow-xs" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                <div class="avatar-circle-sm">
+                                    <i class="bi-person-fill"></i>
+                                </div>
+                                <span class="d-none d-sm-inline text-navbar-user text-truncate" style="max-width: 220px;">@_auth.getName()</span>
+                                <i class="bi-chevron-down text-xs ms-1 text-muted"></i>
+                            </div>
+                            <ul class="dropdown-menu dropdown-menu-end p-2 shadow-lg border-0 dropdown-menu-portal" aria-labelledby="dropdownMenuButton">
+                                <li class="px-3 py-2 bg-light-subtle rounded-3 mb-2 border-bottom">
+                                    <span class="text-uppercase text-xxs font-weight-bold text-muted d-block">Estudiante ISTPET</span>
+                                    <span class="text-sm font-weight-bold text-dark text-truncate d-block">@_auth.getName()</span>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item border-radius-md py-2 px-3 dropdown-item-portal" href="~/Sistema/Perfil">
+                                        <div class="d-flex align-items-center">
+                                            <div class="dropdown-icon-box dropdown-icon-profile me-3">
+                                                <i class="bi-person-gear"></i>
+                                            </div>
                                             <div class="d-flex flex-column justify-content-center">
-                                                <h6 class="text-sm font-weight-normal mb-1">
-                                                    <span class="font-weight-bold">Perfill</span>
-                                                </h6>
-                                                <p class="text-xs text-secondary mb-0">
-                                                    Editar cuenta
-                                                </p>
+                                                <h6 class="text-sm font-weight-bold text-dark mb-0">Mi Perfil</h6>
+                                                <p class="text-xs text-secondary mb-0">Ver y editar información</p>
                                             </div>
                                         </div>
                                     </a>
                                 </li>
-                                <li class="mb-2">
-                                    <a class="dropdown-item border-radius-md" onclick="salir()" href="javascript:;">
-                                        <div class="d-flex py-1">
+                                <li>
+                                    <hr class="dropdown-divider my-2">
+                                </li>
+                                <li>
+                                    <a class="dropdown-item border-radius-md py-2 px-3 dropdown-item-logout" onclick="salir()" href="javascript:;">
+                                        <div class="d-flex align-items-center">
+                                            <div class="dropdown-icon-box dropdown-icon-logout me-3">
+                                                <i class="bi-box-arrow-right"></i>
+                                            </div>
                                             <div class="d-flex flex-column justify-content-center">
-                                                <h6 class="text-sm font-weight-normal mb-1">
-                                                    <span class="font-weight-bold">Salir</span>
-                                                </h6>
-                                                <p class="text-xs text-secondary mb-0">
-                                                    Cerrar sesión
-                                                </p>
+                                                <h6 class="text-sm font-weight-bold text-danger mb-0">Cerrar Sesión</h6>
+                                                <p class="text-xs text-secondary mb-0">Salir de la plataforma</p>
                                             </div>
                                         </div>
                                     </a>
@@ -178,7 +191,7 @@
             </div>
         </nav>
         <!-- End Navbar -->
-        <div class="container-fluid pt-2 portal-main-container">
+        <div class="container-fluid portal-main-container">
             <div class="row main portal-main-row">
                 @RenderBody()
             </div>

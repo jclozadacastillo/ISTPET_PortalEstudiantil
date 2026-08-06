@@ -22,4 +22,6 @@ public partial class horas_clases
     public string? tipo { get; set; }
 
     public sbyte? activo { get; set; }
+
+    public virtual ICollection<horario_detalle> horario_detalle { get; set; } = new List<horario_detalle>();
 }

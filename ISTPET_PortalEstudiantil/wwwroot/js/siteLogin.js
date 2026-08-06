@@ -106,11 +106,11 @@ async function mostrarTerminosPendientes() {
     const res = (await axios.get(`${baseUrl}terminoVigentePendiente`)).data;
     if (!!res.error) throw new Error(res.error);
     if (!res.requiereAceptar) return false;
-
     terminosAceptados = false;
     idTerminoVigente.value = res.idTermino;
     reiniciarLecturaTerminos();
     archivoTerminos.onload = configurarLecturaTerminos;
+    console.log(res);
     archivoTerminos.src = res.archivoHtmlUrl;
     modalTerminos.show();
     return true;

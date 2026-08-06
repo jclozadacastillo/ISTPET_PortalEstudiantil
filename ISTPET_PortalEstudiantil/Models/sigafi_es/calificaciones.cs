@@ -75,6 +75,10 @@ public partial class calificaciones
 
     public sbyte? pierde_faltas { get; set; }
 
+    public string? codigoSolicitud { get; set; }
+
+    public DateTime? fechaMaximaRemedial { get; set; }
+
     public virtual asignaturas idAsignaturaNavigation { get; set; } = null!;
 
     public virtual matriculas idMatriculaNavigation { get; set; } = null!;

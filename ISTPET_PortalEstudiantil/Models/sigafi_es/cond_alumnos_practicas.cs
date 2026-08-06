@@ -34,4 +34,6 @@ public partial class cond_alumnos_practicas
     public string? user_llegada { get; set; }
 
     public bool? cancelado { get; set; }
+
+    public string? observaciones { get; set; }
 }

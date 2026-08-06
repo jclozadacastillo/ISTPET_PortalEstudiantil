@@ -1,0 +1,17 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace ISTPET_PortalEstudiantil.Models.sigafi_es;
+
+public partial class motivo_salida
+{
+    public int idMotivoSalida { get; set; }
+
+    public string? nombre_motivo { get; set; }
+
+    public sbyte? necesita_infrome { get; set; }
+
+    public sbyte? esactivo { get; set; }
+
+    public virtual ICollection<profesores_motivo_salida> profesores_motivo_salida { get; set; } = new List<profesores_motivo_salida>();
+}

@@ -42,4 +42,14 @@ public partial class asignaciones_profesores
     public int idAsignacion { get; set; }
 
     public sbyte? esActivaAsignacion { get; set; }
+
+    public decimal? numeroHoras { get; set; }
+
+    public sbyte? contabilizarHoraDocente { get; set; }
+
+    public decimal? horasPracticoExperimental { get; set; }
+
+    public sbyte? extraCurricular { get; set; }
+
+    public virtual ICollection<horario_detalle> horario_detalle { get; set; } = new List<horario_detalle>();
 }

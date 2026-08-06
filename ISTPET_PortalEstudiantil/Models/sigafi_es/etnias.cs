@@ -12,4 +12,8 @@ public partial class etnias
     public sbyte? esIndigena { get; set; }
 
     public sbyte? noRegistra { get; set; }
+
+    public virtual ICollection<alumnos> alumnos { get; set; } = new List<alumnos>();
+
+    public virtual ICollection<profesores> profesores { get; set; } = new List<profesores>();
 }

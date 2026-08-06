@@ -14,4 +14,6 @@ public partial class cuentas
     public bool activo { get; set; }
 
     public byte esingreso { get; set; }
+
+    public string? tipo_pago { get; set; }
 }

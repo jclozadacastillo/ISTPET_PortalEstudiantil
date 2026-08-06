@@ -27,7 +27,25 @@ public partial class carreras
 
     public string? aliasCarrera { get; set; }
 
+    public bool? BolsaEmpleo { get; set; }
+
+    public sbyte? esInstituto { get; set; }
+
+    public virtual ICollection<carreras_adjuntos> carreras_adjuntos { get; set; } = new List<carreras_adjuntos>();
+
     public virtual ICollection<cursos> cursos { get; set; } = new List<cursos>();
 
+    public virtual ICollection<espacios> espacios { get; set; } = new List<espacios>();
+
+    public virtual ICollection<fechas_pagos_cuotas> fechas_pagos_cuotas { get; set; } = new List<fechas_pagos_cuotas>();
+
     public virtual ICollection<mallas> mallas { get; set; } = new List<mallas>();
+
+    public virtual ICollection<modalidades_carreras> modalidades_carreras { get; set; } = new List<modalidades_carreras>();
+
+    public virtual ICollection<ofertas_carreras> ofertas_carreras { get; set; } = new List<ofertas_carreras>();
+
+    public virtual ICollection<profesores_carreras_periodos> profesores_carreras_periodos { get; set; } = new List<profesores_carreras_periodos>();
+
+    public virtual ICollection<vinculacionproyectoscarreras> vinculacionproyectoscarreras { get; set; } = new List<vinculacionproyectoscarreras>();
 }

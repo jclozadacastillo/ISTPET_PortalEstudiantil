@@ -1,4 +1,4 @@
-﻿using Dapper;
+using Dapper;
 using MySql.Data.MySqlClient;
 
 namespace ISTPET_PortalEstudiantil.Auth
@@ -158,12 +158,15 @@ namespace ISTPET_PortalEstudiantil.Auth
             {
                 string sql = @"
                     SELECT COUNT(1)
-                    FROM Terminos_Condiciones t
+                    FROM pd_terminos_condiciones t
+                    INNER JOIN pd_categorias_terminos_condiciones c ON c.idCategoria = t.idCategoria
                     WHERE t.esVigente = 1
+                    AND c.activo = 1
+                    AND c.esAlumno = 1
                     AND NOT EXISTS (
-                    SELECT 1
-                    FROM Aceptaciones_Usuarios au
-                    WHERE au.idUsuario = @usuario
+                        SELECT 1
+                        FROM pd_aceptaciones_usuarios au
+                        WHERE au.idUsuario = @usuario
                     )";
 
                 return dapper.ExecuteScalar<int>(sql, new { usuario = getUser() }) > 0;
@@ -171,7 +174,7 @@ namespace ISTPET_PortalEstudiantil.Auth
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                return false;
+                return true;
             }
             finally
             {

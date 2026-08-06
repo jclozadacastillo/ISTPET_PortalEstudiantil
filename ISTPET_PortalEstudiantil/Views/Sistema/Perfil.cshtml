@@ -1,133 +1,188 @@
-﻿@{
+@{
     ViewData["Title"] = "Perfil";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="loader pt-2 text-center">
-    <div class="spinner-grow text-dark spinner-grow-sm" role="status">
+<div class="loader pt-4 text-center">
+    <div class="spinner-grow text-primary spinner-grow-sm" role="status">
         <span class="visually-hidden">Loading...</span>
     </div>
-    <div class="spinner-grow text-dark spinner-grow-sm" role="status">
+    <div class="spinner-grow text-primary spinner-grow-sm" role="status">
         <span class="visually-hidden">Loading...</span>
     </div>
-    <div class="spinner-grow text-dark spinner-grow-sm" role="status">
+    <div class="spinner-grow text-primary spinner-grow-sm" role="status">
         <span class="visually-hidden">Loading...</span>
     </div>
 </div>
-<div class="w-100 pt-2 container-main" hidden>
-    <div class="card-container">
-        <div class="card container-main-perfil">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-sm-3 text-start">
-                        <h3 class="m-0">Perfil</h3>
-                        <p class="text-muted text-sm p-0 m-0">Estos son sus datos personales</p>
+
+<div class="w-100 container-main p-0" hidden>
+    <!-- Banner de Perfil Institucional -->
+    <div class="card border-0 shadow-sm border-radius-xl overflow-hidden" style="background: linear-gradient(135deg, #151b3d 0%, #1f295b 100%); border-left: 4px solid #c59b27 !important;">
+        <div class="card-body p-4 text-white">
+            <div class="row align-items-center">
+                <div class="col-auto me-3 me-sm-0">
+                    <div class="avatar avatar-xl position-relative rounded-circle shadow-md d-flex align-items-center justify-content-center" style="background: rgba(255, 255, 255, 0.15); border: 2px solid rgba(255, 255, 255, 0.3); width: 64px; height: 64px;">
+                        <i class="bi-person-fill text-white fs-3"></i>
                     </div>
-                    <div class="col-sm-auto pt-2">
-                        <a class="btn btn-success" href="~/Sistema/EditarPerfil">Editar Información</a>  
+                </div>
+                <div class="col">
+                    <div class="d-flex align-items-center gap-2 mb-1">
+                        <span class="badge border border-white-50 text-white font-weight-bold text-xxs uppercase tracking-wider" id="tipo" name="tipo" style="background: rgba(255, 255, 255, 0.15);">CÉDULA</span>
+                        <span class="text-white opacity-8 text-xs font-mono" id="idAlumno" name="idAlumno">--</span>
                     </div>
-                    <div class="col-sm-9 card card-perfil">
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table-sm text-xs table-bordered-bottom col-sm-7">
-                                    <tr>
-                                        <td class="text-dark fw-bold td-title-perfil" id="tipo" name="tipo"></td>
-                                        <td colspan="3" id="idAlumno" name="idAlumno"></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-dark fw-bold td-title-perfil">NOMBRES</td>
-                                        <td colspan="3" id="nombres" name="nombres"></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-dark fw-bold td-title-perfil">APELLIDOS</td>
-                                        <td colspan="3" id="apellidos" name="apellidos"></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-dark fw-bold td-title-perfil">CIUDAD</td>
-                                        <td colspan="3" id="ciudad_residencia" name="ciudad_residencia"></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-dark fw-bold td-title-perfil">DIRECCIÓN</td>
-                                        <td colspan="3" id="direccion" name="direccion"></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-dark fw-bold td-title-perfil">EMAIL</td>
-                                        <td colspan="3" id="email" name="email"></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-dark fw-bold td-title-perfil">EMAIL INSTITUCIONAL</td>
-                                        <td colspan="3" id="email_institucional" name="email_institucional"></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-dark fw-bold td-title-perfil">TELÉFONO</td>
-                                        <td id="telefono" name="telefono"></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-dark fw-bold td-title-perfil">CELULAR</td>
-                                        <td id="celular" name="celular"></td>
-                                    </tr>
-                                </table>
-                            </div>
-                            <div class="mt-3 col-sm-3">
-                                <button class="btn btn-dark btn-sm w-100 m-w-170" id="btnClave">Cambiar contraseña</button>
+                    <h3 class="text-white mb-0 font-weight-bold" style="letter-spacing: -0.01em;">
+                        <span id="nombres" name="nombres">Cargando...</span> <span id="apellidos" name="apellidos"></span>
+                    </h3>
+                    <p class="text-white-50 text-xs mb-0 mt-1">Estudiante ISTPET • Portal Académico</p>
+                </div>
+                <div class="col-12 col-md-auto mt-2 mt-md-0 text-md-end">
+                    <a class="btn btn-white text-primary font-weight-bold border-radius-md px-3 py-2 shadow-sm btn-sm" href="~/Sistema/EditarPerfil" style="background: #ffffff !important; color: #1f295b !important; border: 1px solid #e2e8f0;">
+                        <i class="bi-pencil-square me-1" style="color: #c59b27;"></i> Editar Datos
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Grilla de Tarjetas de Información -->
+    <div class="row g-3 p-0 m-0" style="margin-top: 0 !important;">
+        <!-- Tarjeta de Contacto y Ubicación -->
+        <div class="col-lg-8 ps-0 pe-lg-2">
+            <div class="card shadow-sm border-0 border-radius-xl h-100">
+                <div class="card-header bg-transparent py-3 px-4 border-bottom border-light">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="portal-card-icon-box" style="width: 38px; height: 38px; min-width: 38px; min-height: 38px;">
+                            <i class="bi-person-lines-fill text-white fs-6"></i>
+                        </div>
+                        <h6 class="mb-0 text-dark font-weight-bold">Información de Contacto y Residencia</h6>
+                    </div>
+                </div>
+                <div class="card-body p-3 px-4">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="p-3 border border-radius-lg bg-light-subtle">
+                                <span class="text-xs text-uppercase text-secondary font-weight-bold d-block mb-1">
+                                    <i class="bi-envelope-at me-1" style="color: #1f295b;"></i> Correo Institucional
+                                </span>
+                                <span class="text-sm font-weight-bold text-dark d-block text-truncate" id="email_institucional" name="email_institucional">--</span>
                             </div>
                         </div>
-
+                        <div class="col-md-6">
+                            <div class="p-3 border border-radius-lg bg-light-subtle">
+                                <span class="text-xs text-uppercase text-secondary font-weight-bold d-block mb-1">
+                                    <i class="bi-envelope me-1" style="color: #1f295b;"></i> Correo Personal
+                                </span>
+                                <span class="text-sm font-weight-bold text-dark d-block text-truncate" id="email" name="email">--</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-3 border border-radius-lg bg-light-subtle">
+                                <span class="text-xs text-uppercase text-secondary font-weight-bold d-block mb-1">
+                                    <i class="bi-phone me-1" style="color: #1f295b;"></i> Celular
+                                </span>
+                                <span class="text-sm font-weight-bold text-dark d-block" id="celular" name="celular">--</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-3 border border-radius-lg bg-light-subtle">
+                                <span class="text-xs text-uppercase text-secondary font-weight-bold d-block mb-1">
+                                    <i class="bi-telephone me-1" style="color: #1f295b;"></i> Teléfono Fijo
+                                </span>
+                                <span class="text-sm font-weight-bold text-dark d-block" id="telefono" name="telefono">--</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-3 border border-radius-lg bg-light-subtle">
+                                <span class="text-xs text-uppercase text-secondary font-weight-bold d-block mb-1">
+                                    <i class="bi-geo-alt me-1" style="color: #1f295b;"></i> Ciudad de Residencia
+                                </span>
+                                <span class="text-sm font-weight-bold text-dark d-block" id="ciudad_residencia" name="ciudad_residencia">--</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-3 border border-radius-lg bg-light-subtle">
+                                <span class="text-xs text-uppercase text-secondary font-weight-bold d-block mb-1">
+                                    <i class="bi-map me-1" style="color: #1f295b;"></i> Dirección Domiciliaria
+                                </span>
+                                <span class="text-sm font-weight-bold text-dark d-block" id="direccion" name="direccion">--</span>
+                            </div>
+                        </div>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tarjeta de Seguridad -->
+        <div class="col-lg-4 pe-0 ps-lg-2">
+            <div class="card shadow-sm border-0 border-radius-xl h-100">
+                <div class="card-header bg-transparent py-3 px-4 border-bottom border-light">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="portal-card-icon-box" style="width: 38px; height: 38px; min-width: 38px; min-height: 38px;">
+                            <i class="bi-shield-lock-fill text-white fs-6"></i>
+                        </div>
+                        <h6 class="mb-0 text-dark font-weight-bold">Seguridad de la Cuenta</h6>
+                    </div>
+                </div>
+                <div class="card-body p-3 px-4 d-flex flex-column justify-content-between">
+                    <div>
+                        <p class="text-xs text-secondary mb-3">Mantén tu cuenta protegida renovando tu contraseña periódicamente.</p>
+                        <div class="p-3 border border-radius-lg bg-light mb-3">
+                            <small class="text-xs text-muted d-block mb-1"><i class="bi-info-circle me-1" style="color: #c59b27;"></i> Recomendación</small>
+                            <span class="text-xs text-dark d-block">Usa una combinación de mayúsculas, minúsculas y números (6 a 10 caracteres).</span>
+                        </div>
+                    </div>
+                    <button class="btn btn-dark w-100 border-radius-md shadow-xs py-2 mt-2 btn-sm" id="btnClave" style="background: #1f295b !important; border: none;">
+                        <i class="bi-key me-1"></i> Cambiar Contraseña
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+<!-- Modal de Cambio de Contraseña -->
 <div class="modal fade" id="modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
     aria-labelledby="modalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header py-2 px-3">
-                <label class="modal-title text-dark fw-bold" id="modalLabel">CAMBIO DE CONTRASEÑA</label>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
-                    aria-label="Close"></button>
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg border-radius-xl overflow-hidden">
+            <div class="modal-header py-3 px-4 text-white" style="background: linear-gradient(135deg, #151b3d 0%, #1f295b 100%); border-bottom: 2px solid #c59b27;">
+                <h6 class="modal-title text-white font-weight-bold mb-0 d-flex align-items-center gap-2" id="modalLabel">
+                    <i class="bi-key-fill text-warning"></i> Cambiar Contraseña
+                </h6>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <div class="row">
-                    <form enctype="multipart/form-data">
-                        <div class="col-sm-9">
-                            <div class="form-group">
-                                <small>Contraseña anterior</small>
-                                <input type="password" data-validate="no-espacios" class="form-control form-control-sm" id="anterior" name="anterior">
-                                <div class="invalid-feedback">
-                                    * Campo requerido
-                                </div>
-                            </div>
+            <div class="modal-body p-4">
+                <form enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label class="form-label text-xs font-weight-bold text-dark mb-1" for="anterior">Contraseña anterior</label>
+                        <input type="password" data-validate="no-espacios" class="form-control form-control-sm border-radius-md" id="anterior" name="anterior" placeholder="••••••••">
+                        <div class="invalid-feedback">
+                            * Campo requerido
                         </div>
-                        <div class="col-sm-9">
-                            <div class="form-group">
-                                <small>Nueva contraseña</small>
-                                <input type="password" data-validate="no-espacios" class="form-control form-control-sm" id="password" name="password">
-                                <div class="invalid-feedback">
-                                    * Campo requerido
-                                </div>
-                            </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label text-xs font-weight-bold text-dark mb-1" for="password">Nueva contraseña</label>
+                        <input type="password" data-validate="no-espacios" class="form-control form-control-sm border-radius-md" id="password" name="password" placeholder="••••••••">
+                        <div class="invalid-feedback">
+                            * Campo requerido
                         </div>
-                        <div class="col-sm-9">
-                            <div class="form-group">
-                                <small>Confirmar nueva contraseña</small>
-                                <input type="password" data-validate="no-espacios" class="form-control form-control-sm" id="confir" name="confir">
-                                <div class="invalid-feedback">
-                                    * Campo requerido
-                                </div>
-                            </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label text-xs font-weight-bold text-dark mb-1" for="confir">Confirmar nueva contraseña</label>
+                        <input type="password" data-validate="no-espacios" class="form-control form-control-sm border-radius-md" id="confir" name="confir" placeholder="••••••••">
+                        <div class="invalid-feedback">
+                            * Campo requerido
                         </div>
-                    </form>
-                </div>
+                    </div>
+                </form>
             </div>
-            <div class="modal-footer p-1">
-                <button type="button" class="btn btn-light btn-sm" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-dark btn-sm" onclick="guardar()">Cambiar Contraseña</button>
+            <div class="modal-footer p-3 bg-light border-0">
+                <button type="button" class="btn btn-light btn-sm border-radius-md px-3" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary btn-sm border-radius-md px-3" onclick="guardar()" style="background: #1f295b !important; border: none;">Cambiar Contraseña</button>
             </div>
         </div>
     </div>
 </div>
 
 <script defer src="~/js/siteCuenta.js?v=@DateTime.Now.Ticks"></script>
+

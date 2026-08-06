@@ -16,4 +16,6 @@ public partial class usuarios_web
     public sbyte? activo { get; set; }
 
     public sbyte? asistencia { get; set; }
+
+    public sbyte? esRrhh { get; set; }
 }

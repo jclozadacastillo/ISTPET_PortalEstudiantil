@@ -10,4 +10,6 @@ public partial class nacionalidades
     public string? nacionalidad { get; set; }
 
     public sbyte? esNinguna { get; set; }
+
+    public virtual ICollection<profesores> profesores { get; set; } = new List<profesores>();
 }

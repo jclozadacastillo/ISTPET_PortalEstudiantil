@@ -1,0 +1,23 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace ISTPET_PortalEstudiantil.Models.sigafi_es;
+
+public partial class bien_tribunal
+{
+    public int idUsuario { get; set; }
+
+    public sbyte esActivo { get; set; }
+
+    public DateTime fechaCreacion { get; set; }
+
+    public DateTime? fechaActualizacion { get; set; }
+
+    public int? idTipoCargoTribunal { get; set; }
+
+    public virtual ICollection<bien_votos_tribunales> bien_votos_tribunales { get; set; } = new List<bien_votos_tribunales>();
+
+    public virtual bien_tipo_cargo_tribunal? idTipoCargoTribunalNavigation { get; set; }
+
+    public virtual usuarios idUsuarioNavigation { get; set; } = null!;
+}
