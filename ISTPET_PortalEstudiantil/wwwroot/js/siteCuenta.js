@@ -1,4 +1,4 @@
-﻿const baseUrl = `${_route}Cuenta/`;
+const baseUrl = `${_route}Cuenta/`;
 const container = document.querySelector(".container-main");
 const loader = document.querySelector(".loader");
 const form=document.querySelector("form");
@@ -42,6 +42,17 @@ async function datosPersonales() {
             const element=document.querySelector(`#${key}`);
             if(!!element) element.innerText=datos[key]||'SIN REGISTRO';
         });
+        if (!!res.archivofoto) {
+            const imgHtml = `<img src="${_route}${res.archivofoto}?v=${(new Date()).getTime()}" alt="Foto de Perfil" class="w-100 h-100 rounded-circle" style="object-fit: cover; object-position: center;" />`;
+            const avatarEl = document.querySelector("#fotoPerfilSection .avatar");
+            if (avatarEl) {
+                avatarEl.innerHTML = imgHtml;
+            }
+            const layoutAvatar = document.querySelector("#layoutUserAvatarContainer");
+            if (layoutAvatar) {
+                layoutAvatar.innerHTML = imgHtml;
+            }
+        }
         document.querySelector("#tipo").innerText=datos.tipoDocumento!="C"?"PASAPORTE":"CÉDULA";
         document.querySelector("#nombres").innerText=`${datos.primerNombre||""} ${datos.segundoNombre||""}`;
         document.querySelector("#apellidos").innerText=`${datos.apellidoPaterno||""} ${datos.apellidoMaterno||""}`;

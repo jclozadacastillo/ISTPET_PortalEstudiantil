@@ -144,8 +144,15 @@
                     <ul class="navbar-nav justify-content-end">
                         <li class="nav-item dropdown pe-2 d-flex align-items-center">
                             <div class="user-avatar-pill shadow-xs" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                <div class="avatar-circle-sm">
-                                    <i class="bi-person-fill"></i>
+                                <div class="avatar-circle-sm overflow-hidden d-flex align-items-center justify-content-center" id="layoutUserAvatarContainer">
+                                    @if (!string.IsNullOrEmpty(_auth.get("archivofoto")))
+                                    {
+                                        <img src="~/@(_auth.get("archivofoto"))?v=@DateTime.Now.Ticks" class="w-100 h-100 rounded-circle" style="object-fit: cover; object-position: center;" alt="Perfil" />
+                                    }
+                                    else
+                                    {
+                                        <i class="bi-person-fill"></i>
+                                    }
                                 </div>
                                 <span class="d-none d-sm-inline text-navbar-user text-truncate" style="max-width: 220px;">@_auth.getName()</span>
                                 <i class="bi-chevron-down text-xs ms-1 text-muted"></i>

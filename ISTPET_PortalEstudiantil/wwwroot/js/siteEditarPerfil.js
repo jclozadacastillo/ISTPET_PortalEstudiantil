@@ -36,8 +36,8 @@ async function cargarDatosAlumno() {
     form.celular.value = alumno.celular || "";
     form.idEtnia.value = alumno.idEtnia || "";
 
-    if (alumno.archivoFoto) {
-        const fotoUrl = `${_route}${alumno.archivoFoto}?v=${(new Date()).getTime()}`;
+    if (alumno.archivofoto) {
+        const fotoUrl = `${_route}${alumno.archivofoto}?v=${(new Date()).getTime()}`;
         previewFoto.src = fotoUrl;
         previewFoto.style.display = "block";
     } else {

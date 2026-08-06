@@ -62,6 +62,7 @@ namespace ISTPET_PortalEstudiantil.Controllers
                 _auth.set("alumno", $"{alumno.apellidoPaterno} {alumno.apellidoMaterno} {alumno.primerNombre} {alumno.segundoNombre}");
                 _auth.set("email", alumno.email ?? string.Empty);
                 _auth.set("email_institucional", alumno.email_institucional ?? string.Empty);
+                _auth.set("archivofoto", alumno.archivofoto ?? string.Empty);
                 return "ok";
             }
             catch (Exception ex)

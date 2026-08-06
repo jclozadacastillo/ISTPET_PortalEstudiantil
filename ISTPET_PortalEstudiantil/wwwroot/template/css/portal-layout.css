@@ -918,4 +918,57 @@ select.form-select:focus {
     transform: scale(1.15) !important;
 }
 
+/* Avatar de Perfil Estudiantil - Estilo Redondo Perfecto y Recorte Sin Distorsión */
+.portal-avatar-box {
+    width: 68px !important;
+    height: 68px !important;
+    min-width: 68px !important;
+    min-height: 68px !important;
+    border-radius: 50% !important;
+    background: rgba(255, 255, 255, 0.15) !important;
+    border: 3px solid rgba(255, 255, 255, 0.35) !important;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25) !important;
+    overflow: hidden !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    position: relative !important;
+}
+
+.portal-avatar-box img,
+.avatar img {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    border-radius: 50% !important;
+    display: block !important;
+}
+
+.portal-avatar-box i {
+    color: #ffffff !important;
+    font-size: 2rem !important;
+    line-height: 1 !important;
+}
+
+.profile-photo-preview {
+    width: 130px !important;
+    height: 130px !important;
+    border-radius: 50% !important;
+    border: 3px solid #1f295b !important;
+    box-shadow: 0 6px 16px rgba(31, 41, 91, 0.18) !important;
+    overflow: hidden !important;
+    background: #f8fafc;
+}
+
+.profile-photo-preview img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    border-radius: 50% !important;
+}
+
 

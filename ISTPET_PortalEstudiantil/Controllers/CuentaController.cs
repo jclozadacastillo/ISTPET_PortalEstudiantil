@@ -1,4 +1,4 @@
-﻿using Dapper;
+using Dapper;
 using ISTPET_PortalEstudiantil.Auth;
 using ISTPET_PortalEstudiantil.Models.sigafi_es;
 using ISTPET_PortalEstudiantil.Utilities;
@@ -169,6 +169,7 @@ namespace ISTPET_PortalEstudiantil.Controllers
 
                 _context.alumnos.Update(alumno);
                 await _context.SaveChangesAsync();
+                _auth.set("archivofoto", alumno.archivofoto ?? string.Empty);
 
                 return Ok("Datos actualizados correctamente.");
             }
