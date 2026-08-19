@@ -61,7 +61,6 @@ body.g-sidenav-show {
     flex-direction: column;
     min-height: 100dvh;
     max-height: none !important;
-    overflow-x: hidden;
 }
 
 .portal-main > .navbar-main {
@@ -798,11 +797,14 @@ select.form-select:focus {
 }
 
 .navbar-main {
+    position: -webkit-sticky !important;
+    position: sticky !important;
+    top: var(--portal-top-margin) !important;
+    z-index: 1020 !important;
     margin-left: var(--portal-horizontal-margin) !important;
     margin-right: var(--portal-horizontal-margin) !important;
     margin-bottom: var(--portal-gap) !important;
     margin-top: var(--portal-top-margin) !important;
-    top: var(--portal-top-margin) !important;
     width: auto !important;
 }
 
