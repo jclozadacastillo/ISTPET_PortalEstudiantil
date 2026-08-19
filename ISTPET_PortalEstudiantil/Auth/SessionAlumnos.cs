@@ -5,15 +5,13 @@ namespace ISTPET_PortalEstudiantil.Auth
 {
     public class SessionAlumnos : ISessionAlumnos
     {
-        private readonly ISession _session;
-        private readonly IHttpContextAccessor _context;
+        private readonly ISession? _session;
         private readonly string _cn;
 
-        public SessionAlumnos(IHttpContextAccessor context,IConfiguration config)
+        public SessionAlumnos(IHttpContextAccessor context, IConfiguration config)
         {
-            _context = context;
-            _session = context.HttpContext.Session;
-            _cn = config.GetConnectionString("sigafi_es");
+            _session = context.HttpContext?.Session;
+            _cn = config.GetConnectionString("sigafi_es") ?? string.Empty;
         }
 
         public string getUser()
@@ -34,61 +32,37 @@ namespace ISTPET_PortalEstudiantil.Auth
         public bool inRol(string _rol)
         {
             var sesion_roles = get("roles");
-            if (string.IsNullOrEmpty(sesion_roles)) return false;
+            if (string.IsNullOrEmpty(sesion_roles) || string.IsNullOrEmpty(_rol)) return false;
             var lista_roles_sesion = sesion_roles.Split(',');
             var lista_roles_verificar = _rol.Split(',');
             foreach (var item in lista_roles_verificar)
             {
-                if (lista_roles_sesion.Contains(item)) return true;
+                if (lista_roles_sesion.Contains(item.Trim())) return true;
             }
             return false;
         }
 
         public void set(string key, string value)
         {
-            _session.SetString(key, value==null?"":value);
+            _session?.SetString(key, value ?? string.Empty);
         }
 
         public string get(string key)
         {
-            try
-            {
-                var sesion = _session.GetString(key);
-                if (string.IsNullOrEmpty(sesion)) throw new Exception("Key no encontada");
-                return Convert.ToString(sesion);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                return "";
-            }
+            return _session?.GetString(key) ?? string.Empty;
         }
 
-        public async Task<bool> logoutAsync()
+        public Task<bool> logoutAsync()
         {
             try
             {
-                List<string> lista = new List<string>();
-                if (_session.Keys.Count() > 0)
-                {
-                    foreach (string key in _session.Keys)
-                    {
-                        lista.Add(key);
-                    }
-                }
-                foreach (string key in lista)
-                {
-                    _session.Remove(key);
-                }
-                _session.Clear();
-                await Task.Delay(1900);
-                return true;
+                _session?.Clear();
+                return Task.FromResult(true);
             }
             catch (Exception ex)
             {
-                _session.Clear();
                 Console.WriteLine(ex.Message);
-                return true;
+                return Task.FromResult(true);
             }
         }
 
@@ -96,35 +70,24 @@ namespace ISTPET_PortalEstudiantil.Auth
         {
             try
             {
-                List<string> lista = new List<string>();
-                if (_session.Keys.Count() > 0)
-                {
-                    foreach (string key in _session.Keys)
-                    {
-                        lista.Add(key);
-                    }
-                }
-                foreach (string key in lista)
-                {
-                    _session.Remove(key);
-                }
-                _session.Clear();
+                _session?.Clear();
                 return true;
             }
             catch (Exception ex)
             {
-                _session.Clear();
                 Console.WriteLine(ex.Message);
                 return true;
             }
         }
 
-
         public int evaluacionesPendientes()
         {
-            var dapper = new MySqlConnection(_cn);
+            var usuario = getUser();
+            if (string.IsNullOrEmpty(usuario)) return 0;
+
             try
             {
+                using var dapper = new MySqlConnection(_cn);
                 string sql = @"select count(ag.idAsignatura)
                             from alumnos a 
                             inner join matriculas m on a.idalumno=m.idalumno 
@@ -138,24 +101,23 @@ namespace ISTPET_PortalEstudiantil.Auth
                             and p.activo = 1 and p.permiteCalificacionesInstituto = 1
                             and ap.idAsignacion not in(select sh.idAsignacion from seddheteroevaluacion sh
                             WHERE sh.idMatricula=m.idMatricula)";
-                return dapper.ExecuteScalar<int>(sql, new { usuario = getUser() });
+                return dapper.ExecuteScalar<int>(sql, new { usuario });
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 return 0;
             }
-            finally
-            {
-                dapper.Dispose();
-            }
         }
 
         public bool terminosCondicionesPendientes()
         {
-            var dapper = new MySqlConnection(_cn);
+            var usuario = getUser();
+            if (string.IsNullOrEmpty(usuario)) return false;
+
             try
             {
+                using var dapper = new MySqlConnection(_cn);
                 string sql = @"
                     SELECT COUNT(1)
                     FROM pd_terminos_condiciones t
@@ -169,16 +131,12 @@ namespace ISTPET_PortalEstudiantil.Auth
                         WHERE au.idUsuario = @usuario
                     )";
 
-                return dapper.ExecuteScalar<int>(sql, new { usuario = getUser() }) > 0;
+                return dapper.ExecuteScalar<int>(sql, new { usuario }) > 0;
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                return true;
-            }
-            finally
-            {
-                dapper.Dispose();
+                return false;
             }
         }
     }

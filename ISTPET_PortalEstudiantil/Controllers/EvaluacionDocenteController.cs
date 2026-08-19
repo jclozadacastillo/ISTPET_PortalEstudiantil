@@ -17,7 +17,7 @@ namespace ISTPET_PortalEstudiantil.Controllers
         private readonly sigafi_esContext _context;
         public EvaluacionDocenteController(ISessionAlumnos auth, IConfiguration config,sigafi_esContext context)
         {
-            _cn = config.GetConnectionString("sigafi_es");
+            _cn = config.GetConnectionString("sigafi_es")!;
             _auth = auth;
             _loop_handler.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             _context = context;
@@ -120,7 +120,7 @@ namespace ISTPET_PortalEstudiantil.Controllers
 
                 var detalle = JsonConvert.DeserializeObject<List<sedddetalleheteroevaluacion>>(arrayEvaluacion);
                 form.fechaRegistro = DateTime.Now;
-                form.sedddetalleheteroevaluacion = detalle;
+                form.sedddetalleheteroevaluacion = detalle ?? new List<sedddetalleheteroevaluacion>();
                 _context.seddheteroevaluacion.Add(form);
                 await _context.SaveChangesAsync();
                 return Ok();

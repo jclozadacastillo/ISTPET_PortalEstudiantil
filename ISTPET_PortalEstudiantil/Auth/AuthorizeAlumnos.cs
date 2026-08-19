@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace ISTPET_PortalEstudiantil.Auth
@@ -7,59 +7,41 @@ namespace ISTPET_PortalEstudiantil.Auth
     public class AuthorizeAlumnos : Attribute, IAuthorizationFilter
     {
         public string? Roles { get; set; }
-        private AuthorizationFilterContext? _context;
+
         public void OnAuthorization(AuthorizationFilterContext context)
         {
-            _context = context;
+            var session = context.HttpContext.Session;
 
-            if (!verificarRol() || !verificarSesion())
+            if (!verificarSesion(session) || !verificarRol(session))
             {
                 context.Result = new UnauthorizedResult();
                 return;
             }
         }
-        private bool verificarSesion()
+
+        private bool verificarSesion(ISession? session)
         {
-            return !string.IsNullOrEmpty(get("idAlumno"));
+            return !string.IsNullOrEmpty(get(session, "idAlumno"));
         }
-        private bool verificarRol()
+
+        private bool verificarRol(ISession? session)
         {
             if (string.IsNullOrEmpty(Roles)) return true;
-            var sesion_roles = get("roles");
+            var sesion_roles = get(session, "roles");
             if (string.IsNullOrEmpty(sesion_roles)) return false;
             var lista_roles_sesion = sesion_roles.Split(',');
             var lista_roles_requerido = Roles.Split(',');
-            if (lista_roles_requerido.Count() == 0) return true;
+            if (lista_roles_requerido.Length == 0) return true;
             foreach (var item in lista_roles_sesion)
             {
-                if (lista_roles_requerido.Contains(item)) return true;
+                if (lista_roles_requerido.Contains(item.Trim())) return true;
             }
             return false;
         }
 
-        public bool inRol(string _rol)
+        private string get(ISession? session, string key)
         {
-            if (string.IsNullOrEmpty(Roles)) return true;
-            var sesion_roles = get("roles");
-            if (string.IsNullOrEmpty(sesion_roles)) return false;
-            var lista_roles_sesion = sesion_roles.Split(',');
-            return lista_roles_sesion.Contains(_rol);
+            return session?.GetString(key) ?? string.Empty;
         }
-
-        public string get(string key)
-        {
-            try
-            {
-                var sesion = _context?.HttpContext.Session.GetString(key);
-                if (string.IsNullOrEmpty(sesion)) throw new Exception("Key no encontada");
-                return Convert.ToString(sesion);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                return "";
-            }
-        }
-
     }
 }

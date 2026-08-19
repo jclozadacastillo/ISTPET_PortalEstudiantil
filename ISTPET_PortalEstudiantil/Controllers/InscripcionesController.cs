@@ -1,4 +1,4 @@
-﻿using Dapper;
+using Dapper;
 using ISTPET_PortalEstudiantil.Models.sigafi_es;
 using Microsoft.AspNetCore.Mvc;
 using MySql.Data.MySqlClient;
@@ -10,32 +10,36 @@ using System.Net;
 using System.Text;
 using System.Drawing;
 using ISTPET_PortalEstudiantil.Utilities;
+using ZstdSharp.Unsafe;
+using System.Linq.Expressions;
 
 namespace ISTPET_PortalEstudiantil.Controllers
 {
     public class InscripcionesController : Controller
     {
         private readonly string cn;
-        private readonly string condicionPruebas = "and datediff(p.fecha_inicial, current_date()) >-100";
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly IConfiguration _config;
+
         public InscripcionesController(IConfiguration config, IWebHostEnvironment webHost)
         {
             _config = config;
-            cn = config.GetConnectionString("sigafi_es");
+            cn = config.GetConnectionString("sigafi_es")!;
             _webHostEnvironment = webHost;
         }
+
         public IActionResult Index()
         {
             return View();
         }
+
         public IActionResult Confirmacion(string id, string dni, string e)
         {
             var dapper = new MySqlConnection(cn);
             try
             {
-                string sql = @"SELECT ai.*, 
-                TIMESTAMPDIFF(month,fechaRegistro,current_date) as mesesPasado 
+                string sql = @"SELECT ai.*,
+                TIMESTAMPDIFF(month,fechaRegistro,current_date) as mesesPasado
                 FROM alumnos_inscripciones ai
                 INNER JOIN alumnos a on a.idAlumno=ai.idAlumno
                 WHERE ai.idInscripcion=@id AND ai.idAlumno=@dni AND a.email=@e";
@@ -55,7 +59,7 @@ namespace ISTPET_PortalEstudiantil.Controllers
                 if (inscripcion != null && Convert.ToBoolean(inscripcion?.activo) == false && inscripcion?.mesesPasado <= 0)
                 {
                     sql = @"UPDATE alumnos_inscripciones SET activo=1 WHERE idInscripcion=@id;";
-                    dapper.Execute(sql, new { id,dni });
+                    dapper.Execute(sql, new { id, dni });
                     ViewData["clase"] = "alert alert-success";
                     mensaje = @"<div class='text-center'><i class='bi-check-circle fs-1 mb-2'></i></div>
                                 <div class='text-center'>
@@ -100,10 +104,7 @@ namespace ISTPET_PortalEstudiantil.Controllers
             }
             finally
             {
-
             }
-
-
         }
 
         private bool enviarCorreoNuevaInscripcion(string idInscripcion)
@@ -115,16 +116,17 @@ namespace ISTPET_PortalEstudiantil.Controllers
                             c.Carrera as carrera,m.modalidad,s.seccion,a.idAlumno,
                             concat(a.primerNombre,' ',a.segundoNombre,' ',a.apellidoPaterno,' ',a.apellidoMaterno) AS alumno,
                             a.celular,a.telefono,a.email,p.idPeriodo
-                            FROM alumnos_inscripciones ai 
-                            INNER JOIN alumnos a ON a.idAlumno =ai.idalumno 
-                            INNER JOIN periodos p ON p.idPeriodo = ai.idPeriodo 
-                            INNER JOIN modalidades m ON m.idModalidad = ai.idModalidad 
-                            INNER JOIN cursos n ON n.idNivel =ai.idNivel 
-                            INNER JOIN carreras c ON c.idCarrera = n.idCarrera 
-                            INNER JOIN secciones s ON s.idSeccion = ai.idSeccion 
+                            FROM alumnos_inscripciones ai
+                            INNER JOIN alumnos a ON a.idAlumno =ai.idalumno
+                            INNER JOIN periodos p ON p.idPeriodo = ai.idPeriodo
+                            INNER JOIN modalidades m ON m.idModalidad = ai.idModalidad
+                            INNER JOIN cursos n ON n.idNivel =ai.idNivel
+                            INNER JOIN carreras c ON c.idCarrera = n.idCarrera
+                            INNER JOIN secciones s ON s.idSeccion = ai.idSeccion
                             WHERE idInscripcion =@idInscripcion";
-                var _datos = dapper.QueryFirstOrDefault(sql, new {idInscripcion});
+                var _datos = dapper.QueryFirstOrDefault(sql, new { idInscripcion });
                 var path = Path.Combine(_webHostEnvironment.WebRootPath, "correos", "nuevaInscripcion.html");
+                if (_datos == null) throw new Exception("No se han podido recuperar los datos de la inscripción.");
                 StringBuilder emailHtml = new StringBuilder(System.IO.File.ReadAllText(path));
                 emailHtml.Replace("@alumno", _datos.alumno);
                 emailHtml.Replace("@carrera", _datos.carrera);
@@ -138,8 +140,8 @@ namespace ISTPET_PortalEstudiantil.Controllers
                 AlternateView htmlimagen;
                 htmlimagen = AlternateView.CreateAlternateViewFromString(emailHtml.ToString(), null, "text/html");
                 MailMessage correo = new MailMessage();
-                correo.To.Add(_config["Sistema:email_admisiones"]);
-                correo.From = new MailAddress(_config["Sistema:email"]);
+                correo.To.Add(_config["Sistema:email_admisiones"]!);
+                correo.From = new MailAddress(_config["Sistema:email"]!);
                 correo.Subject = $"ISTPET: NUEVA INSCRIPCIÓN {_datos.carrera} {_datos.idPeriodo}";
                 correo.Body = emailHtml.ToString();
                 correo.AlternateViews.Add(htmlimagen);
@@ -172,11 +174,11 @@ namespace ISTPET_PortalEstudiantil.Controllers
             try
             {
                 string sql = $@"select distinct(c.idCarrera),c.Carrera,n.nivel,n.idNivel
-                                from periodos_inscripciones pi 
+                                from periodos_inscripciones pi
                                 inner join cursos n on n.idNivel = pi.idNivel
                                 inner join carreras c on c.idCarrera = n.idCarrera
                                 inner join periodos p on p.idPeriodo = pi.idPeriodo
-                                where pi.activo=1 and conduccion =@conduccion 
+                                where pi.activo=1 and conduccion =@conduccion
                                 and datediff(pi.fechaFinal,pi.fechaInicio) > 0";
                 return Json(await dapper.QueryAsync(sql, new { conduccion }));
             }
@@ -197,12 +199,12 @@ namespace ISTPET_PortalEstudiantil.Controllers
             try
             {
                 string sql = $@"select distinct(s.idSeccion),s.seccion
-                                from periodos_inscripciones pi 
+                                from periodos_inscripciones pi
                                 inner join cursos n on n.idNivel = pi.idNivel
                                 inner join carreras c on c.idCarrera = n.idCarrera
                                 inner join periodos p on p.idPeriodo = pi.idPeriodo
                                 inner join secciones s on s.idSeccion=pi.idSeccion
-                                where pi.activo=1 and pi.idNivel = @idNivel 
+                                where pi.activo=1 and pi.idNivel = @idNivel
                                 and datediff(pi.fechaFinal,pi.fechaInicio) > 0";
                 return Json(await dapper.QueryAsync(sql, new { idNivel }));
             }
@@ -223,7 +225,7 @@ namespace ISTPET_PortalEstudiantil.Controllers
             try
             {
                 string sql = $@"select distinct(m.idModalidad),m.modalidad
-                                from periodos_inscripciones pi 
+                                from periodos_inscripciones pi
                                 inner join cursos n on n.idNivel = pi.idNivel
                                 inner join carreras c on c.idCarrera = n.idCarrera
                                 inner join periodos p on p.idPeriodo = pi.idPeriodo
@@ -251,13 +253,13 @@ namespace ISTPET_PortalEstudiantil.Controllers
             {
                 string sql = $@"
                                 select distinct(p.idPeriodo),p.detalle,p.fecha_inicial
-                                from periodos_inscripciones pi 
+                                from periodos_inscripciones pi
                                 inner join cursos n on n.idNivel = pi.idNivel
                                 inner join carreras c on c.idCarrera = n.idCarrera
                                 inner join periodos p on p.idPeriodo = pi.idPeriodo
                                 inner join secciones s on s.idSeccion=pi.idSeccion
                                 inner join modalidades m on m.idModalidad=pi.idModalidad
-                                where pi.activo=1 and pi.idNivel = @idNivel and pi.idSeccion=@idSeccion 
+                                where pi.activo=1 and pi.idNivel = @idNivel and pi.idSeccion=@idSeccion
                                 and pi.idModalidad=@idModalidad
                                 and datediff(pi.fechaFinal,pi.fechaInicio) > 0
                 ";
@@ -273,15 +275,14 @@ namespace ISTPET_PortalEstudiantil.Controllers
             }
         }
 
-
         [HttpGet]
         public async Task<IActionResult> comboProvincias()
         {
             var dapper = new MySqlConnection(cn);
             try
             {
-                string sql = $@"select distinct(provincia) 
-                                from instituciones 
+                string sql = $@"select distinct(provincia)
+                                from instituciones
                                 order by trim(provincia) ";
                 return Json(await dapper.QueryAsync(sql));
             }
@@ -295,16 +296,14 @@ namespace ISTPET_PortalEstudiantil.Controllers
             }
         }
 
-
-
         [HttpPost]
         public async Task<IActionResult> comboCiudades(string provincia)
         {
             var dapper = new MySqlConnection(cn);
             try
             {
-                string sql = $@"select distinct(ciudad) 
-                                from instituciones 
+                string sql = $@"select distinct(ciudad)
+                                from instituciones
                                 where provincia=@provincia
                                 order by trim(ciudad) ";
                 return Json(await dapper.QueryAsync(sql, new { provincia }));
@@ -319,15 +318,14 @@ namespace ISTPET_PortalEstudiantil.Controllers
             }
         }
 
-
         [HttpPost]
         public async Task<IActionResult> comboInstituciones(string ciudad)
         {
             var dapper = new MySqlConnection(cn);
             try
             {
-                string sql = $@"select distinct(idInstitucion),institucion 
-                                from instituciones 
+                string sql = $@"select distinct(idInstitucion),institucion
+                                from instituciones
                                 where ciudad=@ciudad
                                 order by trim(institucion) ";
                 return Json(await dapper.QueryAsync(sql, new { ciudad }));
@@ -341,6 +339,7 @@ namespace ISTPET_PortalEstudiantil.Controllers
                 dapper.Dispose();
             }
         }
+
         [HttpGet]
         public async Task<IActionResult> comboMedios()
         {
@@ -372,9 +371,9 @@ namespace ISTPET_PortalEstudiantil.Controllers
                 if (await dapper.ExecuteScalarAsync<int>(sql, _alumno) > 0)
                 {
                     sql = @"UPDATE alumnos
-                            SET telefono=@telefono, 
-                            celular=@celular, 
-                            email=@email,  
+                            SET telefono=@telefono,
+                            celular=@celular,
+                            email=@email,
                             sexo=@sexo
                             WHERE idAlumno=@idAlumno;
                      ";
@@ -384,16 +383,16 @@ namespace ISTPET_PortalEstudiantil.Controllers
                 {
                     sql = $@"
                     INSERT INTO alumnos
-                    (idAlumno, tipoDocumento, apellidoPaterno, apellidoMaterno, primerNombre, segundoNombre, fecha_Nacimiento, 
+                    (idAlumno, tipoDocumento, apellidoPaterno, apellidoMaterno, primerNombre, segundoNombre, fecha_Nacimiento,
                     telefono, celular, email, sexo, fecha_Inscripcion,idInstitucion,tituloColegio,password)
-                    VALUES(@idAlumno, @tipoDocumento, @apellidoPaterno, @apellidoMaterno, @primerNombre, @segundoNombre, @fecha_Inscripcion, 
+                    VALUES(@idAlumno, @tipoDocumento, @apellidoPaterno, @apellidoMaterno, @primerNombre, @segundoNombre, @fecha_Inscripcion,
                     @telefono, @celular, @email, @sexo, current_date,@idInstitucion,@tituloColegio,@idAlumno);
                     ";
                     novedades += "Bienvenido a ISTPET.</br>";
                 }
                 await dapper.ExecuteAsync(sql, _alumno);
-                sql = @"SELECT count(idAlumno) 
-                FROM alumnos_inscripciones 
+                sql = @"SELECT count(idAlumno)
+                FROM alumnos_inscripciones
                 WHERE idAlumno=@idAlumno and idPeriodo=@idPeriodo";
                 if (await dapper.ExecuteScalarAsync<int>(sql, _inscripcion) > 0)
                 {
@@ -409,9 +408,8 @@ namespace ISTPET_PortalEstudiantil.Controllers
                     {
                         throw new Exception("Ya te encuentras inscrito para el presente periodo");
                     }
-
-          
-                };
+                }
+                ;
                 sql = @"INSERT INTO alumnos_inscripciones
                     (idalumno, idPeriodo, idModalidad, idNivel, idSeccion, fechaRegistro, usuario, activo,idMedio)
                     VALUES(@idalumno, @idPeriodo, @idModalidad, @idNivel, @idSeccion, current_timestamp, 'root', 0,@idMedio);
@@ -453,7 +451,7 @@ namespace ISTPET_PortalEstudiantil.Controllers
                 var sql = @"select concat(a.primerNombre,' ',a.segundoNombre,' ',a.apellidoPaterno,' ',a.apellidoMaterno) as alumno,
                         nivel,carrera,detalle as periodo,modalidad,seccion
                         from alumnos_inscripciones ai
-                        inner join alumnos a on a.idAlumno = ai.idalumno 
+                        inner join alumnos a on a.idAlumno = ai.idalumno
                         inner join cursos n on n.idNivel = ai.idNivel
                         inner join carreras c on c.idCarrera = n.idCarrera
                         inner join periodos p on p.idPeriodo = ai.idPeriodo
@@ -461,6 +459,7 @@ namespace ISTPET_PortalEstudiantil.Controllers
                         inner join modalidades m on m.idModalidad=ai.idModalidad
                         where ai.idInscripcion = @idInscripcion";
                 var datosInscripcion = dapper.QueryFirstOrDefault(sql, _inscripcion);
+                if (datosInscripcion == null) throw new Exception("No se ha podido recuperar los datos de la inscripción");
                 var path = Path.Combine(_webHostEnvironment.WebRootPath, "correos", "confirmacion.html");
                 StringBuilder emailHtml = new StringBuilder(System.IO.File.ReadAllText(path));
                 emailHtml.Replace("@urlSistema", $"https://servicios.istpet.edu.ec/appEstudiantes/Inscripciones/Confirmacion/?id={_inscripcion.idInscripcion}&dni={_datos.idAlumno}&e={_datos.email}");
@@ -477,9 +476,11 @@ namespace ISTPET_PortalEstudiantil.Controllers
                 imagen.ContentId = "logoBlanco";
                 htmlimagen.LinkedResources.Add(imagen);
                 MailMessage correo = new MailMessage();
+                if (_datos == null) throw new Exception("No se han podido recuperar los datos");
+                if (string.IsNullOrEmpty(_datos.email)) throw new Exception("El email es requerido");
                 correo.To.Add(_datos.email);
                 if (correo.To.Count == 0) throw new Exception("NO SE PUDIERON RECUPERAR LOS DATOS");
-                correo.From = new MailAddress(_config["Sistema:email"]);
+                correo.From = new MailAddress(_config["Sistema:email"] ?? throw new InvalidOperationException("Configuración 'Sistema:email' no encontrada."));
                 correo.Subject = "ISTPET: CONFIRMACIÓN DE INSCRIPCIÓN";
                 correo.Body = emailHtml.ToString();
                 correo.AlternateViews.Add(htmlimagen);
@@ -519,12 +520,12 @@ namespace ISTPET_PortalEstudiantil.Controllers
             string base64Imagen = Convert.ToBase64String(bytesImagen);
             return String.Format("data:image/jpg;base64,{0}", base64Imagen);
         }
+
         public string sistemaUrl(string url)
         {
             return Path.Combine(_webHostEnvironment.WebRootPath, url);
         }
 
         private string host() => new UriBuilder(Request.Scheme, Request.Host.Host, Request.Host.Port ?? -1).ToString();
-
     }
 }

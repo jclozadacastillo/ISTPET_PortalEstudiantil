@@ -227,8 +227,7 @@ namespace ISTPET_PortalEstudiantil.Controllers
             try
             {
                 if (string.IsNullOrEmpty(usuarioRecuperar)) throw new Exception("Debe ingresar un usuario");
-                if (!_context.alumnos.Any(x => x.idAlumno == usuarioRecuperar)) throw new Exception("El usuario ingresado no existe");
-                var alumno = _context.alumnos.FirstOrDefault(x => x.idAlumno == usuarioRecuperar);
+                var alumno = _context.alumnos.FirstOrDefault(x => x.idAlumno == usuarioRecuperar) ?? throw new Exception("El usuario ingresado no existe");
                 EnviarCorreoRecuperacion(alumno);
                 return "Todo belen";
             }
@@ -252,7 +251,7 @@ namespace ISTPET_PortalEstudiantil.Controllers
                 if (!string.IsNullOrEmpty(alumno.email)) correo.To.Add(alumno.email);
                 if (!string.IsNullOrEmpty(alumno.email_institucional)) correo.To.Add(alumno.email_institucional);
                 if (correo.To.Count == 0) throw new Exception("El usuario no tiene un correo registrado");
-                correo.From = new MailAddress(_config["Sistema:email"]);
+                correo.From = new MailAddress(_config["Sistema:email"] ?? throw new InvalidOperationException("Configuración 'Sistema:email' no encontrada."));
                 correo.Subject = $"ISTPET: RECUPEAR CONTRASEÑA";
                 correo.Body = emailHtml.ToString();
                 correo.AlternateViews.Add(htmlimagen);

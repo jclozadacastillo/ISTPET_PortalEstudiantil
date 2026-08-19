@@ -14,7 +14,7 @@ namespace ISTPET_PortalEstudiantil.Controllers
         private JsonSerializerSettings _loop_handler = new JsonSerializerSettings();
         public CalificacionesController(ISessionAlumnos auth, IConfiguration config)
         {
-            cn = config.GetConnectionString("sigafi_es");
+            cn = config.GetConnectionString("sigafi_es")!;
             _auth = auth;
             _loop_handler.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
         }

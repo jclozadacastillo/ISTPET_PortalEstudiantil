@@ -11,7 +11,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.TryAddScoped<ISessionAlumnos, SessionAlumnos>();
 
-builder.Services.AddDbContext<sigafi_esContext>(op => op.UseMySQL(builder.Configuration.GetConnectionString("sigafi_es")));
+builder.Services.AddDbContext<sigafi_esContext>(op => op.UseMySQL(builder.Configuration.GetConnectionString("sigafi_es") ?? throw new InvalidOperationException("Connection string 'sigafi_es' not found.")));
 builder.Services.AddSession(options =>
 {
     double diasJson = Convert.ToDouble(builder.Configuration["Sistema:timeOutSesionDays"]);

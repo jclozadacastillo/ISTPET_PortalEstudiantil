@@ -20,7 +20,7 @@ namespace ISTPET_PortalEstudiantil.Controllers
         public CuentaController(ISessionAlumnos auth, IConfiguration config,sigafi_esContext context,IWebHostEnvironment env)
         {
             rootPath = env.WebRootPath;
-            cn = config.GetConnectionString("sigafi_es");
+            cn = config.GetConnectionString("sigafi_es")!;
             _auth = auth;
             _loop_handler.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             _context = context;
