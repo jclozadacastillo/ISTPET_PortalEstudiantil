@@ -717,6 +717,11 @@ body.g-sidenav-show {
     transition: background 0.15s ease;
 }
 
+.table-custom-portal thead th:first-child,
+.table-custom-portal tbody td:first-child {
+    padding-left: 1.5rem !important;
+}
+
 .table-custom-portal tbody tr:hover td {
     background-color: #f8fafc;
 }

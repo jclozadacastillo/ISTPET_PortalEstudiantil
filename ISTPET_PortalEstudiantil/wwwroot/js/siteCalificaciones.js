@@ -113,7 +113,7 @@
             res.forEach(item => {
                 html += `
                         <tr>
-                        <td class="text-xs font-weight-bold text-dark no-wrap">
+                        <td class="text-xs font-weight-bold text-dark no-wrap ps-4">
                                 <span>${item.asignatura}</span>
                         </td>
                         <td class="text-center text-xs font-weight-bold">
