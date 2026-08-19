@@ -50,6 +50,9 @@ async function comboAsignaturas() {
 
 idAsignatura.addEventListener("change", async function () {
     contenedorPreguntas.setAttribute("hidden", true);
+    if (typeof btnGuardarFlotante !== 'undefined' && btnGuardarFlotante) {
+        btnGuardarFlotante.setAttribute("hidden", true);
+    }
     tablaEvaluacion.innerHTML = "";
     if (this.value == "") return;
     await cargarEvaluacion();
@@ -63,63 +66,78 @@ async function cargarEvaluacion() {
         let numero = 0;
         const _evaluacion = evaluaciones.find(x => x.idAsignacion == idAsignatura.value);
         if (!!_evaluacion) {
-            nombreDocente.innerHTML = `<b>DOCENTE: </b>${_evaluacion.abreviatura} ${_evaluacion.apellidos} ${_evaluacion.nombres}`
+            nombreDocente.innerHTML = `${_evaluacion.abreviatura} ${_evaluacion.apellidos} ${_evaluacion.nombres}`
         }
         res.forEach(async function (item, id) {
             numero++;
             tablaEvaluacion.insertAdjacentHTML('beforeend',
                 `
-                <tr class='p-${item.idPregunta}'>
-                    <td class='text-center'>${numero}</td>
-                    <td style='width:auto !important;white-space:break-spaces !important'>${item.pregunta}</td>
-                    <td>
-                                <div class="form-check form-check-inline">
-                                    <input onclick="seleccionarRespuesta(this)" class="form-check-input sel-p${item.idPregunta} pre@${item.idPregunta}@ noSel" type="radio" name="inlineRadioOptions-p${item.idPregunta}" id="diez-p${item.idPregunta}" value="10">
-                                    <label class="form-check-label" for="diez-p${item.idPregunta}">10</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input onclick="seleccionarRespuesta(this)" class="form-check-input sel-p${item.idPregunta} pre@${item.idPregunta}@" type="radio" name="inlineRadioOptions-p${item.idPregunta}" id="nueve-p${item.idPregunta}" value="9">
-                                    <label class="form-check-label" for="nueve-p${item.idPregunta}">9</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input onclick="seleccionarRespuesta(this)" class="form-check-input sel-p${item.idPregunta} pre@${item.idPregunta}@" type="radio" name="inlineRadioOptions-p${item.idPregunta}" id="ocho-p${item.idPregunta}" value="8">
-                                    <label class="form-check-label" for="ocho-p${item.idPregunta}">8</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input onclick="seleccionarRespuesta(this)" class="form-check-input sel-p${item.idPregunta} pre@${item.idPregunta}@" type="radio" name="inlineRadioOptions-p${item.idPregunta}" id="siete-p${item.idPregunta}" value="7">
-                                    <label class="form-check-label" for="siete-p${item.idPregunta}">7</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input onclick="seleccionarRespuesta(this)" class="form-check-input sel-p${item.idPregunta} pre@${item.idPregunta}@" type="radio" name="inlineRadioOptions-p${item.idPregunta}" id="seis-p${item.idPregunta}" value="6">
-                                    <label class="form-check-label" for="seis-p${item.idPregunta}">6</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input onclick="seleccionarRespuesta(this)" class="form-check-input sel-p${item.idPregunta} pre@${item.idPregunta}@" type="radio" name="inlineRadioOptions-p${item.idPregunta}" id="cinco-p${item.idPregunta}" value="5">
-                                    <label class="form-check-label" for="cinco-p${item.idPregunta}">5</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input onclick="seleccionarRespuesta(this)" class="form-check-input sel-p${item.idPregunta} pre@${item.idPregunta}@" type="radio" name="inlineRadioOptions-p${item.idPregunta}" id="cuatro-p${item.idPregunta}" value="4">
-                                    <label class="form-check-label" for="cuatro-p${item.idPregunta}">4</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input onclick="seleccionarRespuesta(this)" class="form-check-input sel-p${item.idPregunta} pre@${item.idPregunta}@" type="radio" name="inlineRadioOptions-p${item.idPregunta}" id="tres-p${item.idPregunta}" value="3">
-                                    <label class="form-check-label" for="tres-p${item.idPregunta}">3</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input onclick="seleccionarRespuesta(this)" class="form-check-input sel-p${item.idPregunta} pre@${item.idPregunta}@" type="radio" name="inlineRadioOptions-p${item.idPregunta}" id="dos-p${item.idPregunta}" value="2">
-                                    <label class="form-check-label" for="dos-p${item.idPregunta}">2</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input onclick="seleccionarRespuesta(this)" class="form-check-input sel-p${item.idPregunta} pre@${item.idPregunta}@" type="radio" name="inlineRadioOptions-p${item.idPregunta}" id="uno-p${item.idPregunta}" value="1">
-                                    <label class="form-check-label" for="uno-p${item.idPregunta}">1</label>
-                                </div>
-                            </td>
+                <tr class='eval-q-row p-${item.idPregunta}'>
+                    <td class='text-center align-middle py-3.5 ps-4 pe-2' style='width: 60px; min-width: 60px;'>
+                        <span class='eval-num-badge'>${numero}</span>
+                    </td>
+                    <td class='align-middle py-3.5 px-3' style='width:auto !important; white-space:normal !important; word-break:break-word;'>
+                        <span class='text-dark font-weight-semibold text-sm d-block' style='white-space:normal !important; line-height: 1.45;'>${item.pregunta}</span>
+                    </td>
+                    <td class='align-middle text-center py-3.5 ps-2 pe-4' style='width: 410px; min-width: 410px;'>
+                        <div class="eval-rating-container">
+                            <label class="eval-pill-item" title="Calificación 1 (Mínimo)">
+                                <input onclick="seleccionarRespuesta(this)" class="form-check-input sel-p${item.idPregunta} pre@${item.idPregunta}@ noSel eval-pill-input" type="radio" name="inlineRadioOptions-p${item.idPregunta}" id="r1-p${item.idPregunta}" value="1">
+                                <span class="eval-pill-btn">1</span>
+                            </label>
+                            <label class="eval-pill-item" title="Calificación 2">
+                                <input onclick="seleccionarRespuesta(this)" class="form-check-input sel-p${item.idPregunta} pre@${item.idPregunta}@ noSel eval-pill-input" type="radio" name="inlineRadioOptions-p${item.idPregunta}" id="r2-p${item.idPregunta}" value="2">
+                                <span class="eval-pill-btn">2</span>
+                            </label>
+                            <label class="eval-pill-item" title="Calificación 3">
+                                <input onclick="seleccionarRespuesta(this)" class="form-check-input sel-p${item.idPregunta} pre@${item.idPregunta}@ noSel eval-pill-input" type="radio" name="inlineRadioOptions-p${item.idPregunta}" id="r3-p${item.idPregunta}" value="3">
+                                <span class="eval-pill-btn">3</span>
+                            </label>
+                            <label class="eval-pill-item" title="Calificación 4">
+                                <input onclick="seleccionarRespuesta(this)" class="form-check-input sel-p${item.idPregunta} pre@${item.idPregunta}@ noSel eval-pill-input" type="radio" name="inlineRadioOptions-p${item.idPregunta}" id="r4-p${item.idPregunta}" value="4">
+                                <span class="eval-pill-btn">4</span>
+                            </label>
+                            <label class="eval-pill-item" title="Calificación 5">
+                                <input onclick="seleccionarRespuesta(this)" class="form-check-input sel-p${item.idPregunta} pre@${item.idPregunta}@ noSel eval-pill-input" type="radio" name="inlineRadioOptions-p${item.idPregunta}" id="r5-p${item.idPregunta}" value="5">
+                                <span class="eval-pill-btn">5</span>
+                            </label>
+                            <label class="eval-pill-item" title="Calificación 6">
+                                <input onclick="seleccionarRespuesta(this)" class="form-check-input sel-p${item.idPregunta} pre@${item.idPregunta}@ noSel eval-pill-input" type="radio" name="inlineRadioOptions-p${item.idPregunta}" id="r6-p${item.idPregunta}" value="6">
+                                <span class="eval-pill-btn">6</span>
+                            </label>
+                            <label class="eval-pill-item" title="Calificación 7">
+                                <input onclick="seleccionarRespuesta(this)" class="form-check-input sel-p${item.idPregunta} pre@${item.idPregunta}@ noSel eval-pill-input" type="radio" name="inlineRadioOptions-p${item.idPregunta}" id="r7-p${item.idPregunta}" value="7">
+                                <span class="eval-pill-btn">7</span>
+                            </label>
+                            <label class="eval-pill-item" title="Calificación 8">
+                                <input onclick="seleccionarRespuesta(this)" class="form-check-input sel-p${item.idPregunta} pre@${item.idPregunta}@ noSel eval-pill-input" type="radio" name="inlineRadioOptions-p${item.idPregunta}" id="r8-p${item.idPregunta}" value="8">
+                                <span class="eval-pill-btn">8</span>
+                            </label>
+                            <label class="eval-pill-item" title="Calificación 9">
+                                <input onclick="seleccionarRespuesta(this)" class="form-check-input sel-p${item.idPregunta} pre@${item.idPregunta}@ noSel eval-pill-input" type="radio" name="inlineRadioOptions-p${item.idPregunta}" id="r9-p${item.idPregunta}" value="9">
+                                <span class="eval-pill-btn">9</span>
+                            </label>
+                            <label class="eval-pill-item" title="Calificación 10 (Excelente)">
+                                <input onclick="seleccionarRespuesta(this)" class="form-check-input sel-p${item.idPregunta} pre@${item.idPregunta}@ noSel eval-pill-input" type="radio" name="inlineRadioOptions-p${item.idPregunta}" id="r10-p${item.idPregunta}" value="10">
+                                <span class="eval-pill-btn">10</span>
+                            </label>
+                        </div>
+                    </td>
                 </tr>
-                <tr class='verificarValidador' id='validar-p${item.idPregunta}' hidden><td colspan='3' class='text-center text-danger'><span>Escoja Una Opcion</span></td></tr>
+                <tr class='verificarValidador' id='validar-p${item.idPregunta}' hidden>
+                    <td colspan='3' class='p-2 border-0'>
+                        <div class='eval-validation-alert text-center'>
+                            <i class='bi-exclamation-triangle-fill me-1'></i> Por favor seleccione una opción entre 1 y 10 para esta pregunta.
+                        </div>
+                    </td>
+                </tr>
                 `
             )
         });
         contenedorPreguntas.removeAttribute("hidden");
+        if (typeof btnGuardarFlotante !== 'undefined' && btnGuardarFlotante) {
+            btnGuardarFlotante.removeAttribute("hidden");
+        }
     } catch (e) {
         handleError(e);
     }

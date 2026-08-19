@@ -27479,12 +27479,12 @@ tr.invalid td:first-child::before {
 }
 
 .badge-custom{
-    position:absolute;
-    line-height:15px;
-    padding:2px 2px 2px 0px !important;
+    position:relative;
+    line-height:1;
+    padding:2px 6px !important;
     min-height:19px;
     min-width:19px;
     margin-top:0px;
-    margin-left:10px;
+    margin-left:auto;
 }
     /*# sourceMappingURL=material-dashboard.css.map */

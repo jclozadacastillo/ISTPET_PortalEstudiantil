@@ -136,7 +136,7 @@ namespace ISTPET_PortalEstudiantil.Auth
                             and ap.paralelo = m.paralelo and ap.idModalidad = m.idModalidad and ap.activo = '1'
                             where m.idAlumno  = @usuario
                             and p.activo = 1 and p.permiteCalificacionesInstituto = 1
-                            and idAsignacion not in(select sh.idAsignacion from seddheteroevaluacion sh
+                            and ap.idAsignacion not in(select sh.idAsignacion from seddheteroevaluacion sh
                             WHERE sh.idMatricula=m.idMatricula)";
                 return dapper.ExecuteScalar<int>(sql, new { usuario = getUser() });
             }

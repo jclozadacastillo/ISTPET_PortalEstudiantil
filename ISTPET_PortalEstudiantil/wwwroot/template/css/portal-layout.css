@@ -404,6 +404,25 @@ body.g-sidenav-show {
 }
 
 /* Badge animation & checkmark */
+.badge-custom {
+    position: relative !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-width: 1.35rem !important;
+    height: 1.35rem !important;
+    padding: 0.25em 0.55em !important;
+    margin-top: 0 !important;
+    margin-left: auto !important;
+    line-height: 1 !important;
+    border-radius: 1rem !important;
+}
+
+#sidenav-main .nav-link .badge {
+    position: relative !important;
+    margin-left: auto !important;
+}
+
 .badge-custom.bg-danger,
 .badge-pending {
     font-size: 0.72rem !important;
@@ -970,5 +989,238 @@ select.form-select:focus {
     object-position: center !important;
     border-radius: 50% !important;
 }
+
+/* ==========================================
+   Cuestionario de Evaluación Docente (Rediseño Executive)
+   ========================================== */
+
+.eval-table {
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+    table-layout: auto;
+}
+
+.eval-table thead th {
+    background-color: #f8fafc;
+    color: #1f295b;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    padding: 0.85rem 1rem;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.eval-table thead th:first-child,
+.eval-table tbody td:first-child {
+    padding-left: 1.5rem !important;
+}
+
+.eval-table thead th:last-child,
+.eval-table tbody td:last-child {
+    padding-right: 1.5rem !important;
+}
+
+.eval-table tbody tr.eval-q-row td {
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+}
+
+.eval-table tbody tr.eval-q-row {
+    transition: all 0.2s ease-in-out;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.eval-table tbody tr.eval-q-row:hover {
+    background-color: rgba(31, 41, 91, 0.02) !important;
+}
+
+.eval-table tbody tr.eval-q-row.invalid {
+    background-color: rgba(239, 68, 68, 0.05) !important;
+    border-left: 4px solid #ef4444 !important;
+}
+
+.eval-num-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(31, 41, 91, 0.08);
+    color: #1f295b;
+    font-weight: 700;
+    font-size: 0.78rem;
+}
+
+.eval-rating-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    flex-wrap: nowrap !important;
+    padding: 0.25rem 0;
+    width: 100%;
+}
+
+.eval-pill-item {
+    position: relative;
+    margin: 0;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.eval-pill-input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+}
+
+.eval-pill-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 33px;
+    height: 33px;
+    border-radius: 0.5rem;
+    border: 1px solid #cbd5e1;
+    background-color: #ffffff;
+    color: #334155;
+    font-weight: 700;
+    font-size: 0.8rem;
+    user-select: none;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.eval-pill-item:hover .eval-pill-btn {
+    border-color: #1f295b;
+    color: #1f295b;
+    background-color: rgba(31, 41, 91, 0.06);
+    transform: translateY(-2px);
+}
+
+/* Estado seleccionado */
+.eval-pill-input.seleccion + .eval-pill-btn,
+.eval-pill-input:checked + .eval-pill-btn {
+    background: linear-gradient(135deg, #151b3d 0%, #1f295b 100%) !important;
+    border-color: #151b3d !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 10px rgba(31, 41, 91, 0.3) !important;
+    transform: scale(1.08);
+}
+
+/* Calificaciones altas (9 y 10) con toque dorado especial al seleccionar */
+.eval-pill-input[value="10"].seleccion + .eval-pill-btn,
+.eval-pill-input[value="9"].seleccion + .eval-pill-btn {
+    background: linear-gradient(135deg, #1f295b 0%, #2c3c7e 100%) !important;
+    border-color: #c59b27 !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 12px rgba(197, 155, 39, 0.35) !important;
+}
+
+/* Alerta de validación por pregunta sin responder */
+.eval-validation-alert {
+    background-color: rgba(239, 68, 68, 0.08);
+    color: #dc2626;
+    border: 1px dashed rgba(239, 68, 68, 0.3);
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+}
+
+@media (max-width: 991.98px) {
+    .eval-table th:nth-child(3),
+    .eval-table td:nth-child(3) {
+        width: 360px !important;
+        min-width: 360px !important;
+    }
+
+    .eval-pill-btn {
+        width: 30px !important;
+        height: 30px !important;
+        font-size: 0.76rem !important;
+    }
+
+    .eval-rating-container {
+        gap: 2px !important;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .eval-table th:nth-child(3),
+    .eval-table td:nth-child(3) {
+        width: 320px !important;
+        min-width: 320px !important;
+    }
+
+    .eval-pill-btn {
+        width: 28px !important;
+        height: 28px !important;
+        font-size: 0.72rem !important;
+        border-radius: 0.4rem !important;
+    }
+}
+
+/* Botón Flotante para Guardar Evaluación */
+.eval-floating-actions {
+    position: fixed !important;
+    bottom: 2rem !important;
+    right: 2rem !important;
+    z-index: 99999 !important;
+    pointer-events: auto !important;
+}
+
+.eval-btn-floating {
+    background: linear-gradient(135deg, #151b3d 0%, #1f295b 100%) !important;
+    border: 1.5px solid #c59b27 !important;
+    color: #ffffff !important;
+    box-shadow: 0 10px 25px -3px rgba(31, 41, 91, 0.5), 0 4px 12px -2px rgba(197, 155, 39, 0.4) !important;
+    border-radius: 2rem !important;
+    padding: 0.75rem 1.5rem !important;
+    font-size: 0.88rem !important;
+    font-weight: 700 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.55rem !important;
+    letter-spacing: -0.01em;
+    cursor: pointer !important;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.eval-btn-floating i {
+    font-size: 1.15rem;
+    color: #ffffff;
+}
+
+.eval-btn-floating:hover {
+    background: linear-gradient(135deg, #1f295b 0%, #2c3c7e 100%) !important;
+    border-color: #f59e0b !important;
+    color: #ffffff !important;
+    transform: translateY(-4px) scale(1.04) !important;
+    box-shadow: 0 16px 32px -4px rgba(31, 41, 91, 0.65), 0 10px 20px -2px rgba(197, 155, 39, 0.55) !important;
+}
+
+.eval-btn-floating:active {
+    transform: translateY(0) scale(0.97) !important;
+}
+
+@media (max-width: 575.98px) {
+    .eval-floating-actions {
+        bottom: 1rem !important;
+        right: 1rem !important;
+        left: 1rem !important;
+    }
+
+    .eval-btn-floating {
+        width: 100% !important;
+        justify-content: center !important;
+        padding: 0.8rem 1rem !important;
+    }
+}
+
 
 

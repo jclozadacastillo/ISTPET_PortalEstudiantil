@@ -1,4 +1,4 @@
-﻿using Dapper;
+using Dapper;
 using ISTPET_PortalEstudiantil.Auth;
 using ISTPET_PortalEstudiantil.Models.sigafi_es;
 using Microsoft.AspNetCore.Mvc;
@@ -29,7 +29,7 @@ namespace ISTPET_PortalEstudiantil.Controllers
             try
             {
                 string sql = @"
-                                select distinct(idMatricula),c.Carrera,n.Nivel,
+                                select distinct(m.idMatricula),c.Carrera,n.Nivel,
                                 s.seccion,mo.modalidad 
                                 from matriculas m
                                 inner join periodos p on p.idPeriodo = m.idPeriodo
@@ -38,8 +38,8 @@ namespace ISTPET_PortalEstudiantil.Controllers
                                 INNER JOIN secciones s ON s.idSeccion = m.idSeccion 
                                 INNER JOIN modalidades mo ON mo.idModalidad = m.idModalidad 
                                 where p.activo = 1 and p.permiteCalificacionesInstituto = 1
-                                and idAlumno = @usuario
-                                GROUP BY idMatricula,Carrera,Nivel,seccion,modalidad
+                                and m.idAlumno = @usuario
+                                GROUP BY m.idMatricula,c.Carrera,n.Nivel,s.seccion,mo.modalidad
                                 ";
                 return Ok(await dapper.QueryAsync(sql, new { usuario }));
             }
@@ -60,7 +60,7 @@ namespace ISTPET_PortalEstudiantil.Controllers
             var dapper = new MySqlConnection(_cn);
             try
             {
-                string sql = @"select m.idmatricula,concat(apellidopaterno,' ',apellidomaterno,' ',primernombre,' ',segundonombre) alumno,
+                string sql = @"select m.idmatricula,concat(a.apellidopaterno,' ',a.apellidomaterno,' ',a.primernombre,' ',a.segundonombre) alumno,
                             ag.asignatura, p.idPeriodo, ap.idAsignacion, m.idMatricula,pr.apellidos,pr.nombres,pr.idProfesor,ag.idAsignatura,pr.abreviatura
                             from alumnos a 
                             inner join matriculas m on a.idalumno=m.idalumno 
@@ -73,7 +73,7 @@ namespace ISTPET_PortalEstudiantil.Controllers
                             inner join profesores pr on pr.idProfesor=ap.idProfesor 
                             where m.idMatricula = @idMatricula
                             and p.activo = 1 and p.permiteCalificacionesInstituto = 1
-                            and idAsignacion not in(select sh.idAsignacion from seddheteroevaluacion sh
+                            and ap.idAsignacion not in(select sh.idAsignacion from seddheteroevaluacion sh
                             WHERE sh.idMatricula=@idMatricula)
                             ";
                 return Ok(await dapper.QueryAsync(sql, new { idMatricula }));
