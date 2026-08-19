@@ -2,7 +2,9 @@
     --portal-sidenav-width: 15.625rem;
     --portal-page-gutter: .5rem;
     --portal-navbar-height: 4.25rem;
-    --portal-shell-gap: .5rem;
+    --portal-top-margin: 0.85rem;
+    --portal-gap: 1rem;
+    --portal-horizontal-margin: 1.5rem;
 }
 
 html,
@@ -18,10 +20,10 @@ body.g-sidenav-show {
 #sidenav-main {
     width: var(--portal-sidenav-width);
     max-width: calc(100vw - 1rem);
-    height: calc(100dvh - (var(--portal-shell-gap) * 2));
-    max-height: calc(100dvh - (var(--portal-shell-gap) * 2));
-    margin-top: var(--portal-shell-gap) !important;
-    margin-bottom: var(--portal-shell-gap) !important;
+    height: calc(100dvh - (var(--portal-top-margin) * 2)) !important;
+    max-height: calc(100dvh - (var(--portal-top-margin) * 2)) !important;
+    margin-top: var(--portal-top-margin) !important;
+    margin-bottom: var(--portal-top-margin) !important;
     overflow: hidden;
 }
 
@@ -778,12 +780,6 @@ select.form-select:focus {
     outline: 0 !important;
 }
 
-/* Universal Symmetrical Layout System: Pixel-Perfect Left/Right Grid Alignment */
-:root {
-    --portal-gap: 1rem;
-    --portal-horizontal-margin: 1.5rem;
-}
-
 .portal-main-container {
     padding-left: var(--portal-horizontal-margin) !important;
     padding-right: var(--portal-horizontal-margin) !important;
@@ -801,7 +797,8 @@ select.form-select:focus {
     margin-left: var(--portal-horizontal-margin) !important;
     margin-right: var(--portal-horizontal-margin) !important;
     margin-bottom: var(--portal-gap) !important;
-    margin-top: 1rem !important;
+    margin-top: var(--portal-top-margin) !important;
+    top: var(--portal-top-margin) !important;
     width: auto !important;
 }
 
