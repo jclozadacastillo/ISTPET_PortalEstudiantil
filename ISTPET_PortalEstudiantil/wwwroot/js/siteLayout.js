@@ -1,6 +1,7 @@
-﻿window.onscroll = function () {
+window.onscroll = function () {
     const html = document.querySelector("html");
     const navBlur = document.querySelector("#navbarBlur");
+    if (!navBlur) return;
     if (html.scrollTop < 7) {
         navBlur.classList.remove("bg-white-transparent");
         navBlur.classList.add("bg-white");
@@ -25,6 +26,7 @@ async function salir() {
 _menu();
 function _menu() {
     const nav = document.getElementById("sidenav-collapse-main");
+    if (!nav) return;
     const urlVec = window.location.pathname.toLowerCase().split("/");
     let ref = urlVec.pop();
     if (parseInt(ref) >= 0 || parseInt(ref).toString() == "NaN") {
@@ -42,3 +44,25 @@ function _menu() {
         return;
     }
 }
+
+// Inicialización y eventos de SPF (Structured Page Fragments)
+if (window.spf) {
+    spf.init();
+}
+
+document.addEventListener('spfprocess', function () {
+    _menu();
+});
+
+document.addEventListener('spfdone', function () {
+    _menu();
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    const body = document.body;
+    if (body.classList.contains('g-sidenav-pinned')) {
+        body.classList.remove('g-sidenav-pinned');
+    }
+});
+
+document.addEventListener('spfhistory', function () {
+    _menu();
+});

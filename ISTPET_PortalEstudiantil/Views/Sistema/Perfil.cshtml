@@ -1,44 +1,41 @@
+@model ISTPET_PortalEstudiantil.Models.sigafi_es.alumnos
 @{
     ViewData["Title"] = "Perfil";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    var nombreCompleto = $"{Model?.primerNombre} {Model?.segundoNombre} {Model?.apellidoPaterno} {Model?.apellidoMaterno}".Trim();
+    var tipoDoc = Model?.tipoDocumento != "C" ? "PASAPORTE" : "CÉDULA";
 }
 
-<div class="loader pt-4 text-center">
-    <div class="spinner-grow text-primary spinner-grow-sm" role="status">
-        <span class="visually-hidden">Loading...</span>
-    </div>
-    <div class="spinner-grow text-primary spinner-grow-sm" role="status">
-        <span class="visually-hidden">Loading...</span>
-    </div>
-    <div class="spinner-grow text-primary spinner-grow-sm" role="status">
-        <span class="visually-hidden">Loading...</span>
-    </div>
-</div>
-
-<div class="w-100 container-main p-0" hidden>
+<div class="w-100 container-main p-0">
     <!-- Banner de Perfil Institucional -->
     <div class="card border-0 shadow-sm border-radius-xl overflow-hidden" style="background: linear-gradient(135deg, #151b3d 0%, #1f295b 100%); border-left: 4px solid #c59b27 !important;">
         <div class="card-body p-4 text-white">
             <div class="row align-items-center">
                 <div class="col-auto me-3 me-sm-0">
                     <div id="fotoPerfilSection">
-                    <div class="avatar portal-avatar-box shadow-md">
-                        <i class="bi-person-fill"></i>
-                    </div>
+                        <div class="avatar portal-avatar-box shadow-md overflow-hidden d-flex align-items-center justify-content-center">
+                            @if (!string.IsNullOrEmpty(Model?.archivofoto))
+                            {
+                                <img src="~/@Model.archivofoto?v=@DateTime.Now.Ticks" class="w-100 h-100 rounded-circle" style="object-fit: cover; object-position: center;" alt="Perfil" onerror="this.parentElement.innerHTML='<i class=\'bi-person-fill\'></i>';" />
+                            }
+                            else
+                            {
+                                <i class="bi-person-fill"></i>
+                            }
+                        </div>
                     </div>
                 </div>
                 <div class="col">
                     <div class="d-flex align-items-center gap-2 mb-1">
-                        <span class="badge border border-white-50 text-white font-weight-bold text-xxs uppercase tracking-wider" id="tipo" name="tipo" style="background: rgba(255, 255, 255, 0.15);">CÉDULA</span>
-                        <span class="text-white opacity-8 text-xs font-mono" id="idAlumno" name="idAlumno">--</span>
+                        <span class="badge border border-white-50 text-white font-weight-bold text-xxs uppercase tracking-wider" id="tipo" name="tipo" style="background: rgba(255, 255, 255, 0.15);">@tipoDoc</span>
+                        <span class="text-white opacity-8 text-xs font-mono" id="idAlumno" name="idAlumno">@(Model?.idAlumno ?? "--")</span>
                     </div>
                     <h3 class="text-white mb-0 font-weight-bold" style="letter-spacing: -0.01em;">
-                        <span id="nombres" name="nombres">Cargando...</span> <span id="apellidos" name="apellidos"></span>
+                        <span id="nombres" name="nombres">@($"{Model?.primerNombre} {Model?.segundoNombre}".Trim())</span> <span id="apellidos" name="apellidos">@($"{Model?.apellidoPaterno} {Model?.apellidoMaterno}".Trim())</span>
                     </h3>
                     <p class="text-white-50 text-xs mb-0 mt-1">Estudiante ISTPET • Portal Académico</p>
                 </div>
                 <div class="col-12 col-md-auto mt-2 mt-md-0 text-md-end">
-                    <a class="btn btn-white text-primary font-weight-bold border-radius-md px-3 py-2 shadow-sm btn-sm" href="~/Sistema/EditarPerfil" style="background: #ffffff !important; color: #1f295b !important; border: 1px solid #e2e8f0;">
+                    <a class="btn btn-white text-primary font-weight-bold border-radius-md px-3 py-2 shadow-sm btn-sm spf-link" href="~/Sistema/EditarPerfil" style="background: #ffffff !important; color: #1f295b !important; border: 1px solid #e2e8f0;">
                         <i class="bi-pencil-square me-1" style="color: #c59b27;"></i> Editar Datos
                     </a>
                 </div>
@@ -66,7 +63,7 @@
                                 <span class="text-xs text-uppercase text-secondary font-weight-bold d-block mb-1">
                                     <i class="bi-envelope-at me-1" style="color: #1f295b;"></i> Correo Institucional
                                 </span>
-                                <span class="text-sm font-weight-bold text-dark d-block text-truncate" id="email_institucional" name="email_institucional">--</span>
+                                <span class="text-sm font-weight-bold text-dark d-block text-truncate" id="email_institucional" name="email_institucional">@(string.IsNullOrEmpty(Model?.email_institucional) ? "SIN REGISTRO" : Model.email_institucional)</span>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -74,7 +71,7 @@
                                 <span class="text-xs text-uppercase text-secondary font-weight-bold d-block mb-1">
                                     <i class="bi-envelope me-1" style="color: #1f295b;"></i> Correo Personal
                                 </span>
-                                <span class="text-sm font-weight-bold text-dark d-block text-truncate" id="email" name="email">--</span>
+                                <span class="text-sm font-weight-bold text-dark d-block text-truncate" id="email" name="email">@(string.IsNullOrEmpty(Model?.email) ? "SIN REGISTRO" : Model.email)</span>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -82,7 +79,7 @@
                                 <span class="text-xs text-uppercase text-secondary font-weight-bold d-block mb-1">
                                     <i class="bi-phone me-1" style="color: #1f295b;"></i> Celular
                                 </span>
-                                <span class="text-sm font-weight-bold text-dark d-block" id="celular" name="celular">--</span>
+                                <span class="text-sm font-weight-bold text-dark d-block" id="celular" name="celular">@(string.IsNullOrEmpty(Model?.celular) ? "SIN REGISTRO" : Model.celular)</span>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -90,7 +87,7 @@
                                 <span class="text-xs text-uppercase text-secondary font-weight-bold d-block mb-1">
                                     <i class="bi-telephone me-1" style="color: #1f295b;"></i> Teléfono Fijo
                                 </span>
-                                <span class="text-sm font-weight-bold text-dark d-block" id="telefono" name="telefono">--</span>
+                                <span class="text-sm font-weight-bold text-dark d-block" id="telefono" name="telefono">@(string.IsNullOrEmpty(Model?.telefono) ? "SIN REGISTRO" : Model.telefono)</span>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -98,7 +95,7 @@
                                 <span class="text-xs text-uppercase text-secondary font-weight-bold d-block mb-1">
                                     <i class="bi-geo-alt me-1" style="color: #1f295b;"></i> Ciudad de Residencia
                                 </span>
-                                <span class="text-sm font-weight-bold text-dark d-block" id="ciudad_residencia" name="ciudad_residencia">--</span>
+                                <span class="text-sm font-weight-bold text-dark d-block" id="ciudad_residencia" name="ciudad_residencia">@(string.IsNullOrEmpty(Model?.ciudad_residencia) ? "SIN REGISTRO" : Model.ciudad_residencia)</span>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -106,7 +103,7 @@
                                 <span class="text-xs text-uppercase text-secondary font-weight-bold d-block mb-1">
                                     <i class="bi-map me-1" style="color: #1f295b;"></i> Dirección Domiciliaria
                                 </span>
-                                <span class="text-sm font-weight-bold text-dark d-block" id="direccion" name="direccion">--</span>
+                                <span class="text-sm font-weight-bold text-dark d-block" id="direccion" name="direccion">@(string.IsNullOrEmpty(Model?.direccion) ? "SIN REGISTRO" : Model.direccion)</span>
                             </div>
                         </div>
                     </div>

@@ -74,6 +74,38 @@ namespace ISTPET_PortalEstudiantil.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> InicializarEdicionPerfil()
+        {
+            var dapper = new MySqlConnection(cn);
+            try
+            {
+                var idAlumno = _auth.get("idAlumno");
+                var sqlParametro = "SELECT permiteActualizacionCompleta FROM parametros WHERE activo = 1 LIMIT 1;";
+                var sqlAlumno = "SELECT direccion, email, telefono, celular, idEtnia, archivofoto FROM alumnos WHERE idAlumno = @idAlumno LIMIT 1;";
+                var sqlEtnias = "SELECT idEtnia, etnia FROM etnias ORDER BY etnia;";
+
+                var permiteActualizacion = (await dapper.QueryFirstOrDefaultAsync<int?>(sqlParametro)) == 1;
+                var alumno = await dapper.QueryFirstOrDefaultAsync(sqlAlumno, new { idAlumno });
+                var etnias = permiteActualizacion ? await dapper.QueryAsync(sqlEtnias) : null;
+
+                return Ok(new
+                {
+                    actualizacionDisponible = permiteActualizacion,
+                    alumno,
+                    etnias
+                });
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+            finally
+            {
+                dapper?.Dispose();
+            }
+        }
+
+        [HttpGet]
         public async Task<IActionResult> verificarActualizacionDisponible()
         {
             try
