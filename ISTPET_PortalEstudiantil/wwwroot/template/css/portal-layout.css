@@ -1301,14 +1301,27 @@ select.form-select:focus {
 @media (max-width: 575.98px) {
     .eval-floating-actions {
         bottom: 1rem !important;
-        right: 1rem !important;
-        left: 1rem !important;
+        right: 0.65rem !important;
+        left: 0.65rem !important;
     }
 
     .eval-btn-floating {
         width: 100% !important;
         justify-content: center !important;
         padding: 0.8rem 1rem !important;
+    }
+
+    .card-body.p-3.px-4,
+    .card-body.p-4,
+    .card-header.py-3.px-4,
+    .card-footer.py-3.px-4 {
+        padding-left: 0.85rem !important;
+        padding-right: 0.85rem !important;
+    }
+
+    .eval-table tbody tr.eval-q-row {
+        margin: 0.65rem 0.15rem !important;
+        padding: 0.85rem 0.65rem !important;
     }
 }
 
