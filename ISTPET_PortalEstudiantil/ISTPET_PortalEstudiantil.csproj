@@ -4,6 +4,9 @@
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+	  <!-- ================= SUPRESIÓN DE WARNINGS ================= -->
+	  <!-- ================= WARNING POR CLASES MINÚSCULAS DEL SCAFFOLDING ================= -->
+	  <NoWarn>$(NoWarn);CS8981</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
