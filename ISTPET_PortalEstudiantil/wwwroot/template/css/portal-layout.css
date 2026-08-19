@@ -229,15 +229,7 @@ body.g-sidenav-show {
 }
 
 .profile-photo-preview::before {
-    content: "Sin foto";
-    position: absolute;
-    inset: 0;
-    display: grid;
-    place-items: center;
-    color: #7b809a;
-    font-size: .78rem;
-    font-weight: 700;
-    text-transform: uppercase;
+    display: none !important;
 }
 
 .profile-photo-preview img {
