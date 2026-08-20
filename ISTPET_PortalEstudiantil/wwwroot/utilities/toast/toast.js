@@ -1,88 +1,97 @@
-﻿const _toastParams = {
+const _toastParams = {
     title: "ISTPET",
-    success: "#FFF",
-    info: "#FFF",
-    error: "#FFF",
-    warning: "#000",
-    textColor: "#FFF",
-    textColorWarning: "#000",
     position: "topCenter",
-    successBar: "#068331",
-    infoBar: "#146CA7",
-    errorBar: "#661518",
-    warningBar: "#7E6D29",
+    timeout: 3800,
+    icons: {
+        success: "bi bi-check-circle-fill",
+        error: "bi bi-x-circle-fill",
+        warning: "bi bi-exclamation-triangle-fill",
+        info: "bi bi-info-circle-fill"
+    }
 };
-function toastSuccess(t, e, o) {
+function toastSuccess(t, e, o, title) {
     try {
+        const msg = typeof t === "object" && t !== null ? (t.message || "") : `${t || ""}`;
+        const pos = typeof t === "object" && t !== null ? (t.position || e) : e;
+        const time = typeof t === "object" && t !== null ? (t.timeout || o) : o;
+        const ttl = typeof t === "object" && t !== null ? (t.title !== undefined ? t.title : _toastParams.title) : (title !== undefined ? title : _toastParams.title);
         iziToast.show({
-            title: _toastParams.title,
-            class: "success",
-            titleColor: _toastParams.success,
-            message: `${t}`,
-            messageColor: _toastParams.textColor,
-            position: e || _toastParams.position,
-            timeout: o || 3700,
-            backgroundColor: "#FFFF",
-            progressBarColor: _toastParams.successBar,
-            icon: "bi-check2-circle",
-            iconColor: _toastParams.success,
+            title: ttl,
+            class: "toast-istpet success",
+            message: msg,
+            position: pos || _toastParams.position,
+            timeout: time || _toastParams.timeout,
+            icon: _toastParams.icons.success,
+            progressBar: true,
+            animateInside: false,
+            transitionIn: "fadeInDown",
+            transitionOut: "fadeOutUp"
         });
     } catch (a) {
         console.warn(a);
     }
 }
-function toastError(t, e, o) {
+function toastError(t, e, o, title) {
     try {
+        const msg = typeof t === "object" && t !== null ? (t.message || "") : `${t || ""}`;
+        const pos = typeof t === "object" && t !== null ? (t.position || e) : e;
+        const time = typeof t === "object" && t !== null ? (t.timeout || o) : o;
+        const ttl = typeof t === "object" && t !== null ? (t.title !== undefined ? t.title : _toastParams.title) : (title !== undefined ? title : _toastParams.title);
         iziToast.show({
-            title: _toastParams.title,
-            class: "error",
-            titleColor: _toastParams.error,
-            message: `${t}`,
-            messageColor: _toastParams.textColor,
-            position: e || _toastParams.position,
-            timeout: o || 3700,
-            backgroundColor: "#FFFF",
-            progressBarColor: _toastParams.errorBar,
-            icon: "bi-x-circle",
-            iconColor: _toastParams.error,
+            title: ttl,
+            class: "toast-istpet error",
+            message: msg,
+            position: pos || _toastParams.position,
+            timeout: time || _toastParams.timeout,
+            icon: _toastParams.icons.error,
+            progressBar: true,
+            animateInside: false,
+            transitionIn: "fadeInDown",
+            transitionOut: "fadeOutUp"
         });
     } catch (a) {
         console.warn(a);
     }
 }
-function toastWarning(t, e, o) {
+function toastWarning(t, e, o, title) {
     try {
+        const msg = typeof t === "object" && t !== null ? (t.message || "") : `${t || ""}`;
+        const pos = typeof t === "object" && t !== null ? (t.position || e) : e;
+        const time = typeof t === "object" && t !== null ? (t.timeout || o) : o;
+        const ttl = typeof t === "object" && t !== null ? (t.title !== undefined ? t.title : _toastParams.title) : (title !== undefined ? title : _toastParams.title);
         iziToast.show({
-            title: _toastParams.title,
-            class: "warning",
-            titleColor: _toastParams.warning,
-            message: `${t}`,
-            messageColor: _toastParams.textColorWarning,
-            position: e || _toastParams.position,
-            timeout: o || 3700,
-            backgroundColor: "#FFFF",
-            progressBarColor: _toastParams.warningBar,
-            icon: "bi-exclamation-triangle",
-            iconColor: _toastParams.warning,
+            title: ttl,
+            class: "toast-istpet warning",
+            message: msg,
+            position: pos || _toastParams.position,
+            timeout: time || _toastParams.timeout,
+            icon: _toastParams.icons.warning,
+            progressBar: true,
+            animateInside: false,
+            transitionIn: "fadeInDown",
+            transitionOut: "fadeOutUp"
         });
     } catch (a) {
         console.warn(a);
     }
 }
-function toastInfo(t, e, o) {
+function toastInfo(t, e, o, title) {
     try {
+        const msg = typeof t === "object" && t !== null ? (t.message || "") : `${t || ""}`;
+        const pos = typeof t === "object" && t !== null ? (t.position || e) : e;
+        const time = typeof t === "object" && t !== null ? (t.timeout || o) : o;
+        const ttl = typeof t === "object" && t !== null ? (t.title !== undefined ? t.title : _toastParams.title) : (title !== undefined ? title : _toastParams.title);
         iziToast.show({
-            title: _toastParams.title,
-            class: "info",
-            titleColor: _toastParams.info,
-            message: `${t}`,
-            messageColor: _toastParams.textColor,
-            position: e || _toastParams.position,
-            timeout: o || 3700,
-            backgroundColor: "#FFFF",
-            progressBarColor: _toastParams.infoBar,
-            icon: "bi-exclamation-circle",
-            iconColor: _toastParams.info,
+            title: ttl,
+            class: "toast-istpet info",
+            message: msg,
+            position: pos || _toastParams.position,
+            timeout: time || _toastParams.timeout,
+            icon: _toastParams.icons.info,
+            progressBar: true,
+            animateInside: false,
+            transitionIn: "fadeInDown",
+            transitionOut: "fadeOutUp"
         });
     } catch (a) {
         console.warn(a);

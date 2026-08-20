@@ -1,17 +1,46 @@
-window.onscroll = function () {
-    const html = document.querySelector("html");
+function updateNavbarScrollState() {
     const navBlur = document.querySelector("#navbarBlur");
     if (!navBlur) return;
-    if (html.scrollTop < 7) {
+    const content = document.querySelector(".main-content");
+    const scrollTop = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || (content ? content.scrollTop : 0) || 0;
+    
+    if (scrollTop > 10) {
+        navBlur.classList.add("navbar-glass");
+        navBlur.classList.remove("navbar-top-white");
+        navBlur.classList.remove("bg-white");
         navBlur.classList.remove("bg-white-transparent");
-        navBlur.classList.add("bg-white");
     } else {
-        if (html.scrollTop >= 7) {
-            navBlur.classList.remove("bg-white");
-            navBlur.classList.add("bg-white-transparent");
-        }
+        navBlur.classList.remove("navbar-glass");
+        navBlur.classList.remove("blur");
+        navBlur.classList.remove("shadow-blur");
+        navBlur.classList.remove("bg-white-transparent");
+        navBlur.classList.add("navbar-top-white");
     }
 }
+
+window.addEventListener("scroll", updateNavbarScrollState, { passive: true });
+document.addEventListener("scroll", updateNavbarScrollState, { passive: true });
+const _mainContent = document.querySelector(".main-content");
+if (_mainContent) {
+    _mainContent.addEventListener("scroll", updateNavbarScrollState, { passive: true });
+    _mainContent.addEventListener("ps-scroll-y", updateNavbarScrollState);
+}
+document.addEventListener("DOMContentLoaded", updateNavbarScrollState);
+document.addEventListener("spfprocess", updateNavbarScrollState);
+document.addEventListener("spfdone", updateNavbarScrollState);
+updateNavbarScrollState();
+
+// Eliminar lag y saltos bruscos suprimiendo transiciones CSS mientras se redimensiona la ventana
+let _windowResizeTimer;
+window.addEventListener("resize", function () {
+    document.body.classList.add("is-resizing");
+    clearTimeout(_windowResizeTimer);
+    _windowResizeTimer = setTimeout(function () {
+        document.body.classList.remove("is-resizing");
+    }, 150);
+}, { passive: true });
+
+
 async function salir() {
     try {
         await toastLogout();

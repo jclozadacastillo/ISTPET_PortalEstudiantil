@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
     <link id="pagestyle" href="~/template/css/material-dashboard.css?v=@DateTime.Now.Ticks" rel="stylesheet" />
     <link href="~/template/css/portal-layout.css?v=@DateTime.Now.Ticks" rel="stylesheet" />
-    <link href="~/utilities/toast/toast.css" rel="stylesheet" />
+    <link href="~/utilities/toast/toast.css?v=@DateTime.Now.Ticks" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <script defer src="~/template/js/core/popper.min.js"></script>
     <script defer src="~/template/js/core/bootstrap.min.js"></script>
@@ -42,7 +42,7 @@
         <div class="sidenav-header">
             <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
             <a class="navbar-brand2 m-0 spf-link" href="~/">
-                <img src="~/template/img/logo-blanco.png" width="127" alt="ISTPET">
+                <img src="~/template/img/logo-blanco.svg" width="127" alt="ISTPET">
             </a>
         </div>
         <hr class="horizontal light mt-0 mb-2">
@@ -127,8 +127,7 @@
 
     </aside>
     <main class="main-content position-relative border-radius-lg portal-main">
-        <!-- Navbar -->
-        <nav class="navbar navbar-main position-sticky bg-white z-index-sticky navbar-expand-lg px-0 border-radius-xl" id="navbarBlur" navbar-scroll="true">
+        <nav class="navbar navbar-main position-sticky bg-white navbar-top-white z-index-sticky navbar-expand-lg px-0 border-radius-xl" id="navbarBlur">
             <div class="container-fluid py-1 px-3">
                 <div class="collapse navbar-collapse mt-sm-0  me-md-0 me-sm-4" id="navbar">
                     <div class="ms-md-auto pe-md-3 d-flex align-items-center">

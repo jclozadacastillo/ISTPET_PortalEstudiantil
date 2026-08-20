@@ -114,13 +114,13 @@
                     tablaEvaluacion.insertAdjacentHTML('beforeend',
                         `
                         <tr class='eval-q-row p-${item.idPregunta}'>
-                            <td class='eval-col-num text-center align-middle py-3.5 ps-4 pe-2' style='width: 60px; min-width: 60px;'>
+                            <td class='eval-col-num text-center align-middle py-3.5'>
                                 <span class='eval-num-badge'>${numero}</span>
                             </td>
-                            <td class='eval-col-text align-middle py-3.5 px-3' style='width:auto !important; white-space:normal !important; word-break:break-word;'>
+                            <td class='eval-col-text align-middle py-3.5 px-3'>
                                 <span class='text-dark font-weight-semibold text-sm d-block' style='white-space:normal !important; line-height: 1.45;'>${item.pregunta}</span>
                             </td>
-                            <td class='eval-col-rating align-middle text-center py-3.5 ps-2 pe-4' style='width: 410px; min-width: 410px;'>
+                            <td class='eval-col-rating align-middle text-center py-3.5 ps-2 pe-4'>
                                 <div class="eval-rating-container">
                                     <label class="eval-pill-item" title="Calificación 1 (Mínimo)">
                                         <input onclick="seleccionarRespuesta(this)" class="form-check-input sel-p${item.idPregunta} pre@${item.idPregunta}@ noSel eval-pill-input" type="radio" name="inlineRadioOptions-p${item.idPregunta}" id="r1-p${item.idPregunta}" value="1">
