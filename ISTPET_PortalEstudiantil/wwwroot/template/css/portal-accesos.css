@@ -116,6 +116,8 @@
 .portal-accesos .accesos-account-choice > i { color: var(--accesos-navy); font-size: 1rem; line-height: 1.5; }
 .portal-accesos .accesos-account-choice p { margin: 0; color: #526075; font-size: .74rem; }
 .portal-accesos .accesos-account-choice strong { color: var(--accesos-navy); font-weight: 600; }
+.portal-accesos .accesos-microsoft-help { display: inline-flex; align-items: center; gap: .4rem; margin-top: .85rem; color: var(--accesos-navy); font-size: .72rem; font-weight: 500; }
+.portal-accesos .accesos-microsoft-help:hover { color: #151b3d; text-decoration: underline; }
 .portal-accesos .accesos-first-login h2 { font-size: .9rem; }
 .portal-accesos .accesos-login-steps { display: grid; gap: 1rem; margin: 1.2rem 0; padding: 0; list-style: none; }
 .portal-accesos .accesos-login-steps li { display: flex; align-items: flex-start; gap: .7rem; }
