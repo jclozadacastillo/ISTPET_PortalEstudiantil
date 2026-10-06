@@ -1,0 +1,149 @@
+.portal-home {
+    min-width: 0;
+    margin-bottom: var(--portal-gap, 1rem);
+}
+
+.portal-home .portal-home-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-auto-rows: 1fr;
+    align-items: stretch;
+    gap: 1rem;
+}
+
+.portal-home .portal-home-card {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid #e2e8f0;
+    border-radius: 1rem;
+    background: #fff;
+    box-shadow: 0 4px 14px rgba(21, 27, 61, .04);
+    transition: border-color .2s ease, box-shadow .2s ease;
+}
+
+.portal-home .portal-home-card:hover {
+    border-color: #d5bd74;
+    box-shadow: 0 8px 24px rgba(21, 27, 61, .08);
+}
+
+.portal-home .portal-home-content { padding: 1.25rem 1.25rem 1rem; }
+
+.portal-home .portal-home-heading {
+    display: flex;
+    align-items: center;
+    min-height: 2.75rem;
+    gap: 1rem;
+}
+
+.portal-home .portal-home-icon {
+    display: inline-flex;
+    flex: 0 0 2.75rem;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    margin: 0;
+    border-radius: .8rem;
+    background: linear-gradient(135deg, #151b3d, #1f295b);
+    color: #fff;
+    box-shadow: 0 4px 10px rgba(31, 41, 91, .16);
+}
+
+.portal-home .portal-home-icon i { display: block; font-size: 1.15rem; line-height: 1; }
+
+.portal-home .portal-home-heading h2 {
+    min-width: 0;
+    margin: 0;
+    color: #1f295b;
+    font-size: 1.02rem;
+    font-weight: 700;
+    line-height: 1.35;
+    letter-spacing: -.015em;
+}
+
+.portal-home .portal-home-description {
+    min-height: 3.75rem;
+    margin: 1rem 0 .85rem;
+    color: #64748b;
+    font-size: .83rem;
+    line-height: 1.5;
+}
+
+.portal-home .portal-home-media {
+    width: 100%;
+    aspect-ratio: 768 / 300;
+    overflow: hidden;
+    border: 1px solid #edf0f5;
+    border-radius: .7rem;
+    background: #f1f4f9;
+}
+
+.portal-home .portal-home-media img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.portal-home .portal-home-footer {
+    margin-top: auto;
+    padding: .95rem 1.25rem 1.25rem;
+    border-top: 1px solid #eef1f6;
+    background: #fff;
+}
+
+.portal-home .portal-home-meta {
+    display: flex;
+    align-items: flex-start;
+    min-height: 2.35rem;
+    gap: .5rem;
+    margin-bottom: .6rem;
+    color: #64748b;
+    font-size: .71rem;
+    line-height: 1.55;
+}
+
+.portal-home .portal-home-meta > i { flex: 0 0 auto; color: #96741d; line-height: 1.55; }
+.portal-home .portal-home-meta > span { min-width: 0; }
+
+.portal-home .portal-home-action {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    min-height: 2.65rem;
+    gap: .75rem;
+    padding: .65rem .95rem;
+    border: 1px solid #1f295b;
+    border-radius: .65rem;
+    background: #1f295b;
+    color: #fff;
+    font-size: .8rem;
+    font-weight: 600;
+    line-height: 1.4;
+    text-decoration: none;
+    transition: border-color .2s ease, background .2s ease;
+}
+
+.portal-home .portal-home-action:hover { border-color: #c59b27; background: #151b3d; color: #fff; }
+.portal-home .portal-home-action > i { flex: 0 0 auto; font-size: .87rem; }
+.portal-home .portal-home-action:focus-visible { outline: 3px solid #c59b27; outline-offset: 3px; }
+
+@media (max-width: 1199.98px) {
+    .portal-home .portal-home-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 767.98px) {
+    .portal-home .portal-home-grid { grid-template-columns: minmax(0, 1fr); grid-auto-rows: auto; gap: .85rem; }
+    .portal-home .portal-home-content { padding: 1.15rem 1.15rem .95rem; }
+    .portal-home .portal-home-description { min-height: 0; margin: .85rem 0 1rem; }
+    .portal-home .portal-home-footer { padding: .9rem 1.15rem 1.15rem; }
+    .portal-home .portal-home-meta { min-height: 1.4rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .portal-home .portal-home-card, .portal-home .portal-home-action { transition: none; }
+}
