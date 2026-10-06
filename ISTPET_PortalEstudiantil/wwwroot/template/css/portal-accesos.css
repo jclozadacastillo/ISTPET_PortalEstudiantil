@@ -1,0 +1,161 @@
+.portal-accesos {
+    --accesos-navy: #1f295b;
+    --accesos-gold: #c59b27;
+    --accesos-muted: #64748b;
+    color: #1e293b;
+}
+
+.portal-accesos [hidden] { display: none !important; }
+
+.portal-accesos .accesos-hero {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 1.8rem 2rem;
+    border-radius: 1rem;
+    border-left: 4px solid var(--accesos-gold);
+    background: linear-gradient(120deg, #151b3d, #1f295b 70%, #2d3976);
+    color: #fff;
+    overflow: hidden;
+    box-shadow: 0 5px 18px rgba(21, 27, 61, .1);
+}
+
+.portal-accesos .accesos-hero-copy { position: relative; min-width: 0; }
+.portal-accesos .accesos-back { display: inline-flex; align-items: center; gap: .5rem; margin-bottom: 1.3rem; color: #e2e8f0; font-size: .78rem; font-weight: 500; }
+.portal-accesos .accesos-back:hover { color: #fff; text-decoration: underline; }
+.portal-accesos .accesos-eyebrow { display: block; margin-bottom: .45rem; color: var(--accesos-muted); font-size: .66rem; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; }
+.portal-accesos .accesos-hero .accesos-eyebrow { color: #edd394; }
+.portal-accesos .accesos-hero h1 { margin: 0 0 .45rem; color: #fff; font-size: clamp(1.55rem, 2.1vw, 2rem); font-weight: 700; line-height: 1.2; letter-spacing: -.035em; }
+.portal-accesos .accesos-hero p { max-width: 36rem; margin: 0; color: #e2e8f0; font-size: .88rem; line-height: 1.65; }
+.portal-accesos .accesos-hero-icon { display: flex; align-items: center; justify-content: center; flex: 0 0 5rem; width: 5rem; height: 5rem; border: 1px solid rgba(237, 211, 148, .35); border-radius: 1.5rem; background: rgba(255, 255, 255, .07); color: #edd394; font-size: 2.3rem; transform: rotate(-6deg); }
+.portal-accesos .accesos-hero-icon i { transform: rotate(6deg); }
+.portal-accesos .accesos-grid { display: grid; grid-template-columns: minmax(0, 1.65fr) minmax(260px, 1fr); align-items: start; gap: 1rem; margin-bottom: 1rem; }
+.portal-accesos .accesos-card { min-width: 0; padding: 1.5rem; border: 1px solid #e7ecf3; border-radius: 1rem; background: #fff; box-shadow: 0 3px 13px rgba(15, 23, 42, .035); }
+.portal-accesos .accesos-card h2 { margin: 0 0 .3rem; color: var(--accesos-navy); font-size: 1.03rem; font-weight: 700; line-height: 1.4; }
+.portal-accesos .accesos-card p { color: var(--accesos-muted); font-size: .83rem; line-height: 1.65; }
+.portal-accesos .accesos-card-heading { display: flex; align-items: center; gap: .8rem; margin-bottom: 1.5rem; padding-bottom: 1.2rem; border-bottom: 1px solid #eef1f6; }
+.portal-accesos .accesos-card-heading p { margin: 0; font-size: .78rem; }
+.portal-accesos .accesos-heading-icon { display: inline-flex; flex: 0 0 2.65rem; align-items: center; justify-content: center; width: 2.65rem; height: 2.65rem; border-radius: .8rem; background: #eef0f8; color: var(--accesos-navy); font-size: 1.2rem; }
+.portal-accesos .accesos-deadline { display: flex; align-items: flex-start; gap: .75rem; margin-bottom: 1.5rem; padding: 1rem; border: 1px solid #eee1ba; border-radius: .75rem; background: #fdfaf1; }
+.portal-accesos .accesos-deadline > i { color: #795e18; font-size: 1.15rem; line-height: 1.5; }
+.portal-accesos .accesos-deadline-label { display: block; color: #795e18; font-size: .72rem; }
+.portal-accesos .accesos-deadline strong { display: block; margin-top: .2rem; color: #493b1b; font-size: .84rem; font-weight: 700; }
+.portal-accesos .accesos-zone { font-size: .72rem; font-weight: 400; }
+.portal-accesos .accesos-countdown { display: block; margin-top: .3rem; color: #795e18; font-size: .74rem; }
+.portal-accesos .accesos-field { margin-bottom: 1.25rem; }
+.portal-accesos .accesos-field label { display: block; margin: 0 0 .5rem; color: #334155; font-size: .78rem; font-weight: 600; }
+.portal-accesos .accesos-input-row { display: flex; align-items: center; gap: .35rem; padding: .35rem; border: 1px solid #d9e0eb; border-radius: .75rem; background: #f8fafc; transition: border-color .15s, box-shadow .15s; }
+.portal-accesos .accesos-input-row:focus-within { border-color: var(--accesos-navy); box-shadow: 0 0 0 3px rgba(31, 41, 91, .08); }
+.portal-accesos .accesos-input { min-width: 0; width: 100%; padding: .5rem .6rem; border: 0; outline: 0; background: transparent; color: #1e293b; font-size: .87rem; font-weight: 500; line-height: 1.4; }
+.portal-accesos .accesos-password { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; }
+.portal-accesos .accesos-icon-button { display: inline-flex; align-items: center; justify-content: center; flex: 0 0 2.65rem; width: 2.65rem; height: 2.65rem; margin: 0; padding: 0; border: 1px solid #e1e7f0; border-radius: .6rem; background: #fff; color: var(--accesos-navy); font-size: 1rem; cursor: pointer; transition: color .15s, background .15s, border-color .15s; }
+.portal-accesos .accesos-icon-button:hover { border-color: var(--accesos-navy); background: #eef0f8; }
+.portal-accesos .accesos-icon-button[aria-pressed="true"] { background: #e6eaf7; border-color: #b8c0dc; }
+.portal-accesos .accesos-field-help { margin: .5rem 0 0; font-size: .73rem !important; }
+.portal-accesos .accesos-feedback { min-height: 1.2rem; margin-top: -.25rem; color: #166534; font-size: .76rem; }
+.portal-accesos .accesos-feedback.is-error { color: #b42318; }
+.portal-accesos .accesos-security-note { display: flex; align-items: flex-start; gap: .5rem; margin-top: .7rem; padding-top: 1rem; border-top: 1px solid #eef1f6; color: var(--accesos-muted); font-size: .73rem; line-height: 1.55; }
+.portal-accesos .accesos-security-note i { color: var(--accesos-navy); }
+.portal-accesos .accesos-side { display: grid; gap: 1rem; }
+.portal-accesos .accesos-service-card { background: linear-gradient(160deg, #fff 55%, #f8f9fd); }
+.portal-accesos .accesos-service-icon { display: inline-flex; align-items: center; justify-content: center; width: 3.35rem; height: 3.35rem; margin-bottom: 1.2rem; border-radius: 1rem; background: var(--accesos-navy); color: #edd394; font-size: 1.6rem; box-shadow: 0 4px 10px rgba(31, 41, 91, .13); }
+.portal-accesos .accesos-service-card > p { margin-top: .65rem; }
+.portal-accesos .accesos-button { display: inline-flex; align-items: center; justify-content: center; gap: .6rem; min-height: 2.8rem; margin: .25rem 0 0; padding: .75rem 1rem; border: 1px solid var(--accesos-navy); border-radius: .7rem; background: var(--accesos-navy); color: #fff; font-size: .79rem; font-weight: 600; line-height: 1.35; text-decoration: none; transition: background .15s, box-shadow .15s; }
+.portal-accesos .accesos-button:hover { background: #151b3d; color: #fff; box-shadow: 0 3px 8px rgba(31, 41, 91, .16); }
+.portal-accesos .accesos-service-card > .accesos-button { width: 100%; }
+.portal-accesos .accesos-small-note { margin: .85rem 0 0 !important; font-size: .73rem !important; }
+.portal-accesos .accesos-guidance { display: flex; align-items: flex-start; gap: .85rem; padding: 1.2rem 1.4rem; }
+.portal-accesos .accesos-guidance > i { color: #795e18; font-size: 1.25rem; }
+.portal-accesos .accesos-guidance h2 { font-size: .85rem; }
+.portal-accesos .accesos-guidance p { margin: .2rem 0 0; font-size: .77rem; }
+.portal-accesos .accesos-note { display: flex; align-items: flex-start; gap: .6rem; margin: 1rem 0 0; padding: .85rem; border: 1px solid #e6ebf3; border-radius: .7rem; background: #f5f7fc; }
+.portal-accesos .accesos-note > i { color: var(--accesos-navy); line-height: 1.5; }
+.portal-accesos .accesos-note p { margin: 0; color: #475569; font-size: .75rem; }
+.portal-accesos .accesos-empty { padding: 1.5rem .5rem 1.7rem; text-align: center; }
+.portal-accesos .accesos-empty-icon { display: inline-flex; align-items: center; justify-content: center; width: 4.25rem; height: 4.25rem; margin-bottom: 1.1rem; border-radius: 50%; background: #f0f3f8; color: #526488; font-size: 1.7rem; }
+.portal-accesos .accesos-empty h3 { margin: 0 0 .6rem; color: var(--accesos-navy); font-size: 1rem; font-weight: 700; }
+.portal-accesos .accesos-empty p { max-width: 29rem; margin: 0 auto; }
+.portal-accesos .accesos-count-badge { display: inline-flex; align-items: center; justify-content: center; min-width: 1.8rem; height: 1.8rem; margin-left: auto; padding: 0 .4rem; border-radius: .6rem; background: #eef0f8; color: var(--accesos-navy); font-size: .78rem; font-weight: 700; }
+.portal-accesos .accesos-chat-list { display: grid; gap: 1rem; }
+.portal-accesos .accesos-chat { padding: 1.1rem; border: 1px solid #e0e6ef; border-radius: .85rem; background: #fff; }
+.portal-accesos .accesos-chat-heading { display: flex; align-items: center; gap: .7rem; }
+.portal-accesos .accesos-chat-icon { display: flex; flex: 0 0 2.7rem; align-items: center; justify-content: center; width: 2.7rem; height: 2.7rem; border-radius: .8rem; background: #edf5f0; color: #246044; font-size: 1.15rem; }
+.portal-accesos .accesos-chat-heading .accesos-eyebrow { margin: 0 0 .2rem; font-size: .58rem; }
+.portal-accesos .accesos-chat h3 { margin: 0; color: var(--accesos-navy); font-size: .96rem; font-weight: 700; }
+.portal-accesos .accesos-active-badge { display: inline-flex; align-items: center; gap: .3rem; margin-left: auto; padding: .25rem .55rem; border-radius: .4rem; background: #eff8f1; color: #21633e; font-size: .64rem; font-weight: 600; white-space: nowrap; }
+.portal-accesos .accesos-active-badge > span { width: .35rem; height: .35rem; border-radius: 50%; background: #358452; }
+.portal-accesos .accesos-group-data { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .8rem 1.2rem; margin: 1rem 0; padding: 1rem 0; border-top: 1px solid #eef1f6; border-bottom: 1px solid #eef1f6; }
+.portal-accesos .accesos-group-data dt { margin-bottom: .2rem; color: var(--accesos-muted); font-size: .68rem; font-weight: 500; }
+.portal-accesos .accesos-group-data dd { margin: 0; color: #334155; font-size: .79rem; font-weight: 600; overflow-wrap: anywhere; }
+.portal-accesos .accesos-chat-footer { display: flex; align-items: center; gap: .85rem; }
+.portal-accesos .accesos-link-preview { flex: 1; min-width: 0; color: var(--accesos-muted); font-size: .7rem; overflow-wrap: anywhere; }
+.portal-accesos .accesos-chat-footer .accesos-button { flex-shrink: 0; margin: 0; }
+.portal-accesos a:focus-visible, .portal-accesos button:focus-visible { outline: 3px solid var(--accesos-gold); outline-offset: 3px; }
+.portal-accesos .accesos-sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+
+.portal-accesos .accesos-microsoft-mark { display: grid; flex: 0 0 2.1rem; grid-template-columns: repeat(2, 1fr); gap: 3px; width: 2.1rem; height: 2.1rem; }
+.portal-accesos .accesos-microsoft-mark > span:nth-child(1) { background: #f25022; }
+.portal-accesos .accesos-microsoft-mark > span:nth-child(2) { background: #7fba00; }
+.portal-accesos .accesos-microsoft-mark > span:nth-child(3) { background: #00a4ef; }
+.portal-accesos .accesos-microsoft-mark > span:nth-child(4) { background: #ffb900; }
+.portal-accesos .accesos-microsoft-hero { display: flex; flex: 0 0 auto; align-items: center; gap: .8rem; padding: 1rem 1.1rem; border: 1px solid rgba(255, 255, 255, .15); border-radius: .9rem; background: rgba(255, 255, 255, .07); color: #fff; font-size: 1rem; font-weight: 500; }
+.portal-accesos .accesos-microsoft-brand { display: flex; align-items: center; gap: .75rem; margin-bottom: 1.5rem; color: #334155; font-size: 1.12rem; font-weight: 500; letter-spacing: -.015em; }
+.portal-accesos .accesos-microsoft-card { border-top: 3px solid var(--accesos-gold); }
+.portal-accesos .accesos-account-type { display: flex; align-items: flex-start; gap: .65rem; margin-bottom: 1.35rem; padding: .8rem .9rem; border: 1px solid #e5e9f3; border-radius: .7rem; background: #f6f8fc; }
+.portal-accesos .accesos-account-type > i { color: var(--accesos-navy); font-size: 1.05rem; }
+.portal-accesos .accesos-account-type strong { display: block; color: #334155; font-size: .76rem; font-weight: 600; }
+.portal-accesos .accesos-account-type span { display: block; margin-top: .25rem; color: var(--accesos-muted); font-size: .73rem; line-height: 1.5; }
+.portal-accesos .accesos-copy-button { flex: 0 0 auto; width: auto; min-width: 2.65rem; gap: .45rem; padding: 0 .7rem; }
+.portal-accesos .accesos-copy-label { font-size: .72rem; font-weight: 600; }
+.portal-accesos .accesos-mail-deadline { margin-top: .8rem; margin-bottom: .7rem; padding: .85rem .9rem; }
+.portal-accesos .accesos-save-note { display: flex; align-items: flex-start; gap: .4rem; margin: 0; color: var(--accesos-muted); font-size: .73rem !important; }
+.portal-accesos .accesos-save-note > i { color: #795e18; }
+.portal-accesos .accesos-account-choice { display: flex; align-items: flex-start; gap: .6rem; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #e8edf4; }
+.portal-accesos .accesos-account-choice > i { color: var(--accesos-navy); font-size: 1rem; line-height: 1.5; }
+.portal-accesos .accesos-account-choice p { margin: 0; color: #526075; font-size: .74rem; }
+.portal-accesos .accesos-account-choice strong { color: var(--accesos-navy); font-weight: 600; }
+.portal-accesos .accesos-first-login h2 { font-size: .9rem; }
+.portal-accesos .accesos-login-steps { display: grid; gap: 1rem; margin: 1.2rem 0; padding: 0; list-style: none; }
+.portal-accesos .accesos-login-steps li { display: flex; align-items: flex-start; gap: .7rem; }
+.portal-accesos .accesos-login-steps li > span { display: inline-flex; flex: 0 0 1.7rem; align-items: center; justify-content: center; width: 1.7rem; height: 1.7rem; border: 1px solid #eee1ba; border-radius: 50%; background: #fdfaf1; color: #795e18; font-size: .73rem; font-weight: 700; }
+.portal-accesos .accesos-login-steps strong { display: block; color: #334155; font-size: .76rem; font-weight: 600; line-height: 1.5; }
+.portal-accesos .accesos-login-steps p { margin: .15rem 0 0; font-size: .72rem; }
+.portal-accesos .accesos-login-tip { display: flex; align-items: flex-start; gap: .4rem; margin: 0; padding-top: .8rem; border-top: 1px solid #eef1f6; font-size: .71rem !important; }
+.portal-accesos .accesos-login-tip > i { color: #795e18; }
+.portal-accesos .accesos-password-pending strong { display: block; margin-bottom: .2rem; color: var(--accesos-navy); font-size: .78rem; font-weight: 600; }
+.portal-accesos .accesos-empty-help { max-width: 29rem; margin: 1.1rem auto 0; padding: 1rem; border: 1px solid #e5e9f3; border-radius: .75rem; background: #f8fafc; }
+.portal-accesos .accesos-empty-help > strong { display: block; margin-bottom: .3rem; color: var(--accesos-navy); font-size: .79rem; font-weight: 600; }
+.portal-accesos .accesos-empty-help p { font-size: .77rem; }
+
+@media (max-width: 991.98px) {
+    .portal-accesos .accesos-grid { grid-template-columns: minmax(0, 1fr); }
+    .portal-accesos .accesos-side { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; }
+}
+
+@media (max-width: 575.98px) {
+    .portal-accesos .accesos-hero { gap: .7rem; padding: 1.35rem 1.15rem; }
+    .portal-accesos .accesos-back { margin-bottom: 1.15rem; }
+    .portal-accesos .accesos-hero-icon { flex-basis: 3.2rem; width: 3.2rem; height: 3.2rem; border-radius: 1rem; font-size: 1.4rem; }
+    .portal-accesos .accesos-hero p { font-size: .78rem; }
+    .portal-accesos .accesos-card { padding: 1.15rem 1rem; }
+    .portal-accesos .accesos-side { grid-template-columns: minmax(0, 1fr); }
+    .portal-accesos .accesos-card-heading { gap: .65rem; margin-bottom: 1.15rem; }
+    .portal-accesos .accesos-chat { padding: .85rem; }
+    .portal-accesos .accesos-chat-heading { flex-wrap: wrap; }
+    .portal-accesos .accesos-active-badge { margin-left: 3.4rem; }
+    .portal-accesos .accesos-chat-footer { flex-direction: column; align-items: stretch; }
+    .portal-accesos .accesos-link-preview { font-size: .69rem; }
+    .portal-accesos .accesos-input { font-size: .8rem; padding-left: .35rem; }
+    .portal-accesos .accesos-icon-button { flex-basis: 2.5rem; width: 2.5rem; height: 2.5rem; }
+    .portal-accesos .accesos-microsoft-hero { padding: .65rem; border-radius: .7rem; }
+    .portal-accesos .accesos-microsoft-hero > span:last-child { display: none; }
+    .portal-accesos .accesos-microsoft-hero .accesos-microsoft-mark { flex-basis: 1.7rem; width: 1.7rem; height: 1.7rem; }
+    .portal-accesos .accesos-copy-button { flex-basis: 2.5rem; padding: 0; }
+    .portal-accesos .accesos-copy-label { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .portal-accesos *, .portal-accesos *::before, .portal-accesos *::after { transition: none !important; }
+}

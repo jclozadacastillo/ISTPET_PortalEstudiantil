@@ -253,6 +253,8 @@ public partial class sigafi_esContext : DbContext
 
     public virtual DbSet<estadocivil> estadocivil { get; set; }
 
+    public virtual DbSet<enlacesChatConduccion> enlacesChatConduccion { get; set; }
+
     public virtual DbSet<estadossolicitados> estadossolicitados { get; set; }
 
     public virtual DbSet<etnias> etnias { get; set; }
@@ -669,6 +671,7 @@ public partial class sigafi_esContext : DbContext
             entity.Property(e => e.celular).HasMaxLength(20);
             entity.Property(e => e.ciudad_Nacimiento).HasMaxLength(30);
             entity.Property(e => e.ciudad_residencia).HasMaxLength(100);
+            entity.Property(e => e.claveTemporalEmail).HasMaxLength(50);
             entity.Property(e => e.direccion).HasMaxLength(60);
             entity.Property(e => e.email).HasMaxLength(40);
             entity.Property(e => e.email_institucional).HasMaxLength(100);
@@ -705,6 +708,7 @@ public partial class sigafi_esContext : DbContext
             entity.Property(e => e.tipo_sangre).HasMaxLength(6);
             entity.Property(e => e.tituloColegio).HasMaxLength(200);
             entity.Property(e => e.user_alumno).HasMaxLength(20);
+            entity.Property(e => e.usuarioEva).HasMaxLength(100);
 
             entity.HasOne(d => d.IdEstadoCivilNavigation).WithMany(p => p.alumnos)
                 .HasForeignKey(d => d.IdEstadoCivil)
@@ -2642,6 +2646,24 @@ public partial class sigafi_esContext : DbContext
             entity.Property(e => e.valor).HasPrecision(8);
         });
 
+        modelBuilder.Entity<enlacesChatConduccion>(entity =>
+        {
+            entity.ToTable("enlacesChatConduccion");
+            entity.HasKey(e => e.idEnlace).HasName("PRIMARY");
+            entity.HasIndex(e => new { e.idPeriodo, e.idNivel, e.idModalidad, e.idSeccion, e.paralelo, e.activo }, "IX_enlacesChatConduccion_grupo");
+
+            entity.Property(e => e.idEnlace).ValueGeneratedOnAdd();
+            entity.Property(e => e.idPeriodo).HasMaxLength(7);
+            entity.Property(e => e.paralelo).HasMaxLength(2);
+            entity.Property(e => e.enlace).HasMaxLength(100);
+            entity.Property(e => e.activo)
+                .HasColumnType("tinyint")
+                .HasDefaultValueSql("'1'");
+            entity.Property(e => e.fechaRegistro)
+                .HasColumnType("datetime")
+                .HasDefaultValueSql("CURRENT_TIMESTAMP");
+        });
+
         modelBuilder.Entity<estadocivil>(entity =>
         {
             entity.HasKey(e => e.idestadoCivil).HasName("PRIMARY");
@@ -3514,12 +3536,16 @@ public partial class sigafi_esContext : DbContext
             entity.Property(e => e.fecha_inicial).HasColumnType("date");
             entity.Property(e => e.fecha_matrucla_extraordinaria).HasColumnType("date");
             entity.Property(e => e.fecha_maxima_autocierre).HasColumnType("date");
+            entity.Property(e => e.fechaLimiteCredenciales).HasColumnType("datetime");
             entity.Property(e => e.ingresoCalificaciones).HasDefaultValueSql("'0'");
             entity.Property(e => e.periodoPlanificacion).HasDefaultValueSql("'0'");
             entity.Property(e => e.periodoactivoinstituto).HasDefaultValueSql("'0'");
             entity.Property(e => e.permiteCalificacionesInstituto).HasDefaultValueSql("'0'");
             entity.Property(e => e.permiteMatricula).HasDefaultValueSql("'0'");
             entity.Property(e => e.visualizaPowerBi).HasDefaultValueSql("'0'");
+            entity.Property(e => e.visibleCredenciales)
+                .HasColumnType("tinyint")
+                .HasDefaultValueSql("'0'");
         });
 
         modelBuilder.Entity<periodos_inscripciones>(entity =>

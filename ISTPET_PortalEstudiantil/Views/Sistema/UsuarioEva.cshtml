@@ -1,0 +1,77 @@
+@model AccesosInstitucionalesViewModel
+@using System.Globalization
+@{
+    ViewData["Title"] = "Usuario EVA";
+    var fechaLimite = Model.FechaLimiteCredenciales?.ToString("dd MMM yyyy · HH:mm", CultureInfo.GetCultureInfo("es-EC"));
+}
+
+<link rel="stylesheet" href="~/template/css/portal-accesos.css" asp-append-version="true" />
+
+<div class="w-100 container-main p-0 portal-accesos" data-portal-accesos
+     data-credential-server-now="@Model.FechaActual.ToString("yyyy-MM-ddTHH:mm:ss.fff-05:00", CultureInfo.InvariantCulture)"
+     data-credential-limit="@(Model.FechaLimiteCredenciales?.ToString("yyyy-MM-ddTHH:mm:ss.fff-05:00", CultureInfo.InvariantCulture))">
+    <header class="accesos-hero portal-card-space">
+        <div class="accesos-hero-copy">
+            <a class="accesos-back spf-link" href="~/"><i class="bi-arrow-left" aria-hidden="true"></i> Volver al inicio</a>
+            <span class="accesos-eyebrow">Servicios estudiantiles</span>
+            <h1>Usuario EVA</h1>
+            <p>Tu identificación para el Entorno Virtual de Aprendizaje.</p>
+        </div>
+        <div class="accesos-hero-icon" aria-hidden="true"><i class="bi-mortarboard"></i></div>
+    </header>
+
+    <div class="accesos-grid">
+        <section class="accesos-card" aria-labelledby="eva-usuario-titulo">
+            <div class="accesos-card-heading">
+                <div class="accesos-heading-icon" aria-hidden="true"><i class="bi-person-badge"></i></div>
+                <div><h2 id="eva-usuario-titulo">Tu usuario de aprendizaje</h2><p>El usuario asignado a tu cuenta EVA.</p></div>
+            </div>
+
+            @if (Model.MostrarUsuarioEva)
+            {
+                <div data-credential-content>
+                    <div class="accesos-deadline">
+                        <i class="bi-clock-history" aria-hidden="true"></i>
+                        <div>
+                            <span class="accesos-deadline-label">Visualización disponible hasta</span>
+                            <strong>@fechaLimite <span class="accesos-zone">(Ecuador)</span></strong>
+                            <span class="accesos-countdown" data-credential-countdown></span>
+                        </div>
+                    </div>
+                    <div class="accesos-field">
+                        <label for="acceso-usuario-eva">Usuario EVA</label>
+                        <div class="accesos-input-row">
+                            <input id="acceso-usuario-eva" class="accesos-input" type="text" readonly autocomplete="off" spellcheck="false" value="@Model.UsuarioEva" data-credential-field />
+                            <button class="accesos-icon-button" type="button" data-copy-target="acceso-usuario-eva" aria-label="Copiar usuario EVA" title="Copiar usuario EVA"><i class="bi-copy" aria-hidden="true"></i></button>
+                        </div>
+                        <p class="accesos-field-help">Copia tu usuario tal como aparece para utilizarlo al ingresar al aula virtual.</p>
+                    </div>
+                    <div class="accesos-feedback" role="status" aria-live="polite" aria-atomic="true" data-copy-feedback></div>
+                    <div class="accesos-security-note"><i class="bi-lock" aria-hidden="true"></i><span>Guarda tu usuario de forma segura antes de la fecha límite.</span></div>
+                </div>
+            }
+
+            <div class="accesos-empty" data-credential-expired hidden="@Model.MostrarUsuarioEva" role="status">
+                <div class="accesos-empty-icon" aria-hidden="true"><i class="bi-person-lock"></i></div>
+                <h3>Usuario EVA no disponible</h3>
+                <p>La consulta de tu usuario no está habilitada o su fecha límite ya pasó. Comunícate con el instituto si necesitas recuperar tu acceso.</p>
+            </div>
+        </section>
+
+        <aside class="accesos-side">
+            <section class="accesos-card accesos-service-card" aria-labelledby="eva-espacio-titulo">
+                <div class="accesos-service-icon" aria-hidden="true"><i class="bi-journal-bookmark"></i></div>
+                <span class="accesos-eyebrow">Aprendizaje en línea</span>
+                <h2 id="eva-espacio-titulo">Tu aula virtual</h2>
+                <p>El Entorno Virtual de Aprendizaje acompaña tus actividades académicas. Aquí puedes consultar el usuario institucional asignado para ingresar.</p>
+                <div class="accesos-note"><i class="bi-info-circle" aria-hidden="true"></i><p>Para obtener el enlace de ingreso o ayuda con tu contraseña, utiliza los canales institucionales de atención.</p></div>
+            </section>
+            <section class="accesos-card accesos-guidance" aria-labelledby="eva-recordatorio-titulo">
+                <i class="bi-shield-check" aria-hidden="true"></i>
+                <div><h2 id="eva-recordatorio-titulo">Un acceso personal</h2><p>Utiliza únicamente tu cuenta y conserva tus datos de acceso en un lugar seguro.</p></div>
+            </section>
+        </aside>
+    </div>
+</div>
+
+<script defer src="~/js/siteAccesos.js" asp-append-version="true"></script>

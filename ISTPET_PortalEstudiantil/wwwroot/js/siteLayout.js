@@ -30,6 +30,34 @@ document.addEventListener("spfprocess", updateNavbarScrollState);
 document.addEventListener("spfdone", updateNavbarScrollState);
 updateNavbarScrollState();
 
+// Use server-relative time to hide temporary menu entries even if the browser clock differs.
+let _accesosTemporalesTimer;
+const _fechaInstitucional = Date.parse(document.body.dataset.fechaInstitucional);
+const _inicioRelojInstitucional = 0;
+function actualizarAccesosTemporales() {
+    clearTimeout(_accesosTemporalesTimer);
+    let proximoVencimiento = Infinity;
+    document.querySelectorAll('[data-acceso-temporal]').forEach(item => {
+        if (!item._portalVencimiento) {
+            const limite = Date.parse(item.dataset.fechaLimite);
+            // A cached home fragment must retain its original absolute deadline.
+            item._portalVencimiento = Number.isFinite(limite) && Number.isFinite(_fechaInstitucional)
+                ? _inicioRelojInstitucional + limite - _fechaInstitucional : performance.now();
+        }
+        const restante = item._portalVencimiento - performance.now();
+        if (restante <= 0) item.remove();
+        else proximoVencimiento = Math.min(proximoVencimiento, restante);
+    });
+    if (Number.isFinite(proximoVencimiento)) {
+        _accesosTemporalesTimer = setTimeout(actualizarAccesosTemporales, Math.min(proximoVencimiento, 60000));
+    }
+}
+document.addEventListener('DOMContentLoaded', actualizarAccesosTemporales);
+document.addEventListener('spfdone', actualizarAccesosTemporales);
+document.addEventListener('visibilitychange', actualizarAccesosTemporales);
+window.addEventListener('pageshow', actualizarAccesosTemporales);
+actualizarAccesosTemporales();
+
 // Eliminar lag y saltos bruscos suprimiendo transiciones CSS mientras se redimensiona la ventana
 let _windowResizeTimer;
 window.addEventListener("resize", function () {

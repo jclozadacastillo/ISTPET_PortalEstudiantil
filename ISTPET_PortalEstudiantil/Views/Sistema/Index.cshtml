@@ -1,3 +1,4 @@
+@model AccesosInstitucionalesViewModel
 @{
   ViewData["Title"] = "Inicio";
 }
@@ -56,18 +57,54 @@
           </div>
           <h5 class="mb-0 font-weight-bold text-dark">Correo Institucional</h5>
         </div>
-        <p class="text-sm text-secondary mb-3">Accede a tu correo institucional Microsoft 365 y sus servicios.</p>
+        <p class="text-sm text-secondary mb-3">Consulta tus credenciales institucionales y accede a Microsoft 365.</p>
         <div class="portal-card-img-wrapper">
           <img src="~/template/img/office-istpet.png" alt="Correo Institucional" />
         </div>
       </div>
       <div class="portal-card-footer text-end mt-auto pt-3">
-        <a class="btn-portal-action" href="https://portal.office.com/" target="_blank">
-          Ingresar <i class="bi-box-arrow-up-right text-xs ms-1"></i>
+        <a class="btn-portal-action" href="~/Sistema/CorreoInstitucional">
+          Ver información <i class="bi-arrow-right text-xs ms-1"></i>
         </a>
       </div>
     </div>
   </div>
+  @if (Model.MostrarUsuarioEva)
+  {
+    <div class="col-xl-4 col-md-6 portal-card-space" data-acceso-temporal data-fecha-limite="@(Model.FechaLimiteCredenciales?.ToString("yyyy-MM-ddTHH:mm:ss.fff-05:00"))" data-fecha-actual="@(Model.FechaActual.ToString("yyyy-MM-ddTHH:mm:ss.fff-05:00"))">
+      <div class="portal-card h-100">
+        <div class="portal-card-header">
+          <div class="d-flex align-items-center mb-3">
+            <div class="portal-card-icon-box me-3"><i class="bi-person-video3 portal-icon-gold fs-5"></i></div>
+            <h5 class="mb-0 font-weight-bold text-dark">Usuario EVA</h5>
+          </div>
+          <p class="text-sm text-secondary mb-3">Consulta el usuario asignado para tu Entorno Virtual de Aprendizaje.</p>
+          <span class="text-xs font-weight-bold text-secondary"><i class="bi-clock me-1"></i> Disponible hasta @(Model.FechaLimiteCredenciales?.ToString("dd/MM/yyyy HH:mm"))</span>
+        </div>
+        <div class="portal-card-footer text-end mt-auto pt-3">
+          <a class="btn-portal-action" href="~/Sistema/UsuarioEva">Ver usuario <i class="bi-arrow-right text-xs ms-1"></i></a>
+        </div>
+      </div>
+    </div>
+  }
+  @if (Model.MostrarChatConduccion)
+  {
+    <div class="col-xl-4 col-md-6 portal-card-space">
+      <div class="portal-card h-100">
+        <div class="portal-card-header">
+          <div class="d-flex align-items-center mb-3">
+            <div class="portal-card-icon-box me-3"><i class="bi-chat-dots-fill portal-icon-gold fs-5"></i></div>
+            <h5 class="mb-0 font-weight-bold text-dark">Chat de conducción</h5>
+          </div>
+          <p class="text-sm text-secondary mb-3">Encuentra el chat de tu grupo y mantente al día con los avisos de conducción.</p>
+          <span class="text-xs font-weight-bold text-secondary"><i class="bi-people me-1"></i> @(Model.EnlacesChat.Count == 1 ? "Un grupo disponible" : $"{Model.EnlacesChat.Count} grupos disponibles")</span>
+        </div>
+        <div class="portal-card-footer text-end mt-auto pt-3">
+          <a class="btn-portal-action" href="~/Sistema/ChatConduccion">Ver mi grupo <i class="bi-arrow-right text-xs ms-1"></i></a>
+        </div>
+      </div>
+    </div>
+  }
 </div>
 
 

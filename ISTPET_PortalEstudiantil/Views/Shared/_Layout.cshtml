@@ -1,7 +1,9 @@
 @inject ISessionAlumnos _auth;
+@inject IAccesosInstitucionalesService _accesosInstitucionales;
 @{
     var _version = $"?v={DateTime.Now.Ticks}";
     var _pendientes = _auth.evaluacionesPendientes();
+    var _accesos = await _accesosInstitucionales.ObtenerDisponibilidadAsync();
 }
 <!DOCTYPE html>
 <html lang="es-ec">
@@ -37,7 +39,7 @@
     <script defer src="~/template/js/material-dashboard.js?v=3.0.2"></script>
     <script defer src="~/js/siteLayout.js?v=@DateTime.Now.Ticks"></script>
 </head>
-<body class="g-sidenav-show  bg-gray-400">
+<body class="g-sidenav-show  bg-gray-400" data-fecha-institucional="@(_accesos.FechaActual.ToString("yyyy-MM-ddTHH:mm:ss.fff-05:00"))">
     <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl fixed-start ms-2 bg-gradient-dark" id="sidenav-main">
         <div class="sidenav-header">
             <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
@@ -115,13 +117,35 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="https://portal.office.com/" target="_blank">
+                    <a class="nav-link text-white" data-menu="correoinstitucional" href="~/Sistema/CorreoInstitucional">
                         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                             <i class="bi-envelope-check text-lg"></i>
                         </div>
                         <span class="nav-link-text ms-1">Correo institucional</span>
                     </a>
                 </li>
+                @if (_accesos.MostrarUsuarioEva)
+                {
+                    <li class="nav-item" data-acceso-temporal data-fecha-limite="@(_accesos.FechaLimiteCredenciales?.ToString("yyyy-MM-ddTHH:mm:ss.fff-05:00"))" data-fecha-actual="@(_accesos.FechaActual.ToString("yyyy-MM-ddTHH:mm:ss.fff-05:00"))">
+                        <a class="nav-link text-white" data-menu="usuarioeva" href="~/Sistema/UsuarioEva">
+                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="bi-person-video3 text-lg"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Usuario EVA</span>
+                        </a>
+                    </li>
+                }
+                @if (_accesos.MostrarChatConduccion)
+                {
+                    <li class="nav-item">
+                        <a class="nav-link text-white" data-menu="chatconduccion" href="~/Sistema/ChatConduccion">
+                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="bi-chat-dots text-lg"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Chat de conducción</span>
+                        </a>
+                    </li>
+                }
             </ul>
         </div>
 

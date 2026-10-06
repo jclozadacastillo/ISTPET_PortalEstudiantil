@@ -1,0 +1,82 @@
+@model AccesosInstitucionalesViewModel
+@{
+    ViewData["Title"] = "Chat de conducción";
+}
+
+<link rel="stylesheet" href="~/template/css/portal-accesos.css" asp-append-version="true" />
+
+<div class="w-100 container-main p-0 portal-accesos" data-portal-accesos>
+    <header class="accesos-hero portal-card-space">
+        <div class="accesos-hero-copy">
+            <a class="accesos-back spf-link" href="~/"><i class="bi-arrow-left" aria-hidden="true"></i> Volver al inicio</a>
+            <span class="accesos-eyebrow">Servicios estudiantiles</span>
+            <h1>Chat de conducción</h1>
+            <p>Accede al chat que corresponde a tu matrícula.</p>
+        </div>
+        <div class="accesos-hero-icon" aria-hidden="true"><i class="bi-chat-dots"></i></div>
+    </header>
+
+    <div class="accesos-grid">
+        <section class="accesos-card" aria-labelledby="chat-grupos-titulo">
+            <div class="accesos-card-heading">
+                <div class="accesos-heading-icon" aria-hidden="true"><i class="bi-people"></i></div>
+                <div><h2 id="chat-grupos-titulo">Tus grupos disponibles</h2><p>Enlaces habilitados para tu grupo académico.</p></div>
+                @if (Model.MostrarChatConduccion && Model.EnlacesChat.Count > 0)
+                {
+                    <span class="accesos-count-badge">@Model.EnlacesChat.Count</span>
+                }
+            </div>
+
+            @if (Model.MostrarChatConduccion && Model.EnlacesChat.Count > 0)
+            {
+                <div class="accesos-chat-list">
+                    @foreach (var enlace in Model.EnlacesChat)
+                    {
+                        <article class="accesos-chat" aria-labelledby="chat-@enlace.IdEnlace-titulo">
+                            <div class="accesos-chat-heading">
+                                <span class="accesos-chat-icon" aria-hidden="true"><i class="bi-chat-left-text"></i></span>
+                                <div><span class="accesos-eyebrow">Chat de conducción</span><h3 id="chat-@enlace.IdEnlace-titulo">Paralelo @enlace.Paralelo</h3></div>
+                                <span class="accesos-active-badge"><span aria-hidden="true"></span>Disponible</span>
+                            </div>
+                            <dl class="accesos-group-data">
+                                <div><dt>Período</dt><dd>@enlace.Periodo</dd></div>
+                                <div><dt>Nivel</dt><dd>@enlace.Nivel</dd></div>
+                                <div><dt>Modalidad</dt><dd>@enlace.Modalidad</dd></div>
+                                <div><dt>Sección</dt><dd>@enlace.Seccion</dd></div>
+                                <div><dt>Paralelo</dt><dd>@enlace.Paralelo</dd></div>
+                            </dl>
+                            <div class="accesos-chat-footer">
+                                <span class="accesos-link-preview">@enlace.Enlace</span>
+                                <a class="accesos-button" href="@enlace.Enlace" target="_blank" rel="noopener noreferrer">Abrir chat <i class="bi-box-arrow-up-right" aria-hidden="true"></i><span class="accesos-sr-only"> del paralelo @enlace.Paralelo (se abre en una nueva pestaña)</span></a>
+                            </div>
+                        </article>
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="accesos-empty">
+                    <div class="accesos-empty-icon" aria-hidden="true"><i class="bi-chat-square-dots"></i></div>
+                    <h3>No hay chats disponibles</h3>
+                    <p>Por ahora no existe un enlace habilitado que corresponda a tu matrícula. Vuelve a consultar cuando el instituto publique tu grupo.</p>
+                </div>
+            }
+        </section>
+
+        <aside class="accesos-side">
+            <section class="accesos-card accesos-service-card" aria-labelledby="chat-matricula-titulo">
+                <div class="accesos-service-icon" aria-hidden="true"><i class="bi-person-check"></i></div>
+                <span class="accesos-eyebrow">Tu grupo académico</span>
+                <h2 id="chat-matricula-titulo">Enlaces para tu matrícula</h2>
+                <p>Los grupos se muestran de acuerdo con tu período, nivel, modalidad, sección y paralelo. Revisa los datos del grupo antes de ingresar.</p>
+                <div class="accesos-note"><i class="bi-box-arrow-up-right" aria-hidden="true"></i><p>El chat se abre en una nueva pestaña para que puedas continuar usando tu portal.</p></div>
+            </section>
+            <section class="accesos-card accesos-guidance" aria-labelledby="chat-ayuda-titulo">
+                <i class="bi-info-circle" aria-hidden="true"></i>
+                <div><h2 id="chat-ayuda-titulo">¿Necesitas ayuda?</h2><p>Si el enlace no funciona o tu grupo no aparece, comunícate con el instituto.</p></div>
+            </section>
+        </aside>
+    </div>
+</div>
+
+<script defer src="~/js/siteAccesos.js" asp-append-version="true"></script>

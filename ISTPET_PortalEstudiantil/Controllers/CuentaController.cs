@@ -32,9 +32,12 @@ namespace ISTPET_PortalEstudiantil.Controllers
             try
             {
                 string idAlumno = _auth.get("idAlumno");
-                string sql = @"select * from 
-                               alumnos WHERE idAlumno=@idAlumno 
-                               ";
+                string sql = @"SELECT idAlumno, tipoDocumento, apellidoPaterno, apellidoMaterno,
+                                      primerNombre, segundoNombre, fecha_Nacimiento, direccion,
+                                      email, telefono, celular, email_institucional, archivofoto,
+                                      idEtnia, ciudad_residencia, provincia_Nacimiento,
+                                      ciudad_Nacimiento, parroquia_residencia, barrio_residencia
+                               FROM alumnos WHERE idAlumno = @idAlumno LIMIT 1";
                 return JsonConvert.SerializeObject(
                     await dapper.QueryFirstOrDefaultAsync(sql, new { idAlumno }),
                     _loop_handler
@@ -126,7 +129,31 @@ namespace ISTPET_PortalEstudiantil.Controllers
             try
             {
                 var idAlumno = _auth.get("idAlumno");
-                var alumno = await _context.alumnos.Where(x => x.idAlumno == idAlumno).FirstOrDefaultAsync();
+                var alumno = await _context.alumnos
+                    .Where(x => x.idAlumno == idAlumno)
+                    .Select(x => new
+                    {
+                        x.idAlumno,
+                        x.tipoDocumento,
+                        x.apellidoPaterno,
+                        x.apellidoMaterno,
+                        x.primerNombre,
+                        x.segundoNombre,
+                        x.fecha_Nacimiento,
+                        x.direccion,
+                        x.email,
+                        x.telefono,
+                        x.celular,
+                        x.email_institucional,
+                        x.archivofoto,
+                        x.idEtnia,
+                        x.ciudad_residencia,
+                        x.provincia_Nacimiento,
+                        x.ciudad_Nacimiento,
+                        x.parroquia_residencia,
+                        x.barrio_residencia
+                    })
+                    .FirstOrDefaultAsync();
                 return Ok(alumno);
             }
             catch (Exception ex)

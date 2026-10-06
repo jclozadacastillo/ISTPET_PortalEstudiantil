@@ -1,0 +1,116 @@
+@model AccesosInstitucionalesViewModel
+@using System.Globalization
+@{
+    ViewData["Title"] = "Correo institucional";
+    var cultura = CultureInfo.GetCultureInfo("es-EC");
+    var fechaLimite = Model.FechaLimiteCredenciales?.ToString("dd MMM yyyy · HH:mm", cultura);
+}
+
+<link rel="stylesheet" href="~/template/css/portal-accesos.css" asp-append-version="true" />
+
+<div class="w-100 container-main p-0 portal-accesos accesos-mail-page" data-portal-accesos
+     data-credential-server-now="@Model.FechaActual.ToString("yyyy-MM-ddTHH:mm:ss.fff-05:00", CultureInfo.InvariantCulture)"
+     data-credential-limit="@(Model.FechaLimiteCredenciales?.ToString("yyyy-MM-ddTHH:mm:ss.fff-05:00", CultureInfo.InvariantCulture))">
+    <header class="accesos-hero portal-card-space">
+        <div class="accesos-hero-copy">
+            <a class="accesos-back spf-link" href="~/"><i class="bi-arrow-left" aria-hidden="true"></i> Volver al inicio</a>
+            <span class="accesos-eyebrow">Servicios estudiantiles</span>
+            <h1>Correo institucional</h1>
+            <p>Consulta tus datos de acceso y empieza a usar tu cuenta de Microsoft 365.</p>
+        </div>
+        <div class="accesos-microsoft-hero" aria-hidden="true">
+            <span class="accesos-microsoft-mark"><span></span><span></span><span></span><span></span></span>
+            <span>Microsoft 365</span>
+        </div>
+    </header>
+
+    <div class="accesos-grid">
+        <section class="accesos-card" aria-labelledby="correo-credenciales-titulo">
+            <div class="accesos-card-heading">
+                <div class="accesos-heading-icon" aria-hidden="true"><i class="bi-person-badge"></i></div>
+                <div>
+                    <h2 id="correo-credenciales-titulo">Datos de tu cuenta</h2>
+                    <p>Tenlos a mano para iniciar sesión en Microsoft 365.</p>
+                </div>
+            </div>
+
+            @if (Model.CredencialesDisponibles)
+            {
+                <div data-credential-content>
+                    <div class="accesos-account-type">
+                        <i class="bi-building" aria-hidden="true"></i>
+                        <div><strong>Cuenta profesional o educativa</strong><span>Usa el correo institucional completo al ingresar a Microsoft 365.</span></div>
+                    </div>
+
+                    <div class="accesos-field">
+                        <label for="acceso-correo">Correo institucional</label>
+                        <div class="accesos-input-row">
+                            <input id="acceso-correo" class="accesos-input" type="text" readonly autocomplete="off" spellcheck="false" value="@Model.EmailInstitucional" data-credential-field />
+                            <button class="accesos-icon-button accesos-copy-button" type="button" data-copy-target="acceso-correo" aria-label="Copiar correo institucional" title="Copiar correo institucional"><i class="bi-copy" aria-hidden="true"></i><span class="accesos-copy-label">Copiar</span></button>
+                        </div>
+                    </div>
+
+                    @if (!string.IsNullOrWhiteSpace(Model.ClaveTemporalEmail))
+                    {
+                        <div class="accesos-field">
+                            <label for="acceso-clave">Contraseña temporal</label>
+                            <div class="accesos-input-row accesos-password-row">
+                                <input id="acceso-clave" class="accesos-input accesos-password" type="password" readonly autocomplete="off" value="@Model.ClaveTemporalEmail" data-credential-field data-credential-password aria-describedby="acceso-clave-ayuda" />
+                                <button class="accesos-icon-button" type="button" data-password-target="acceso-clave" aria-label="Mostrar contraseña temporal" aria-pressed="false" title="Mostrar contraseña temporal"><i class="bi-eye" aria-hidden="true"></i></button>
+                                <button class="accesos-icon-button accesos-copy-button" type="button" data-copy-target="acceso-clave" aria-label="Copiar contraseña temporal" title="Copiar contraseña temporal"><i class="bi-copy" aria-hidden="true"></i><span class="accesos-copy-label">Copiar</span></button>
+                            </div>
+                            <p class="accesos-field-help" id="acceso-clave-ayuda">Puedes mostrarla o copiarla. Vuelve a ocultarse automáticamente.</p>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="accesos-note accesos-password-pending"><i class="bi-info-circle" aria-hidden="true"></i><div><strong>Contraseña pendiente</strong><p>Tu contraseña temporal todavía no está registrada. Solicítala al instituto para completar tu primer ingreso.</p></div></div>
+                    }
+
+                    <div class="accesos-feedback" role="status" aria-live="polite" aria-atomic="true" data-copy-feedback></div>
+                    <div class="accesos-deadline accesos-mail-deadline">
+                        <i class="bi-clock-history" aria-hidden="true"></i>
+                        <div>
+                            <span class="accesos-deadline-label">Estos datos se muestran hasta</span>
+                            <strong>@fechaLimite <span class="accesos-zone">(Ecuador)</span></strong>
+                            <span class="accesos-countdown" data-credential-countdown></span>
+                        </div>
+                    </div>
+                    <p class="accesos-save-note"><i class="bi-bookmark-check" aria-hidden="true"></i> Guarda tus datos en un lugar seguro antes de esa fecha.</p>
+                </div>
+            }
+
+            <div class="accesos-empty" data-credential-expired hidden="@Model.CredencialesDisponibles" role="status">
+                <div class="accesos-empty-icon" aria-hidden="true"><i class="bi-lock"></i></div>
+                <h3>Tus credenciales no están disponibles</h3>
+                <p>La consulta no está habilitada o la fecha límite de visualización ya pasó.</p>
+                <div class="accesos-empty-help"><strong>¿Ya tienes tus datos?</strong><p>Continúa a Microsoft 365 para ingresar. Si necesitas tu correo o recuperar el acceso, comunícate con el instituto.</p></div>
+            </div>
+        </section>
+
+        <aside class="accesos-side">
+            <section class="accesos-card accesos-service-card accesos-microsoft-card" aria-labelledby="correo-ingreso-titulo">
+                <div class="accesos-microsoft-brand">
+                    <span class="accesos-microsoft-mark" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
+                    <span>Microsoft 365</span>
+                </div>
+                <span class="accesos-eyebrow">Tu espacio institucional</span>
+                <h2 id="correo-ingreso-titulo">Estudia conectado</h2>
+                <p>Tu correo y tus herramientas de estudio, en un solo lugar. Ingresa con tu cuenta institucional.</p>
+                <a class="accesos-button" href="https://portal.office.com/" target="_blank" rel="noopener noreferrer">Ingresar a Microsoft 365 <i class="bi-box-arrow-up-right" aria-hidden="true"></i><span class="accesos-sr-only"> (se abre en una nueva pestaña)</span></a>
+                <div class="accesos-account-choice"><i class="bi-building-check" aria-hidden="true"></i><p>Si Microsoft te pide elegir una cuenta, selecciona <strong>«Cuenta profesional o educativa»</strong>.</p></div>
+            </section>
+            <section class="accesos-card accesos-first-login" aria-labelledby="correo-primer-ingreso-titulo">
+                <h2 id="correo-primer-ingreso-titulo">Tu primer ingreso, paso a paso</h2>
+                <ol class="accesos-login-steps">
+                    <li><span aria-hidden="true">1</span><div><strong>Copia tu correo institucional</strong><p>Usa la dirección completa que aparece en esta página.</p></div></li>
+                    <li><span aria-hidden="true">2</span><div><strong>Ingresa a Microsoft 365</strong><p>Identifícate con tu cuenta profesional o educativa.</p></div></li>
+                    <li><span aria-hidden="true">3</span><div><strong>Usa tu contraseña temporal</strong><p>Actualízala si Microsoft te solicita hacerlo.</p></div></li>
+                </ol>
+                <p class="accesos-login-tip"><i class="bi-lightbulb" aria-hidden="true"></i> Si ya cambiaste tu contraseña, usa la que elegiste.</p>
+            </section>
+        </aside>
+    </div>
+</div>
+
+<script defer src="~/js/siteAccesos.js" asp-append-version="true"></script>

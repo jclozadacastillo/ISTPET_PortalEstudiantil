@@ -89,6 +89,14 @@ public partial class alumnos
 
     public string? email_institucional { get; set; }
 
+    [System.Text.Json.Serialization.JsonIgnore]
+    [Newtonsoft.Json.JsonIgnore]
+    public string? claveTemporalEmail { get; set; }
+
+    [System.Text.Json.Serialization.JsonIgnore]
+    [Newtonsoft.Json.JsonIgnore]
+    public string? usuarioEva { get; set; }
+
     public sbyte? primerIngreso { get; set; }
 
     public string? archivofoto { get; set; }

@@ -1,6 +1,7 @@
 using ISTPET_PortalEstudiantil.Auth;
 using ISTPET_PortalEstudiantil.Models.sigafi_es;
 using ISTPET_PortalEstudiantil.Utilities;
+using ISTPET_PortalEstudiantil.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
@@ -10,6 +11,8 @@ Tools.Initialize(builder.Configuration, builder.Environment.WebRootPath);
 builder.Services.AddControllersWithViews();
 builder.Services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.TryAddScoped<ISessionAlumnos, SessionAlumnos>();
+builder.Services.AddSingleton(TimeProvider.System);
+builder.Services.AddScoped<IAccesosInstitucionalesService, AccesosInstitucionalesService>();
 
 builder.Services.AddDbContext<sigafi_esContext>(op => op.UseMySQL(builder.Configuration.GetConnectionString("sigafi_es") ?? throw new InvalidOperationException("Connection string 'sigafi_es' not found.")));
 builder.Services.AddSession(options =>

@@ -43,6 +43,10 @@ public partial class periodos
 
     public sbyte? esConduccion { get; set; }
 
+    public sbyte? visibleCredenciales { get; set; }
+
+    public DateTime? fechaLimiteCredenciales { get; set; }
+
     public virtual ICollection<bien_resoluciones_tribunales> bien_resoluciones_tribunales { get; set; } = new List<bien_resoluciones_tribunales>();
 
     public virtual ICollection<contratos_asignaturas> contratos_asignaturas { get; set; } = new List<contratos_asignaturas>();

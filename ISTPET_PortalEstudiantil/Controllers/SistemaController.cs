@@ -1,6 +1,7 @@
 using Dapper;
 using ISTPET_PortalEstudiantil.Auth;
 using ISTPET_PortalEstudiantil.Models.sigafi_es;
+using ISTPET_PortalEstudiantil.Services;
 using Microsoft.AspNetCore.Mvc;
 using MySql.Data.MySqlClient;
 
@@ -10,18 +11,48 @@ namespace ISTPET_PortalEstudiantil.Controllers
     {
         private readonly ISessionAlumnos _auth;
         private readonly string _cn;
+        private readonly IAccesosInstitucionalesService _accesos;
 
-        public SistemaController(ISessionAlumnos auth, IConfiguration config)
+        public SistemaController(ISessionAlumnos auth, IConfiguration config, IAccesosInstitucionalesService accesos)
         {
             _auth = auth;
             _cn = config.GetConnectionString("sigafi_es") ?? string.Empty;
+            _accesos = accesos;
         }
 
-        public IActionResult Index()
+        [ResponseCache(NoStore = true, Location = ResponseCacheLocation.None)]
+        public async Task<IActionResult> Index()
         {
             var acceso = ValidarAcceso();
             if (acceso != null) return acceso;
-            return View();
+            return View(await _accesos.ObtenerDisponibilidadAsync());
+        }
+
+        [HttpGet]
+        [ResponseCache(NoStore = true, Location = ResponseCacheLocation.None)]
+        public async Task<IActionResult> CorreoInstitucional()
+        {
+            var acceso = ValidarAcceso();
+            if (acceso != null) return acceso;
+            return View(await _accesos.ObtenerCorreoAsync());
+        }
+
+        [HttpGet]
+        [ResponseCache(NoStore = true, Location = ResponseCacheLocation.None)]
+        public async Task<IActionResult> UsuarioEva()
+        {
+            var acceso = ValidarAcceso();
+            if (acceso != null) return acceso;
+            return View(await _accesos.ObtenerUsuarioEvaAsync());
+        }
+
+        [HttpGet]
+        [ResponseCache(NoStore = true, Location = ResponseCacheLocation.None)]
+        public async Task<IActionResult> ChatConduccion()
+        {
+            var acceso = ValidarAcceso();
+            if (acceso != null) return acceso;
+            return View(await _accesos.ObtenerDisponibilidadAsync());
         }
 
         public async Task<IActionResult> Calificaciones()
