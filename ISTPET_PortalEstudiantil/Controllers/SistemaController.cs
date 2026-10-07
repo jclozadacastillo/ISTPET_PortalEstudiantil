@@ -30,6 +30,15 @@ namespace ISTPET_PortalEstudiantil.Controllers
 
         [HttpGet]
         [ResponseCache(NoStore = true, Location = ResponseCacheLocation.None)]
+        public async Task<IActionResult> AccesosInstitucionales()
+        {
+            var acceso = ValidarAcceso();
+            if (acceso != null) return acceso;
+            return View(await _accesos.ObtenerDisponibilidadAsync());
+        }
+
+        [HttpGet]
+        [ResponseCache(NoStore = true, Location = ResponseCacheLocation.None)]
         public async Task<IActionResult> CorreoInstitucional()
         {
             var acceso = ValidarAcceso();

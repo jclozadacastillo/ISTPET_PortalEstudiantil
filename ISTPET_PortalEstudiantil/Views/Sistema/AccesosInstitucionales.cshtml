@@ -1,0 +1,56 @@
+@model AccesosInstitucionalesViewModel
+@{
+    ViewData["Title"] = "Accesos institucionales";
+}
+
+<link rel="stylesheet" href="~/template/css/portal-accesos-menu.css" asp-append-version="true" />
+
+<div class="w-100 container-main p-0 institutional-hub">
+    <header class="hub-header">
+        <a class="hub-back" href="~/"><i class="bi-arrow-left" aria-hidden="true"></i> Volver al inicio</a>
+        <div class="hub-heading">
+            <span class="hub-heading-icon" aria-hidden="true"><i class="bi-grid"></i></span>
+            <div><h1>Accesos institucionales</h1><p>Tu correo, aula virtual y grupos de conducción, en un solo lugar.</p></div>
+        </div>
+    </header>
+
+    <section class="hub-services" aria-label="Servicios institucionales disponibles">
+        <a class="hub-service" href="~/Sistema/CorreoInstitucional">
+            <img class="hub-image" src="~/template/img/office-istpet.png" alt="" />
+            <div class="hub-service-copy">
+                <h2><i class="bi-envelope-check" aria-hidden="true"></i> Correo institucional</h2>
+                <p>Consulta tu cuenta institucional y accede a Microsoft 365.</p>
+                <span class="hub-detail">Microsoft 365</span>
+            </div>
+            <span class="hub-action">Ver información <i class="bi-arrow-right" aria-hidden="true"></i></span>
+        </a>
+
+        @if (Model.MostrarUsuarioEva)
+        {
+            <a class="hub-service" href="~/Sistema/UsuarioEva" data-acceso-temporal
+               data-fecha-limite="@(Model.FechaLimiteCredenciales?.ToString("yyyy-MM-ddTHH:mm:ss.fff-05:00"))"
+               data-fecha-actual="@(Model.FechaActual.ToString("yyyy-MM-ddTHH:mm:ss.fff-05:00"))">
+                <img class="hub-image" src="~/template/img/eva-istpet-v1.png" alt="" />
+                <div class="hub-service-copy">
+                    <h2><i class="bi-person-video3" aria-hidden="true"></i> Usuario EVA</h2>
+                    <p>Encuentra tu usuario del Entorno Virtual de Aprendizaje.</p>
+                    <span class="hub-detail"><i class="bi-clock" aria-hidden="true"></i> Disponible hasta @(Model.FechaLimiteCredenciales?.ToString("dd/MM/yyyy · HH:mm"))</span>
+                </div>
+                <span class="hub-action">Ver usuario <i class="bi-arrow-right" aria-hidden="true"></i></span>
+            </a>
+        }
+
+        @if (Model.MostrarChatConduccion)
+        {
+            <a class="hub-service" href="~/Sistema/ChatConduccion">
+                <img class="hub-image" src="~/template/img/chat-conduccion-istpet-v1.png" alt="" />
+                <div class="hub-service-copy">
+                    <h2><i class="bi-chat-dots" aria-hidden="true"></i> Chat de conducción</h2>
+                    <p>Ingresa al chat que corresponde a tu grupo académico.</p>
+                    <span class="hub-detail"><i class="bi-people" aria-hidden="true"></i> @(Model.EnlacesChat.Count == 1 ? "Un grupo disponible" : $"{Model.EnlacesChat.Count} grupos disponibles")</span>
+                </div>
+                <span class="hub-action">Ver mi grupo <i class="bi-arrow-right" aria-hidden="true"></i></span>
+            </a>
+        }
+    </section>
+</div>

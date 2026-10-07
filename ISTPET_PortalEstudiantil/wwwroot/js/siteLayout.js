@@ -1,35 +1,3 @@
-function updateNavbarScrollState() {
-    const navBlur = document.querySelector("#navbarBlur");
-    if (!navBlur) return;
-    const content = document.querySelector(".main-content");
-    const scrollTop = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || (content ? content.scrollTop : 0) || 0;
-    
-    if (scrollTop > 10) {
-        navBlur.classList.add("navbar-glass");
-        navBlur.classList.remove("navbar-top-white");
-        navBlur.classList.remove("bg-white");
-        navBlur.classList.remove("bg-white-transparent");
-    } else {
-        navBlur.classList.remove("navbar-glass");
-        navBlur.classList.remove("blur");
-        navBlur.classList.remove("shadow-blur");
-        navBlur.classList.remove("bg-white-transparent");
-        navBlur.classList.add("navbar-top-white");
-    }
-}
-
-window.addEventListener("scroll", updateNavbarScrollState, { passive: true });
-document.addEventListener("scroll", updateNavbarScrollState, { passive: true });
-const _mainContent = document.querySelector(".main-content");
-if (_mainContent) {
-    _mainContent.addEventListener("scroll", updateNavbarScrollState, { passive: true });
-    _mainContent.addEventListener("ps-scroll-y", updateNavbarScrollState);
-}
-document.addEventListener("DOMContentLoaded", updateNavbarScrollState);
-document.addEventListener("spfprocess", updateNavbarScrollState);
-document.addEventListener("spfdone", updateNavbarScrollState);
-updateNavbarScrollState();
-
 // Use server-relative time to hide temporary menu entries even if the browser clock differs.
 let _accesosTemporalesTimer;
 const _fechaInstitucional = Date.parse(document.body.dataset.fechaInstitucional);
@@ -86,6 +54,7 @@ function _menu() {
     if (!nav) return;
     const urlVec = window.location.pathname.toLowerCase().split("/");
     let ref = urlVec.pop();
+    if (["correoinstitucional", "usuarioeva", "chatconduccion"].includes(ref)) ref = "accesosinstitucionales";
     if (parseInt(ref) >= 0 || parseInt(ref).toString() == "NaN") {
         if (!nav.querySelector(`a[data-menu='${ref}']`)) ref = urlVec[urlVec.length - 1];
     }

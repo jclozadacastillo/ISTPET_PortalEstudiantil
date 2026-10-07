@@ -2,6 +2,7 @@
   ViewData["Title"] = "Calificaciones";
 }
 
+<link rel="stylesheet" href="~/template/css/portal-calificaciones.css" asp-append-version="true" />
 
 <div class="w-100 container-main p-0">
   <!-- Tarjeta Unificada Compacta (Encabezado + Filtros) -->
@@ -51,38 +52,43 @@
     </div>
   </div>
 
-  <!-- Contenedor de Tabla de Notas -->
-  <div class="container-table p-0" hidden>
-    <div class="card shadow-sm border-0 border-radius-xl overflow-hidden portal-card-space">
-      <div class="card-header bg-transparent py-2.5 px-4 border-bottom border-light">
-        <h6 class="mb-0 text-xs font-weight-bold text-uppercase text-dark d-flex align-items-center gap-2">
-          <i class="bi-journal-check" style="color: #1f295b !important; font-size: 1rem; line-height: 1;"></i> Detalle de Asignaturas y Calificaciones
-        </h6>
+  <section class="container-table portal-grades" hidden aria-labelledby="grades-title">
+    <header class="grades-heading">
+      <div class="grades-heading-copy">
+        <span class="grades-icon" aria-hidden="true"><i class="bi-journal-check"></i></span>
+        <div><h2 id="grades-title">Calificaciones por asignatura</h2><p>Consulta tus parciales y el resultado final.</p></div>
       </div>
-      <div class="card-body p-0">
-        <div class="table-responsive">
-          <table class="table table-hover table-custom-portal mb-0 align-middle">
-            <thead>
-              <tr style="background-color: #f8fafc;">
-                <th class="text-uppercase text-secondary px-4 py-2.5 text-xxs font-weight-bolder opacity-7 no-wrap">ASIGNATURA</th>
-                <th class="text-uppercase text-secondary text-center py-2.5 px-2 text-xxs font-weight-bolder opacity-7 no-wrap" style="width:85px" title="Examen Formativo I">EFI</th>
-                <th class="text-uppercase text-secondary text-center py-2.5 px-2 text-xxs font-weight-bolder opacity-7 no-wrap" style="width:85px" title="Examen Práctico I">EPI</th>
-                <th class="text-uppercase text-secondary text-center py-2.5 px-2 text-xxs font-weight-bolder opacity-7 no-wrap" style="width:85px" title="Parcial I">PI</th>
-                <th class="text-uppercase text-secondary text-center py-2.5 px-2 text-xxs font-weight-bolder opacity-7 no-wrap" style="width:85px" title="Examen Formativo II">EFII</th>
-                <th class="text-uppercase text-secondary text-center py-2.5 px-2 text-xxs font-weight-bolder opacity-7 no-wrap" style="width:85px" title="Examen Práctico II">EPII</th>
-                <th class="text-uppercase text-secondary text-center py-2.5 px-2 text-xxs font-weight-bolder opacity-7 no-wrap" style="width:85px" title="Parcial II">PII</th>
-                <th class="text-uppercase text-secondary text-center py-2.5 px-2 text-xxs font-weight-bolder opacity-7 no-wrap" style="width:85px" title="Examen Final / Supletorio">EXÁMEN</th>
-                <th class="text-uppercase text-secondary text-center py-2.5 px-2 text-xxs font-weight-bolder opacity-7 no-wrap" style="width:95px" title="Promedio Final acumulado">PROMEDIO</th>
-                <th class="text-uppercase text-secondary text-center py-2.5 px-2 text-xxs font-weight-bolder opacity-7 no-wrap" style="width:100px">ESTADO</th>
-              </tr>
-            </thead>
-            <tbody>
-            </tbody>
-          </table>
-        </div>
-      </div>
+      <span class="grades-count" data-grades-count></span>
+    </header>
+    <div class="grades-scroll-hint"><i class="bi-arrow-left-right" aria-hidden="true"></i> Desliza la tabla para ver todas las notas</div>
+    <div class="grades-table-wrap" role="region" aria-label="Tabla de calificaciones" tabindex="0">
+      <table class="grades-table">
+        <caption class="grades-sr-only">Calificaciones de las asignaturas del nivel y período seleccionados</caption>
+        <colgroup><col class="grades-subject-col" /><col span="7" class="grades-number-col" /><col class="grades-average-col" /><col class="grades-status-col" /></colgroup>
+        <thead>
+          <tr class="grades-groups">
+            <th rowspan="2" scope="col" class="grades-subject-header">Asignatura</th>
+            <th colspan="3" scope="colgroup">Primer parcial</th>
+            <th colspan="3" scope="colgroup" class="grades-group-start">Segundo parcial</th>
+            <th colspan="3" scope="colgroup" class="grades-group-start grades-result-header">Resultado final</th>
+          </tr>
+          <tr class="grades-columns">
+            <th scope="col" title="Examen Formativo I">Formativo<span>EFI</span></th>
+            <th scope="col" title="Examen Práctico I">Práctico<span>EPI</span></th>
+            <th scope="col" title="Parcial I">Parcial I<span>PI</span></th>
+            <th scope="col" class="grades-group-start" title="Examen Formativo II">Formativo<span>EFII</span></th>
+            <th scope="col" title="Examen Práctico II">Práctico<span>EPII</span></th>
+            <th scope="col" title="Parcial II">Parcial II<span>PII</span></th>
+            <th scope="col" class="grades-group-start" title="Examen Final / Supletorio">Examen<span>Final / supletorio</span></th>
+            <th scope="col" class="grades-average-header">Promedio<span>Final</span></th>
+            <th scope="col">Estado<span>De aprobación</span></th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
     </div>
-  </div>
+    <footer class="grades-legend"><i class="bi-info-circle" aria-hidden="true"></i><span>EFI / EFII: examen formativo · EPI / EPII: examen práctico · PI / PII: parcial.</span></footer>
+  </section>
 </div>
 
 <script defer src="~/js/siteCalificaciones.js?v=@DateTime.Now.Ticks"></script>

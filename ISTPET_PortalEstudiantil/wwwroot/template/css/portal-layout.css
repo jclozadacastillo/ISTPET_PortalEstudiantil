@@ -866,9 +866,8 @@ select.form-select:focus {
 }
 
 .navbar-main {
-    position: -webkit-sticky !important;
-    position: sticky !important;
-    top: var(--portal-top-margin) !important;
+    position: relative !important;
+    top: auto !important;
     z-index: 1020 !important;
     margin-left: var(--portal-horizontal-margin) !important;
     margin-right: var(--portal-horizontal-margin) !important;

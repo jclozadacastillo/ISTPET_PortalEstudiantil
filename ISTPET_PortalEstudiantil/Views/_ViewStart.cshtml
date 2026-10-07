@@ -1,6 +1,7 @@
 @{
     var accion = Convert.ToString(Context.Request.RouteValues["action"]);
-    var accesoInstitucional = string.Equals(accion, "CorreoInstitucional", StringComparison.OrdinalIgnoreCase)
+    var accesoInstitucional = string.Equals(accion, "AccesosInstitucionales", StringComparison.OrdinalIgnoreCase)
+        || string.Equals(accion, "CorreoInstitucional", StringComparison.OrdinalIgnoreCase)
         || string.Equals(accion, "UsuarioEva", StringComparison.OrdinalIgnoreCase)
         || string.Equals(accion, "ChatConduccion", StringComparison.OrdinalIgnoreCase);
     if (Context.Request.Query.ContainsKey("spf") && !accesoInstitucional)

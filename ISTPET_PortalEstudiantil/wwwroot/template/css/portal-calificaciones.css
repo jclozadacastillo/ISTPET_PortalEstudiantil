@@ -1,0 +1,61 @@
+.portal-grades {
+    margin-bottom: var(--portal-gap, 1rem);
+    overflow: hidden;
+    border: 1px solid #e3e8f0;
+    border-radius: 1rem;
+    background: #fff;
+    box-shadow: 0 4px 16px rgba(21, 27, 61, .05);
+}
+.portal-grades[hidden] { display: none; }
+.portal-grades .grades-heading { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1.25rem 1.4rem; }
+.portal-grades .grades-heading-copy { display: flex; align-items: center; gap: .85rem; min-width: 0; }
+.portal-grades .grades-icon { display: inline-flex; align-items: center; justify-content: center; flex: 0 0 2.6rem; height: 2.6rem; border-radius: .8rem; background: #eef0f8; color: #1f295b; font-size: 1.15rem; }
+.portal-grades .grades-heading h2 { margin: 0 0 .25rem; color: #1f295b; font-size: 1rem; line-height: 1.35; font-weight: 700; }
+.portal-grades .grades-heading p { margin: 0; color: #64748b; font-size: .78rem; line-height: 1.5; }
+.portal-grades .grades-count { flex: 0 0 auto; padding: .4rem .7rem; border: 1px solid #e1e6f0; border-radius: 2rem; background: #f8fafc; color: #475569; font-size: .73rem; font-weight: 600; }
+.portal-grades .grades-scroll-hint { display: none; align-items: center; gap: .5rem; padding: .65rem 1.4rem; border-top: 1px solid #edf0f5; color: #64748b; font-size: .73rem; }
+.portal-grades .grades-table-wrap { width: 100%; overflow-x: auto; overscroll-behavior-x: contain; scrollbar-color: #c1c9da #f1f4f9; scrollbar-width: thin; }
+.portal-grades .grades-table-wrap:focus-visible { outline: 3px solid #c59b27; outline-offset: -3px; }
+.portal-grades .grades-table { width: 100%; min-width: 1050px; margin: 0; border-collapse: separate; border-spacing: 0; table-layout: fixed; color: #334155; font-size: .83rem; font-variant-numeric: tabular-nums; }
+.portal-grades .grades-subject-col { width: 28%; }
+.portal-grades .grades-number-col { width: 7%; }
+.portal-grades .grades-average-col { width: 9%; }
+.portal-grades .grades-status-col { width: 14%; }
+.portal-grades .grades-table th, .portal-grades .grades-table td { vertical-align: middle; text-align: center; }
+.portal-grades .grades-groups th { padding: .85rem .5rem; background: #1f295b; color: #fff; font-size: .77rem; font-weight: 600; letter-spacing: .015em; }
+.portal-grades .grades-groups .grades-result-header { background: #192247; color: #f1d898; }
+.portal-grades .grades-groups .grades-subject-header { padding-left: 1.4rem; text-align: left; }
+.portal-grades .grades-columns th { height: 3.65rem; padding: .65rem .3rem; border-bottom: 1px solid #e2e8f0; background: #f1f4fa; color: #33476b; font-size: .72rem; font-weight: 600; line-height: 1.4; }
+.portal-grades .grades-columns th span { display: block; margin-top: .2rem; color: #6b7b95; font-size: .62rem; font-weight: 500; }
+.portal-grades .grades-columns .grades-average-header { background: #f7f1df; color: #765b17; }
+.portal-grades .grades-table .grades-group-start { border-left: 1px solid #e0e5ef; }
+.portal-grades .grades-groups .grades-group-start { border-left-color: rgba(255, 255, 255, .15); }
+.portal-grades .grades-table tbody th, .portal-grades .grades-table tbody td { height: 3.6rem; padding: .7rem .5rem; border-bottom: 1px solid #edf0f5; background: #fff; }
+.portal-grades .grades-table tbody tr:nth-child(even) > * { background: #fafbfd; }
+.portal-grades .grades-table tbody tr:hover > * { background: #f0f3fa; }
+.portal-grades .grades-table tbody tr:last-child > * { border-bottom: 0; }
+.portal-grades .grades-table tbody th { padding-left: 1.4rem; text-align: left; color: #26365b; font-size: .76rem; font-weight: 600; line-height: 1.55; overflow-wrap: anywhere; }
+.portal-grades .grades-subject { display: flex; align-items: center; gap: .65rem; }
+.portal-grades .grades-row-number { flex: 0 0 1.5rem; color: #8b98ad; font-size: .65rem; font-weight: 500; }
+.portal-grades .grades-value { display: inline-flex; align-items: center; justify-content: center; min-width: 2.3rem; min-height: 2rem; padding: .2rem .35rem; border-radius: .5rem; color: #33476b; font-size: .85rem; font-weight: 600; }
+.portal-grades .grades-value--partial { background: #edf0f8; color: #253a69; }
+.portal-grades .grades-value--average { min-width: 2.8rem; border: 1px solid #ebdfb6; background: #fcf7e9; color: #775a13; font-size: .93rem; font-weight: 700; }
+.portal-grades .grades-value.is-zero { color: #7b889d; font-weight: 500; }
+.portal-grades .grades-status { display: inline-flex; align-items: center; justify-content: center; gap: .35rem; max-width: 100%; padding: .4rem .6rem; border: 1px solid; border-radius: 2rem; font-size: .67rem; font-weight: 600; line-height: 1.3; white-space: nowrap; }
+.portal-grades .grades-status--approved { border-color: #ceeadd; background: #edf8f2; color: #237452; }
+.portal-grades .grades-status--failed { border-color: #f2dada; background: #fdf2f2; color: #b35151; }
+.portal-grades .grades-empty { padding: 2.5rem 1rem !important; color: #64748b; font-size: .85rem; }
+.portal-grades .grades-legend { display: flex; align-items: flex-start; gap: .55rem; padding: .85rem 1.4rem; border-top: 1px solid #e9edf4; background: #fafbfd; color: #64748b; font-size: .69rem; line-height: 1.65; }
+.portal-grades .grades-legend > i { flex: 0 0 auto; color: #8e722c; }
+.portal-grades .grades-sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+@media (max-width: 1399.98px) {
+    .portal-grades .grades-scroll-hint { display: flex; }
+}
+@media (max-width: 575.98px) {
+    .portal-grades .grades-heading { align-items: flex-start; flex-direction: column; gap: .8rem; padding: 1rem; }
+    .portal-grades .grades-heading h2 { font-size: .92rem; }
+    .portal-grades .grades-heading p { font-size: .74rem; }
+    .portal-grades .grades-scroll-hint, .portal-grades .grades-legend { padding-left: 1rem; padding-right: 1rem; }
+    .portal-grades .grades-subject-col { width: 24%; }
+    .portal-grades .grades-status-col { width: 18%; }
+}

@@ -7,8 +7,9 @@
     if (!form) return;
     const cmbCarreras = form.querySelector("#idCarrera");
     const cmbNiveles = form.querySelector("#idMatricula");
-    const table = document.querySelector("table");
+    const table = containerTable ? containerTable.querySelector("table") : null;
     const tbody = table ? table.querySelector("tbody") : null;
+    const gradesCount = containerTable ? containerTable.querySelector("[data-grades-count]") : null;
     const STORAGE_KEY_CARRERA = "istpet_calificaciones_carrera";
     const STORAGE_KEY_MATRICULA = "istpet_calificaciones_matricula";
 
@@ -100,6 +101,18 @@
         }
     }
 
+    function escapeHtml(value) {
+        const entities = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" };
+        return String(value).replace(/[&<>"']/g, character => entities[character]);
+    }
+
+    function gradeCell(value, kind = "", groupStart = false) {
+        const display = value || 0;
+        const variant = kind ? ` grades-value--${kind}` : "";
+        const zero = Number(display) === 0 ? " is-zero" : "";
+        return `<td${groupStart ? ' class="grades-group-start"' : ""}><span class="grades-value${variant}${zero}">${escapeHtml(display)}</span></td>`;
+    }
+
     async function listaNotas() {
         try {
             if (containerTable) containerTable.hidden = true;
@@ -110,42 +123,25 @@
             const res = (await axios.post(url, data)).data;
             if (!!res.error) throw new Error(res.error);
             let html = "";
-            res.forEach(item => {
+            res.forEach((item, index) => {
+                const approved = item.aprobado === true || item.aprobado === 1 || item.aprobado === "1";
                 html += `
                         <tr>
-                        <td class="text-xs font-weight-bold text-dark no-wrap ps-4">
-                                <span>${item.asignatura}</span>
-                        </td>
-                        <td class="text-center text-xs font-weight-bold">
-                                <span>${item.ef1 || 0}</span>
-                        </td>
-                        <td class="text-center text-xs font-weight-bold">
-                                <span>${item.ep1 || 0}</span>
-                        </td>
-                        <td class="text-center text-xs font-weight-bold">
-                                <span>${item.nota1 || 0}</span>
-                        </td>
-                        <td class="text-center text-xs font-weight-bold">
-                                <span>${item.ef2 || 0}</span>
-                        </td>
-                        <td class="text-center text-xs font-weight-bold">
-                                <span>${item.ep2 || 0}</span>
-                        </td>
-                        <td class="text-center text-xs font-weight-bold">
-                                <span>${item.nota2 || 0}</span>
-                        </td>
-                        <td class="text-center text-xs font-weight-bold">
-                              <span>${item.examen || 0}</span>
-                        </td>
-                        <td class="text-center text-xs font-weight-bold">
-                              <span>${item.promedio_final || 0}</span>
-                        </td>
-                        <td class="text-center text-xs font-weight-bold">
-                              ${item.aprobado?"<span class='text-success'>SI</span>":"<span class='text-danger'>NO</span>"}
-                        </td>                    
+                            <th scope="row"><span class="grades-subject"><span class="grades-row-number" aria-hidden="true">${String(index + 1).padStart(2, "0")}</span><span>${escapeHtml(item.asignatura ?? "")}</span></span></th>
+                            ${gradeCell(item.ef1)}
+                            ${gradeCell(item.ep1)}
+                            ${gradeCell(item.nota1, "partial")}
+                            ${gradeCell(item.ef2, "", true)}
+                            ${gradeCell(item.ep2)}
+                            ${gradeCell(item.nota2, "partial")}
+                            ${gradeCell(item.examen, "", true)}
+                            ${gradeCell(item.promedio_final, "average")}
+                            <td><span class="grades-status grades-status--${approved ? "approved" : "failed"}"><i class="${approved ? "bi-check-circle" : "bi-dash-circle"}" aria-hidden="true"></i>${approved ? "Aprobado" : "No aprobado"}</span></td>
                         </tr>
                         `;
             });
+            if (!res.length) html = '<tr><td colspan="10" class="grades-empty">No hay calificaciones disponibles para este nivel y período.</td></tr>';
+            if (gradesCount) gradesCount.textContent = `${res.length} ${res.length === 1 ? "asignatura" : "asignaturas"}`;
             if (tbody) tbody.innerHTML = html;
             if (containerTable) containerTable.hidden = false;
         } catch (e) {

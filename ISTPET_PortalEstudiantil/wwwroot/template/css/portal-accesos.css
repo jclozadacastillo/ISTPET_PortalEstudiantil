@@ -59,6 +59,7 @@
 .portal-accesos .accesos-security-note { display: flex; align-items: flex-start; gap: .5rem; margin-top: .7rem; padding-top: 1rem; border-top: 1px solid #eef1f6; color: var(--accesos-muted); font-size: .73rem; line-height: 1.55; }
 .portal-accesos .accesos-security-note i { color: var(--accesos-navy); }
 .portal-accesos .accesos-side { display: grid; gap: 1rem; }
+.portal-accesos .accesos-side > :only-child { grid-column: 1 / -1; }
 .portal-accesos .accesos-service-card { background: linear-gradient(160deg, #fff 55%, #f8f9fd); }
 .portal-accesos .accesos-service-icon { display: inline-flex; align-items: center; justify-content: center; width: 3.35rem; height: 3.35rem; margin-bottom: 1.2rem; border-radius: 1rem; background: var(--accesos-navy); color: #edd394; font-size: 1.6rem; box-shadow: 0 4px 10px rgba(31, 41, 91, .13); }
 .portal-accesos .accesos-service-card > p { margin-top: .65rem; }
@@ -109,6 +110,9 @@
 .portal-accesos .accesos-account-type span { display: block; margin-top: .25rem; color: var(--accesos-muted); font-size: .73rem; line-height: 1.5; }
 .portal-accesos .accesos-copy-button { flex: 0 0 auto; width: auto; min-width: 2.65rem; gap: .45rem; padding: 0 .7rem; }
 .portal-accesos .accesos-copy-label { font-size: .72rem; font-weight: 600; }
+.portal-accesos.accesos-mail-page .accesos-field:has(+ .accesos-feedback) { margin-bottom: 0; }
+.portal-accesos.accesos-mail-page .accesos-feedback { min-height: 0; margin: .5rem 0 0; }
+.portal-accesos.accesos-mail-page .accesos-feedback:empty { margin: 0; }
 .portal-accesos .accesos-mail-deadline { margin-top: .8rem; margin-bottom: .7rem; padding: .85rem .9rem; }
 .portal-accesos .accesos-save-note { display: flex; align-items: flex-start; gap: .4rem; margin: 0; color: var(--accesos-muted); font-size: .73rem !important; }
 .portal-accesos .accesos-save-note > i { color: #795e18; }

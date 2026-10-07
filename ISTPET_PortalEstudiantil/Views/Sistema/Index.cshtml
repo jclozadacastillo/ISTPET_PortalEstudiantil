@@ -44,59 +44,19 @@
         <article class="portal-home-card">
             <div class="portal-home-content">
                 <div class="portal-home-heading">
-                    <div class="portal-home-icon" aria-hidden="true"><i class="bi-envelope-check-fill"></i></div>
-                    <h2>Correo institucional</h2>
+                    <div class="portal-home-icon" aria-hidden="true"><i class="bi-grid-fill"></i></div>
+                    <h2>Accesos institucionales</h2>
                 </div>
-                <p class="portal-home-description">Consulta tus credenciales institucionales y accede a Microsoft 365.</p>
+                <p class="portal-home-description">Tu correo institucional, aula virtual y grupos de conducción en un solo lugar.</p>
                 <div class="portal-home-media">
-                    <img src="~/template/img/office-istpet.png" alt="Herramientas de Microsoft 365 para tu correo institucional" />
+                    <img src="~/template/img/office-istpet.png" alt="Servicios institucionales de Microsoft 365" />
                 </div>
             </div>
             <footer class="portal-home-footer">
-                <div class="portal-home-meta"><i class="bi-building-check" aria-hidden="true"></i><span>Tu cuenta institucional de Microsoft 365</span></div>
-                <a class="portal-home-action" href="~/Sistema/CorreoInstitucional">Ver información <i class="bi-arrow-right" aria-hidden="true"></i></a>
+                <div class="portal-home-meta"><i class="bi-grid" aria-hidden="true"></i><span>Consulta tus servicios disponibles</span></div>
+                <a class="portal-home-action" href="~/Sistema/AccesosInstitucionales">Ver accesos <i class="bi-arrow-right" aria-hidden="true"></i></a>
             </footer>
         </article>
-
-        @if (Model.MostrarUsuarioEva)
-        {
-            <article class="portal-home-card" data-acceso-temporal data-fecha-limite="@(Model.FechaLimiteCredenciales?.ToString("yyyy-MM-ddTHH:mm:ss.fff-05:00"))" data-fecha-actual="@(Model.FechaActual.ToString("yyyy-MM-ddTHH:mm:ss.fff-05:00"))">
-                <div class="portal-home-content">
-                    <div class="portal-home-heading">
-                        <div class="portal-home-icon" aria-hidden="true"><i class="bi-person-video3"></i></div>
-                        <h2>Usuario EVA</h2>
-                    </div>
-                    <p class="portal-home-description">Consulta el usuario asignado para tu Entorno Virtual de Aprendizaje.</p>
-                    <div class="portal-home-media">
-                        <img src="~/template/img/eva-istpet-v1.png" alt="Entorno Virtual de Aprendizaje de ISTPET" />
-                    </div>
-                </div>
-                <footer class="portal-home-footer">
-                    <div class="portal-home-meta"><i class="bi-clock-history" aria-hidden="true"></i><span>Disponible hasta @(Model.FechaLimiteCredenciales?.ToString("dd/MM/yyyy · HH:mm"))</span></div>
-                    <a class="portal-home-action" href="~/Sistema/UsuarioEva">Ver usuario <i class="bi-arrow-right" aria-hidden="true"></i></a>
-                </footer>
-            </article>
-        }
-
-        @if (Model.MostrarChatConduccion)
-        {
-            <article class="portal-home-card">
-                <div class="portal-home-content">
-                    <div class="portal-home-heading">
-                        <div class="portal-home-icon" aria-hidden="true"><i class="bi-chat-dots-fill"></i></div>
-                        <h2>Chat de conducción</h2>
-                    </div>
-                    <p class="portal-home-description">Encuentra el chat de tu grupo y mantente al día con los avisos de conducción.</p>
-                    <div class="portal-home-media">
-                        <img src="~/template/img/chat-conduccion-istpet-v1.png" alt="Comunicación con tu grupo de conducción de ISTPET" />
-                    </div>
-                </div>
-                <footer class="portal-home-footer">
-                    <div class="portal-home-meta"><i class="bi-people" aria-hidden="true"></i><span>@(Model.EnlacesChat.Count == 1 ? "Un grupo disponible" : $"{Model.EnlacesChat.Count} grupos disponibles")</span></div>
-                    <a class="portal-home-action" href="~/Sistema/ChatConduccion">Ver mi grupo <i class="bi-arrow-right" aria-hidden="true"></i></a>
-                </footer>
-            </article>
-        }
     </section>
 </div>
 

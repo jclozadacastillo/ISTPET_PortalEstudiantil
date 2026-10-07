@@ -117,41 +117,19 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" data-menu="correoinstitucional" href="~/Sistema/CorreoInstitucional">
+                    <a class="nav-link text-white" data-menu="accesosinstitucionales" href="~/Sistema/AccesosInstitucionales">
                         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="bi-envelope-check text-lg"></i>
+                            <i class="bi-grid text-lg"></i>
                         </div>
-                        <span class="nav-link-text ms-1">Correo institucional</span>
+                        <span class="nav-link-text ms-1">Accesos institucionales</span>
                     </a>
                 </li>
-                @if (_accesos.MostrarUsuarioEva)
-                {
-                    <li class="nav-item" data-acceso-temporal data-fecha-limite="@(_accesos.FechaLimiteCredenciales?.ToString("yyyy-MM-ddTHH:mm:ss.fff-05:00"))" data-fecha-actual="@(_accesos.FechaActual.ToString("yyyy-MM-ddTHH:mm:ss.fff-05:00"))">
-                        <a class="nav-link text-white" data-menu="usuarioeva" href="~/Sistema/UsuarioEva">
-                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                                <i class="bi-person-video3 text-lg"></i>
-                            </div>
-                            <span class="nav-link-text ms-1">Usuario EVA</span>
-                        </a>
-                    </li>
-                }
-                @if (_accesos.MostrarChatConduccion)
-                {
-                    <li class="nav-item">
-                        <a class="nav-link text-white" data-menu="chatconduccion" href="~/Sistema/ChatConduccion">
-                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                                <i class="bi-chat-dots text-lg"></i>
-                            </div>
-                            <span class="nav-link-text ms-1">Chat de conducción</span>
-                        </a>
-                    </li>
-                }
             </ul>
         </div>
 
     </aside>
     <main class="main-content position-relative border-radius-lg portal-main">
-        <nav class="navbar navbar-main position-sticky bg-white navbar-top-white z-index-sticky navbar-expand-lg px-0 border-radius-xl" id="navbarBlur">
+        <nav class="navbar navbar-main bg-white navbar-top-white navbar-expand-lg px-0 border-radius-xl" id="navbarBlur">
             <div class="container-fluid py-1 px-3">
                 <div class="collapse navbar-collapse mt-sm-0  me-md-0 me-sm-4" id="navbar">
                     <div class="ms-md-auto pe-md-3 d-flex align-items-center">
